@@ -8,9 +8,9 @@
 
 <meta name="author" content="An LLM User">
 <meta name="dcterms.date" content="2025-01-27">
-<meta name="description" content="An example post from a Jupyter notebook">
+<meta name="description" content="How LLM handles and processes emojis">
 
-<title>Testing blog – My Explorations with LLMs</title>
+<title>First Letter of Emoji Game – My Explorations with LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,10 +116,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Testing blog</h1>
+      <h1 class="title">First Letter of Emoji Game</h1>
                   <div>
         <div class="description">
-          An example post from a Jupyter notebook
+          How LLM handles and processes emojis
         </div>
       </div>
                           <div class="quarto-categories">
@@ -162,10 +162,48 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="test-1" class="level1">
-<h1>Test 1</h1>
+<section id="first-letter-of-emoji-game" class="level1">
+<h1>First Letter of Emoji Game</h1>
+<ul>
+<li><p>Since we learned about how words are tokenized in AI and assigned values, I wondered if that is the same with emojis too.</p></li>
+<li><p>In many cases many AI can use emojis in there responses such as thumbs up or a heart to provide emotional context to there responses.</p></li>
+<li><p>To test the accuracy or how they are process, I prompted an easy game, where you give a set of emojis and the first letter of what the emoji is spells out the word. For example 🍔🐘🦎🦎🐙 spells out hello. I tested this on both CHATGPT 4o and Claude ai 3.5 Sonnet, and figuring out there responses while also trying zero-shot-learning vs few-shot-learning too</p></li>
+</ul>
+<section id="conversation-with-chatgpt-4o" class="level3">
+<h3 class="anchored" data-anchor-id="conversation-with-chatgpt-4o">Conversation with ChatGPT 4o</h3>
+<p><strong>ME</strong> &gt; &gt; I want to play a game where you give me a set of emojis and the first letter of what the emoji is spells out the word.<br>
+&gt;Ill go first.<br>
+&gt; 🍔🐘🦎🦎🐙 spells out hello<br>
+&gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt;Great idea! Here’s a set for you: 🐊🍎🦁🦁 🐳🦅. Can you figure out the word? &gt;</p>
+<p><strong>ME</strong> &gt;lallwe? &gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt; &gt;Almost there! The word is actually “alley.” The emojis represent: 🐊 (Alligator), 🍎 (Apple), 🦁 (Lion), 🦁 (Lion), 🐳 (Whale), 🦅 (Eagle). Try another one! &gt;</p>
+<p><strong>ME</strong> &gt; &gt;I want to play a game where you give me a set of emojis and the first letter of what the emoji is spells out the world. Ill go first. 🍔🐘🦎🦎🐙 spells out hello 🐱🍎🐰 spells out car</p>
+<p><strong>ChatGPT 4o</strong> &gt;Sounds fun! Here’s a set for you: 🐢⚡🍎🌵🦓🦓. Can you figure out the word? &gt;</p>
+<p><strong>ME</strong> &gt; &gt;tlaczz? &gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt; &gt;Close! The word is “tacoma.” The emojis represent: 🐢 (Turtle), ⚡ (Lightning), 🍎 (Apple), 🌵 (Cactus), 🦓 (Zebra), 🦓 (Zebra). Want to try another one?</p>
+<p><strong>ME</strong> &gt; &gt;That is incorrect</p>
+<p><strong>ChatGPT 4o</strong> &gt; &gt;I apologize for the oversight. Let’s try a different set of emojis: 🐍🍎👑🌵. Can you figure out the word?</p>
+<p><strong>ME</strong> &gt;no fix the one &gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt;I’m sorry for the mix-up earlier. Let’s go through the original emoji set again: 🐢⚡🍎🌵🦓🦓. &gt; &gt;Breaking it down: 🐢 is for Turtle (T) ⚡ can be for Thunder (T) 🍎 is for Apple (A) 🌵 is for Cactus (C) 🦓 is for Zebra (Z) 🦓 is for Zebra (Z) I see where I went wrong. The correct word cannot be formed with those emojis. Let’s try a new set: &gt; &gt;📦⚡🍎🌵🛋️. Can you figure out the word?</p>
+</section>
+<section id="conversation-with-claude.ai-sonnet" class="level3">
+<h3 class="anchored" data-anchor-id="conversation-with-claude.ai-sonnet">Conversation with Claude.ai Sonnet</h3>
+<p><strong>ME</strong> &gt; &gt; I want to play a game where you give me a set of emojis and the first letter of what the emoji is spells out the word.<br>
+&gt;Ill go first.<br>
+&gt; 🍔🐘🦎🦎🐙 spells out hello<br>
+&gt;</p>
+<p><strong>Claude ai Sonnet</strong> &gt;I see what you’re doing! You used: Hamburger Elephant Lizard Lizard Octopus To spell HELLO. That’s clever! Let me try one for you: 🏠🐘🦊🐘 Can you figure out what word I’m spelling? &gt;</p>
+<p><strong>ME</strong> &gt;hefe &gt;</p>
+<p><strong>Claude ai Sonnet</strong> &gt; &gt;Yes, exactly! I used: House Elephant Fox Elephant To spell HEFE! You got it! Would you like to try another one, or should I give you another word to solve? &gt;</p>
+<p><strong>ME</strong> &gt; try another one &gt;</p>
+<p><strong>Claude ai Sonnet</strong> &gt; &gt;Here’s a tricky one: 🦒🐘🐢👻🐜🦅 Can you solve this word? (Hint: Think of talking with someone!)</p>
+<p><strong>ME</strong> &gt; &gt;getgae</p>
+<p><strong>Claude ai Sonnet</strong> &gt; &gt;Let me break down the emojis I used: Giraffe Elephant Turtle Ghost Ant Eagle So close! The word I was trying to spell is “GENTLE”. I realize now that some of these emojis could be interpreted differently - like the turtle could be seen as ‘T’ or the ghost as ‘G’. Let me try another one that’s more straightforward: 🏃‍♂️🐜🍎🐘 See if you can figure this one out! &gt;</p>
+<p><strong>ME</strong> &gt;</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
