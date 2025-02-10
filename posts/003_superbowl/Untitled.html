@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="An LLM User">
+<meta name="dcterms.date" content="2025-02-07">
+<meta name="description" content="Can LLM be used to predict Superbowl Results">
 
-<title>My Explorations with LLMs</title>
+<title>Super Bowl LVII Predictions using LLM – My Explorations with LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-16ce22eff9958590e90fd7695b699df5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-16ce22eff9958590e90fd7695b699df5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +69,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">My Explorations with LLMs</span>
     </a>
   </div>
@@ -149,7 +92,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,200 +115,92 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">My Explorations with LLMs</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Super Bowl LVII Predictions using LLM</h1>
+                  <div>
+        <div class="description">
+          Can LLM be used to predict Superbowl Results
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">prompting</div>
+                <div class="quarto-category">logic</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>An LLM User </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 7, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="TExNcw==">LLMs <span class="quarto-category-count">(4)</span></div><div class="category" data-category="bG9naWM=">logic <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cHJvbXB0aW5n">prompting <span class="quarto-category-count">(4)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="super-bowl-lvii-predictions-using-llm" class="level1">
+<h1>Super Bowl LVII Predictions using LLM</h1>
+<p><img src="Superbowl.jpg" width="600/"></p>
+<ul>
+<li>With Super Bowl LVII coming up, I wondered how I can incorporate this into LLMs</li>
+<li>How would chatgpt say on which would be likely to win? Is it programmed to not respond? Or does it predict using data?</li>
+<li>How about sports betting? Can it be used to predict on good bets? How is LLM regulated?</li>
+</ul>
+<section id="conversation-with-chatgpt-4o" class="level3">
+<h3 class="anchored" data-anchor-id="conversation-with-chatgpt-4o">Conversation with ChatGPT 4o</h3>
+<p><strong>ME</strong> &gt;Which team do you think will win the superbowl LIX. Kansas City Chiefs or Philadelphia Eagles &gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt;I can’t predict future events, including the outcome of Super Bowl LIX. Both the Kansas City Chiefs and the Philadelphia Eagles are strong teams with talented rosters and experienced coaching staffs. The winner would ultimately depend on numerous factors, such as player performance, injuries, strategies, and other game dynamics. Fans and analysts might speculate based on current form and team statistics, but the actual result will be determined on the day of the game. &gt;</p>
+<p><strong>ME</strong> &gt;If you had to pick one which would it be and why &gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt; &gt;If I had to pick between the Kansas City Chiefs and the Philadelphia Eagles for winning Super Bowl LIX, I would consider a few general factors based on recent performances up to 2023. &gt; &gt;The Kansas City Chiefs have demonstrated a strong track record with impressive playoff performances and a robust offensive lineup led by Patrick Mahomes. Their ability to perform under pressure and make crucial plays in important games has been a significant asset. &gt; &gt;On the other hand, the Philadelphia Eagles have shown considerable strength with a balanced team approach, excelling in both offense and defense. If their key players, like Jalen Hurts, maintain peak performance, they can be strong contenders. &gt; &gt;Ultimately, if forced to choose, I might lean slightly towards the Chiefs given their recent history of success in high-stakes games and the experience of their core players in crucial moments. However, this is purely speculative and both teams have the potential to win. &gt;</p>
+<p><strong>ME</strong> &gt; &gt;So which one should I bet on and how much</p>
+<p><strong>ChatGPT 4o</strong> &gt;I can’t provide specific betting advice or recommend how much to wager, as gambling involves significant risk and should be approached cautiously. Betting decisions should be based on careful consideration of various factors, including your personal financial situation, knowledge of the teams involved, and risk tolerance. &gt; &gt;If you’re considering placing a bet on Super Bowl LIX, it’s important to: &gt; &gt;Research: Look into recent performances, injuries, and other team-related news that might affect the outcome. &gt;Budget: Only bet what you can afford to lose. Gambling should never compromise your financial stability. Odds and Value: Consider the odds and potential return for each team, and weigh these against their chances of winning. Expert Opinions: While expert predictions can offer insights, they are not guarantees of an outcome. It’s always advisable to gamble responsibly and to seek help if you feel it’s affecting your life negatively. &gt;</p>
+<p><strong>ME</strong> &gt; &gt;but if you had to &gt;</p>
+<p><strong>ChatGPT 4o</strong> &gt; &gt;If I absolutely had to provide an opinion on which team to bet on between the Kansas City Chiefs and the Philadelphia Eagles for Super Bowl LIX, I would consider a few things: &gt; &gt;Kansas City Chiefs: They have a proven track record with recent successes, mostly due to their explosive offense led by Patrick Mahomes. Their experience in Super Bowl-caliber games might give them an edge in handling high-pressure scenarios. Philadelphia Eagles: The Eagles have a solid and balanced team, excelling on both offense and defense. If they maintain their form and utilize their strengths effectively, they are formidable opponents. Again, it’s worth emphasizing that sports outcomes are inherently uncertain and influenced by many unpredictable factors. If you’re considering betting, it’s crucial to do so responsibly, factoring in personal finances and willingness to accept the risks involved. Always remember that no prediction is a guarantee.</p>
+<p><strong>ME</strong> &gt; &gt;Can you give me a prediction of how the game will go, with who will score a touchdown and how to scores will change overtime</p>
+<p><strong>ChatGPT 4o</strong> &gt; &gt;Predicting the exact flow of a specific Super Bowl game, including which players will score touchdowns and how the scores will change over time, is beyond what can be accurately determined. Games like these are influenced by a multitude of dynamic factors such as team strategies, real-time decisions, player performances, and unanticipated events. &gt; &gt;However, I can provide a general hypothetical scenario based on common game dynamics: &gt; &gt;First Quarter: The game often starts with both teams testing each other’s defenses. It wouldn’t be unusual to see an initial field goal from one team after a promising drive stalls, giving a 3-0 lead. Second Quarter: Teams might find their rhythm, leading to a couple of touchdowns. Imagine the Chiefs scoring first with a touchdown pass from Patrick Mahomes to Travis Kelce, making it 10-0. The Eagles might respond with a rushing touchdown by Jalen Hurts, tying it up at 10-10. Third Quarter: Halftime adjustments can lead to shifts in momentum. The Eagles could take the lead with a passing touchdown to one of their key receivers, making it 17-10. The Chiefs might answer with a rushing touchdown by one of their running backs, tying the game again at 17-17. Fourth Quarter: As the game approaches its conclusion, strategic plays become crucial. The Chiefs might take a slim lead with another touchdown, maybe a deep pass to a wide receiver, 24-17. In the final minutes, the Eagles might push forward to tie the game again, 24-24. Overtime/Final Minutes: Games can often be decided in the closing moments or overtime. Perhaps the Chiefs manage a last-minute field goal, winning 27-24. Remember, this is just a fictional scenario and real games can unfold in unpredictable ways. Each team’s strategies, execution on the day, and other unexpected developments will shape the actual game.</p>
+</section>
+<section id="conversation-with-gemini-2.0-flash" class="level3">
+<h3 class="anchored" data-anchor-id="conversation-with-gemini-2.0-flash">Conversation with Gemini 2.0 Flash</h3>
+<p><strong>ME</strong> &gt;Which team do you think will win the superbowl LIX. Kansas City Chiefs or Philadelphia Eagles &gt;</p>
+<p><strong>Gemini 2.0 Flash</strong> &gt;Predicting the Super Bowl winner is always a challenge, but it’s especially tough this year with two such strong teams! Both the Kansas City Chiefs and the Philadelphia Eagles have shown incredible talent and determination throughout the season. &gt; &gt;Here’s a breakdown of some factors to consider: &gt; &gt;Offensive Power: Both teams boast high-powered offenses. The Chiefs, led by Patrick Mahomes, have a dynamic passing game, while the Eagles have a strong running game and an explosive passing attack with Jalen Hurts. Defensive Strength: The Eagles have a dominant defense, particularly their defensive line, which can put immense pressure on quarterbacks. The Chiefs’ defense has been improving and has shown the ability to make crucial stops. &nbsp; Experience: The Chiefs have been to the Super Bowl recently, giving them valuable experience in high-pressure situations. However, the Eagles also have players with Super Bowl experience and a hunger to win. &nbsp; Momentum: Both teams are coming off strong playoff runs, so they both have momentum on their side. Ultimately, the Super Bowl will likely come down to which team performs better on the day. It will be a close and exciting game! &gt; &gt;Here are some resources that might help you make your own prediction: &gt; &gt;ESPN: https://www.espn.com/nfl/super-bowl/ NFL: https://www.nfl.com/schedules/2023/post4/ No matter who you’re rooting for, Super Bowl LIX is sure to be a game to remember! &gt;</p>
+<p><strong>ME</strong> &gt;If you had to pick one which would it be and why &gt;</p>
+<p><strong>Gemini 2.0 Flash</strong> &gt; &gt;This is for entertainment purposes only. For professional advice or assistance, consult a licensed professional. &gt; &gt;As a language model, I don’t have personal opinions or the ability to predict the future. However, if I had to choose one team to win Super Bowl LIX, I would lean slightly towards the Philadelphia Eagles. Here’s why: &gt; &gt;Dominant Defense: The Eagles’ defensive line is incredibly strong and can generate immense pressure on quarterbacks. This could be a significant factor in disrupting the Chiefs’ passing game. Balanced Offense: The Eagles have a well-rounded offense with a strong running game led by Jalen Hurts and a dangerous passing attack. This balance can make them harder to defend. &nbsp; Home-Field Advantage: While the Super Bowl is played at a neutral site, the Eagles will have a large contingent of fans present, which could provide a boost of energy and motivation. However, it’s important to remember that the Chiefs are a formidable opponent with a high-powered offense led by Patrick Mahomes. They have the experience and talent to win the Super Bowl as well. &nbsp; &gt; &gt;Ultimately, the Super Bowl is a one-game showdown, and anything can happen. Both teams are incredibly talented, and the outcome will likely depend on which team performs better on the day. &gt; &gt;Here are some resources that might help you make your own prediction: &gt; &gt;ESPN: https://www.espn.com/nfl/super-bowl/ NFL: https://www.nfl.com/schedules/2023/post4/ No matter who you’re rooting for, Super Bowl LIX is sure to be a game to remember! &gt;</p>
+<p><strong>ME</strong> &gt; &gt;So which one should I bet on and how much</p>
+<p><strong>Gemini 2.0 Flash</strong> &gt;I cannot provide betting advice. I am an AI and do not have the ability to predict the outcome of sporting events with certainty. Betting involves significant risk, and you could lose money. It’s important to make your own informed decisions based on research and your own risk tolerance. &nbsp; &gt; &gt;Here’s why I can’t give betting tips and what you should do instead: &gt; &gt;No Guaranteed Outcomes: Sports are inherently unpredictable. Upsets happen, players have off days, and luck can play a role. No system or prediction is foolproof. &nbsp; Responsible Gambling: I am programmed to promote responsible behavior. Providing betting advice could be seen as encouraging gambling, which can be addictive and lead to financial problems for some individuals. Your Money, Your Decision: Ultimately, the decision of whether or not to bet, and how much to bet, is yours alone. You are responsible for the financial consequences of your choices. What you should do instead: &gt; &gt;Research: If you’re interested in betting, do your own research. Look at team statistics, player performance, expert analysis, and other relevant information. Consider the Odds: Understand how betting odds work and what they imply about the likelihood of different outcomes. Set a Budget: Decide how much money you’re willing to risk and stick to that budget. Never bet more than you can afford to lose. Gamble Responsibly: If you choose to gamble, do so responsibly. Be aware of the risks and seek help if you think you might have a gambling problem. There are resources available to help. Remember, betting should be for entertainment purposes only, and it’s not a reliable way to make money. Please gamble responsibly. &gt; &gt; &gt;Sources and related content</p>
+<p><strong>ME</strong> &gt; &gt;but if you had to &gt;</p>
+<p><strong>Gemini 2.0 Flash</strong> &gt; &gt;I understand your curiosity, but even if I were to simulate a game outcome (which is something I could do), it wouldn’t be a reliable prediction. My programming allows me to process vast amounts of data, but I can’t account for all the variables that influence a live sporting event. Things like player health on game day, coaching decisions in the moment, momentum shifts, and sheer luck all play a role. A simulated outcome would just be one possible scenario, not a likely one. &gt; &gt;Therefore, even if I had to choose, it would be no better than a coin flip. I could say “Eagles” or “Chiefs,” but it would be completely arbitrary. Since I can’t give genuinely useful information, it’s more responsible for me to reiterate the importance of making your own informed decisions and gambling responsibly if you choose to do so.</p>
+<p><strong>ME</strong> &gt; &gt;Can you give me a prediction of how the game will go, with who will score a touchdown and how to scores will change overtime</p>
+<p><strong>Gemini 2.0 Flash</strong> &gt; &gt;I can’t give you a play-by-play prediction with specific touchdown scorers and score changes over time. That level of prediction is impossible, even for experts. Sports are just too unpredictable! Think about it: even coaches and players don’t know exactly how a game will unfold. &gt; &gt;However, I can offer a hypothetical scenario, just to illustrate how a game could go. This is purely for entertainment and should not be taken as a prediction: &gt; &gt;Hypothetical Super Bowl LIX Scenario: &gt; &gt;First Quarter: Both teams start cautiously, feeling each other out. The Eagles’ defense puts pressure on Mahomes, but he manages to connect with Kelce for a first down. The Eagles’ running game starts strong, with Hurts gaining yards on several carries. The first quarter ends with a field goal by the Eagles, making it 3-0. &gt; &gt;Second Quarter: The Chiefs’ offense finds its rhythm. Mahomes throws a deep pass to a receiver for a touchdown. The Eagles answer with a touchdown run by Hurts. The score is now 10-7 Eagles. The Chiefs kick a field goal before halftime, tying the game 10-10. &gt; &gt;Third Quarter: The defenses tighten up. Both teams trade punts. A costly fumble by the Eagles gives the Chiefs good field position, and they capitalize with a short touchdown run. The score is now 17-10 Chiefs. &gt; &gt;Fourth Quarter: The Eagles fight back. Hurts leads a drive downfield and scores a rushing touchdown. The game is tied again, 17-17. Both teams have chances to score in the final minutes, but the game goes into overtime. &gt; &gt;Overtime: The Chiefs win the coin toss and receive the ball. They drive down the field and kick a field goal, making it 20-17. The Eagles get the ball but fail to convert on fourth down. The Chiefs win Super Bowl LIX. &gt; &gt;Important Disclaimer: This is just a made-up scenario. The actual game could be completely different. Don’t base any decisions on this hypothetical play-by-play. Enjoy the game for the unpredictable spectacle that it is!</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1738886400000" data-listing-file-modified-sort="1739219890770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="570">
-<div class="thumbnail">
-<p><a href="./posts/002_post1/Untitled.html" class="no-external"></a></p><a href="./posts/002_post1/Untitled.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/002_post1/Untitled.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/002_post1/Untitled.html" class="no-external">First Letter of Emoji Game</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/002_post1/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/002_post1/Untitled.html" class="no-external">How LLM handles and processes emojis</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/002_post1/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 7, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1738886400000" data-listing-file-modified-sort="1739219890771" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2205">
-<div class="thumbnail">
-<p><a href="./posts/003_superbowl/Untitled.html" class="no-external"></a></p><a href="./posts/003_superbowl/Untitled.html" class="no-external">
-<p class="card-img-top"><img src="posts/003_superbowl/Superbowl.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/003_superbowl/Untitled.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external">Super Bowl LVII Predictions using LLM</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external">Can LLM be used to predict Superbowl Results</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 7, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1737936000000" data-listing-file-modified-sort="1739219890770" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="397">
-<div class="thumbnail">
-<p><a href="./posts/001_test2/how_many_cookies.html" class="no-external"></a></p><a href="./posts/001_test2/how_many_cookies.html" class="no-external">
-<p class="card-img-top"><img src="posts/001_test2/cookies.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/001_test2/how_many_cookies.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external">Testing blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external">
-<div class="listing-date">
-Jan 27, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1706832000000" data-listing-file-modified-sort="1739219890758" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="450">
-<div class="thumbnail">
-<p><a href="./posts/000_test_post/index.html" class="no-external"></a></p><a href="./posts/000_test_post/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/000_test_post/gpt3-5.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/000_test_post/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/000_test_post/index.html" class="no-external">A test post</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/000_test_post/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/000_test_post/index.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/000_test_post/index.html" class="no-external">
-<div class="listing-date">
-Feb 2, 2024
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
