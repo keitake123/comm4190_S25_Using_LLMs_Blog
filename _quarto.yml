@@ -2,12 +2,12 @@ project:
   type: website
 
 website:
-  title: "My Explorations with LLMs"
+  title: "My exploration of capabilities of LLMs"
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/keitake123
       - icon: twitter
         href: https://twitter.com
 format:
