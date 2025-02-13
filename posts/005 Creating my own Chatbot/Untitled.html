@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Kei Taketsuna">
+<meta name="dcterms.date" content="2025-02-13">
+<meta name="description" content="Creating own Chatbot that converts currency">
 
-<title>My Explorations with LLMs – My exploration of capabilities of LLMs</title>
+<title>Creating own Chatbot – My exploration of capabilities of LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0d36525872131aeef5fd694b89b25085.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0d36525872131aeef5fd694b89b25085.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +69,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">My exploration of capabilities of LLMs</span>
     </a>
   </div>
@@ -149,7 +92,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,278 +115,99 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">My Explorations with LLMs</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Creating own Chatbot</h1>
+                  <div>
+        <div class="description">
+          Creating own Chatbot that converts currency
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">prompting</div>
+                <div class="quarto-category">logic</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Kei Taketsuna </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 13, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="TExNcw==">LLMs <span class="quarto-category-count">(6)</span></div><div class="category" data-category="bG9naWM=">logic <span class="quarto-category-count">(6)</span></div><div class="category" data-category="cHJvbXB0aW5n">prompting <span class="quarto-category-count">(6)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="creating-own-chatbot" class="level1">
+<h1>Creating own Chatbot</h1>
+<p><img src="CC.png" width="400/"></p>
+<ul>
+<li>In my CIS 3990, Introduction to Artificial Intelligence class, we learned to create our own chatbots.</li>
+<li>This chatbots capability is to convert one currency to another and would covert an amount you present to it. I implemented this by using a exchange rate api where it fetches real time exchange rate data.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 87%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">import requests <br> import json <br> from openai.types.chat.chat_completion import ChatCompletionMessage <br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">def convert_currency(amount, from_currency, to_currency): <br> api_url = f”https://api.exchangerate-api.com/v4/latest/{from_currency.upper()}” <br> response = requests.get(api_url) <br> data = response.json() <br></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">if “rates” not in data or to_currency.upper() not in data[“rates”]: <br> return “Invalid currency code. Please try again.” <br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">exchange_rate = data[“rates”][to_currency.upper()] <br> converted_amount = amount * exchange_rate <br></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">return { <br> “converted_amount”: converted_amount, <br> “exchange_rate”: exchange_rate <br> } <br> <br> tools = [{ <br> “type”: “function”, <br> “function”: { <br> “name”: “convert_currency”, <br> “description”: “Converts an amount from one currency to another based on real-time exchange rates.”, <br> “parameters”: { <br> “type”: “object”, <br> “properties”: { <br> “amount”: {“type”: “number”}, <br> “from_currency”: {“type”: “string”}, <br> “to_currency”: {“type”: “string”} <br> }, <br> “required”: [“amount”, “from_currency”, “to_currency”], <br> “additionalProperties”: False <br> }, <br> “strict”: True <br> } <br> }] <br></td>
+</tr>
+</tbody>
+</table>
+<section id="initialize-openai-api-caller" class="level3">
+<h3 class="anchored" data-anchor-id="initialize-openai-api-caller">Initialize OpenAI API caller</h3>
+<p>openai_caller = OpenAI_LLM_Caller( <br> model=“gpt-4o-mini”, <br> api_key=openai_api_key, <br> tools=tools <br> ) <br></p>
+<p>user_input = ““<br> system_message =”““You are a currency conversion assistant. Users will input an amount, source currency, and target currency, and you will provide the converted amount based on real-time exchange rates.your response as a JSON::”“” messages = [{“role”: “system”, “content”: system_message}] <br></p>
+<p>print(“Chatbot initialized, type in "exit" to end the conversation”)</p>
+<p>while user_input.lower() != “exit”: <br> assistant_response = openai_caller.generate_completion( <br> messages=messages, <br> response_format={“type”: “json_object”} <br> ) <br></p>
+<p>if isinstance(assistant_response, ChatCompletionMessage): messages.append(assistant_response) print(“—”) openai_caller.print_wrap_text(f”assistant tool call: {assistant_response}“)</p>
+<p>for tool_call in assistant_response.tool_calls: if tool_call.function.name == “convert_currency”: args = json.loads(tool_call.function.arguments) result = convert_currency(args[“amount”], args[“from_currency”], args[“to_currency”]) messages.append({ “role”: “tool”, “tool_call_id”: tool_call.id, “content”: json.dumps(result) }) openai_caller.print_wrap_text(f”tool call response: {result}“)</p>
+<p>print(“—”) assistant_response = openai_caller.generate_completion( messages=messages, response_format={“type”: “json_object”} )</p>
+<p>openai_caller.print_wrap_text(f”assistant: {assistant_response}“) print(”“) user_input = input(”user: “) print(”“) messages.append({”role”: “assistant”, “content”: assistant_response}) messages.append({“role”: “user”, “content”: user_input})</p>
+<p>print(f”—-Conversation Cost: {openai_caller.total_cost}“)</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1739483786633" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="702">
-<div class="thumbnail">
-<p><a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external"></a></p><a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external">
-<p class="card-img-top"><img src="posts/005 Creating my own Chatbot/CC.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external">Creating own Chatbot</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external">Creating own Chatbot that converts currency</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/005 Creating my own Chatbot/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 13, 2025
-</div>
-<div class="listing-author">
-Kei Taketsuna
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1739483786632" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="720">
-<div class="thumbnail">
-<p><a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external"></a></p><a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external">
-<p class="card-img-top"><img src="posts/004_Using chatgpt API/TEMP.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external">Comparing Temperature in LLMs</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external">What is temperature and how does this affect the Output</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/004_Using chatgpt API/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 13, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1738886400000" data-listing-file-modified-sort="1739483786631" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="570">
-<div class="thumbnail">
-<p><a href="./posts/002_post1/Untitled.html" class="no-external"></a></p><a href="./posts/002_post1/Untitled.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/002_post1/Untitled.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/002_post1/Untitled.html" class="no-external">First Letter of Emoji Game</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/002_post1/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/002_post1/Untitled.html" class="no-external">How LLM handles and processes emojis</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/002_post1/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 7, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1738886400000" data-listing-file-modified-sort="1739483786632" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2205">
-<div class="thumbnail">
-<p><a href="./posts/003_superbowl/Untitled.html" class="no-external"></a></p><a href="./posts/003_superbowl/Untitled.html" class="no-external">
-<p class="card-img-top"><img src="posts/003_superbowl/Superbowl.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/003_superbowl/Untitled.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external">Super Bowl LVII Predictions using LLM</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external">Can LLM be used to predict Superbowl Results</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/003_superbowl/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 7, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1737936000000" data-listing-file-modified-sort="1739483786631" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="397">
-<div class="thumbnail">
-<p><a href="./posts/001_test2/how_many_cookies.html" class="no-external"></a></p><a href="./posts/001_test2/how_many_cookies.html" class="no-external">
-<p class="card-img-top"><img src="posts/001_test2/cookies.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/001_test2/how_many_cookies.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external">Testing blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/001_test2/how_many_cookies.html" class="no-external">
-<div class="listing-date">
-Jan 27, 2025
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1706832000000" data-listing-file-modified-sort="1739483786619" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="450">
-<div class="thumbnail">
-<p><a href="./posts/000_test_post/index.html" class="no-external"></a></p><a href="./posts/000_test_post/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/000_test_post/gpt3-5.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/000_test_post/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/000_test_post/index.html" class="no-external">A test post</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/000_test_post/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/000_test_post/index.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/000_test_post/index.html" class="no-external">
-<div class="listing-date">
-Feb 2, 2024
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
