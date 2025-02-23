@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-0d36525872131aeef5fd694b89b25085.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -173,35 +173,48 @@ ul.task-list li input[type="checkbox"] {
 <colgroup>
 <col style="width: 87%">
 </colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">import requests <br> import json <br> from openai.types.chat.chat_completion import ChatCompletionMessage <br></th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">import requests <br> import json <br> from openai.types.chat.chat_completion import ChatCompletionMessage <br></td>
+<td style="text-align: left;">### Initialize OpenAI API caller openai_caller = OpenAI_LLM_Caller( <br> model=“gpt-4o-mini”, <br> api_key=openai_api_key, <br> tools=tools <br> ) <br></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">def convert_currency(amount, from_currency, to_currency): <br> api_url = f”https://api.exchangerate-api.com/v4/latest/{from_currency.upper()}” <br> response = requests.get(api_url) <br> data = response.json() <br></td>
+<td style="text-align: left;">user_input = ““<br> system_message =”““You are a currency conversion assistant. Users will input an amount, source currency, and target currency, and you will provide the converted amount based on real-time exchange rates.your response as a JSON::”“” messages = [{“role”: “system”, “content”: system_message}] <br></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">if “rates” not in data or to_currency.upper() not in data[“rates”]: <br> return “Invalid currency code. Please try again.” <br></td>
+<td style="text-align: left;">print(“Chatbot initialized, type in "exit" to end the conversation”)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">exchange_rate = data[“rates”][to_currency.upper()] <br> converted_amount = amount * exchange_rate <br></td>
+<td style="text-align: left;">while user_input.lower() != “exit”: <br> assistant_response = openai_caller.generate_completion( <br> messages=messages, <br> response_format={“type”: “json_object”} <br> ) <br></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">return { <br> “converted_amount”: converted_amount, <br> “exchange_rate”: exchange_rate <br> } <br> <br> tools = [{ <br> “type”: “function”, <br> “function”: { <br> “name”: “convert_currency”, <br> “description”: “Converts an amount from one currency to another based on real-time exchange rates.”, <br> “parameters”: { <br> “type”: “object”, <br> “properties”: { <br> “amount”: {“type”: “number”}, <br> “from_currency”: {“type”: “string”}, <br> “to_currency”: {“type”: “string”} <br> }, <br> “required”: [“amount”, “from_currency”, “to_currency”], <br> “additionalProperties”: False <br> }, <br> “strict”: True <br> } <br> }] <br></td>
+<td style="text-align: left;">if isinstance(assistant_response, ChatCompletionMessage): <br> messages.append(assistant_response) <br> print(“—”) <br> openai_caller.print_wrap_text(f”assistant tool call: {assistant_response}“) <br> <br> for tool_call in assistant_response.tool_calls: <br> if tool_call.function.name ==”convert_currency”: <br> args = json.loads(tool_call.function.arguments) <br> result = convert_currency(args[“amount”], args[“from_currency”], args[“to_currency”]) <br> messages.append({ <br> “role”: “tool”,<br> “tool_call_id”: tool_call.id,　<br> “content”: json.dumps(result)　<br> })　<br> openai_caller.print_wrap_text(f”tool call response: {result}“)　<br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">print(“—”)　<br> assistant_response = openai_caller.generate_completion(　<br> messages=messages, <br> response_format={“type”: “json_object”} <br> )</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">openai_caller.print_wrap_text(f”assistant: {assistant_response}“) <br> print(”“) <br> user_input = input(”user: “) <br> print(”“) <br> messages.append({”role”: “assistant”, “content”: assistant_response}) <br> messages.append({“role”: “user”, “content”: user_input}) <br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">print(f”—-Conversation Cost: {openai_caller.total_cost}“) <br></td>
 </tr>
 </tbody>
 </table>
-<section id="initialize-openai-api-caller" class="level3">
-<h3 class="anchored" data-anchor-id="initialize-openai-api-caller">Initialize OpenAI API caller</h3>
-<p>openai_caller = OpenAI_LLM_Caller( <br> model=“gpt-4o-mini”, <br> api_key=openai_api_key, <br> tools=tools <br> ) <br></p>
-<p>user_input = ““<br> system_message =”““You are a currency conversion assistant. Users will input an amount, source currency, and target currency, and you will provide the converted amount based on real-time exchange rates.your response as a JSON::”“” messages = [{“role”: “system”, “content”: system_message}] <br></p>
-<p>print(“Chatbot initialized, type in "exit" to end the conversation”)</p>
-<p>while user_input.lower() != “exit”: <br> assistant_response = openai_caller.generate_completion( <br> messages=messages, <br> response_format={“type”: “json_object”} <br> ) <br></p>
-<p>if isinstance(assistant_response, ChatCompletionMessage): messages.append(assistant_response) print(“—”) openai_caller.print_wrap_text(f”assistant tool call: {assistant_response}“)</p>
-<p>for tool_call in assistant_response.tool_calls: if tool_call.function.name == “convert_currency”: args = json.loads(tool_call.function.arguments) result = convert_currency(args[“amount”], args[“from_currency”], args[“to_currency”]) messages.append({ “role”: “tool”, “tool_call_id”: tool_call.id, “content”: json.dumps(result) }) openai_caller.print_wrap_text(f”tool call response: {result}“)</p>
-<p>print(“—”) assistant_response = openai_caller.generate_completion( messages=messages, response_format={“type”: “json_object”} )</p>
-<p>openai_caller.print_wrap_text(f”assistant: {assistant_response}“) print(”“) user_input = input(”user: “) print(”“) messages.append({”role”: “assistant”, “content”: assistant_response}) messages.append({“role”: “user”, “content”: user_input})</p>
-<p>print(f”—-Conversation Cost: {openai_caller.total_cost}“)</p>
+<section id="response" class="level3">
+<h3 class="anchored" data-anchor-id="response">Response <br></h3>
+<p>Chatbot initialized, type in “exit” to end the conversation <br></p>
+<p>assistant: {“message”:“Please provide the amount, source currency, and target currency for <br> conversion.”,“emoji string”:“💱🌍”} <br></p>
+<p>user: 20 us dollars canandian dollars <br></p>
+<p><br> assistant tool call: ChatCompletionMessage(content=None, refusal=None, role=‘assistant’, <br> audio=None, function_call=None, <br> tool_calls=[ChatCompletionMessageToolCall(id=‘call_IiRg1xR6QPAqfUB51HWGpael’, <br> function=Function(arguments=‘{“amount”:20,“from_currency”:“USD”,“to_currency”:“CAD”}’, <br> name=‘convert_currency’), type=‘function’)]) <br> tool call response: {‘converted_amount’: 28.599999999999998, ‘exchange_rate’: 1.43} <br></p>
+<hr>
+<p>assistant: { “message”: “20 USD is equivalent to 28.60 CAD.”, “emoji string”: “💵➡️🇨🇦” } <br></p>
+<p>user: exit <br></p>
+<p>—- <br> Total Conversation Cost: 0.0001392 <br></p>
 
 
 </section>
