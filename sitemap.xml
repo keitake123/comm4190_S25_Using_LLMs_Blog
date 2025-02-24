@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/index.html</loc>
-    <lastmod>2025-02-23T23:12:47.558Z</lastmod>
+    <lastmod>2025-02-24T21:17:23.001Z</lastmod>
   </url>
   <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/003_superbowl/Untitled.html</loc>
-    <lastmod>2025-02-23T23:12:47.572Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/001_test2/how_many_cookies.html</loc>
-    <lastmod>2025-02-23T23:12:47.571Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/000_test_post/index.html</loc>
-    <lastmod>2025-02-23T23:12:47.559Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/about.html</loc>
-    <lastmod>2025-02-23T23:12:47.558Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/002_post1/Untitled.html</loc>
-    <lastmod>2025-02-23T23:12:47.571Z</lastmod>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/006_Imageprocess/imageprocess.html</loc>
+    <lastmod>2025-02-24T21:17:23.019Z</lastmod>
   </url>
   <url>
     <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/005 Creating my own Chatbot/Untitled.html</loc>
-    <lastmod>2025-02-23T23:12:47.573Z</lastmod>
+    <lastmod>2025-02-24T21:17:23.015Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/002_post1/Untitled.html</loc>
+    <lastmod>2025-02-24T21:17:23.014Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/about.html</loc>
+    <lastmod>2025-02-24T21:17:23.001Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/000_test_post/index.html</loc>
+    <lastmod>2025-02-24T21:17:23.002Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/001_test2/how_many_cookies.html</loc>
+    <lastmod>2025-02-24T21:17:23.014Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/003_superbowl/Untitled.html</loc>
+    <lastmod>2025-02-24T21:17:23.014Z</lastmod>
   </url>
   <url>
     <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/004_Using chatgpt API/Untitled.html</loc>
-    <lastmod>2025-02-23T23:12:47.572Z</lastmod>
+    <lastmod>2025-02-24T21:17:23.015Z</lastmod>
   </url>
 </urlset>
