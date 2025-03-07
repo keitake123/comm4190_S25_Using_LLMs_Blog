@@ -6,11 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="An LLM User">
-<meta name="dcterms.date" content="2025-02-07">
-<meta name="description" content="How LLM handles and processes emojis">
+<meta name="author" content="Kei Taketsuna">
+<meta name="dcterms.date" content="2025-03-07">
+<meta name="description" content="Learning about embeddings Similarity">
 
-<title>First Letter of Emoji Game – My exploration of capabilities of LLMs</title>
+<title>Part 1: Learning about embeddings Similarity – My exploration of capabilities of LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,10 +116,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">First Letter of Emoji Game</h1>
+      <h1 class="title">Part 1: Learning about embeddings Similarity</h1>
                   <div>
         <div class="description">
-          How LLM handles and processes emojis
+          Learning about embeddings Similarity
         </div>
       </div>
                           <div class="quarto-categories">
@@ -136,14 +136,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>An LLM User </p>
+               <p>Kei Taketsuna </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 7, 2025</p>
+        <p class="date">March 7, 2025</p>
       </div>
     </div>
     
@@ -162,48 +162,117 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="first-letter-of-emoji-game" class="level1">
-<h1>First Letter of Emoji Game</h1>
-<ul>
-<li><p>Since we learned about how words are tokenized in AI and assigned values, I wondered if that is the same with emojis too.</p></li>
-<li><p>In many cases many AI can use emojis in there responses such as thumbs up or a heart to provide emotional context to there responses.</p></li>
-<li><p>To test the accuracy or how they are process, I prompted an easy game, where you give a set of emojis and the first letter of what the emoji is spells out the word. For example 🍔🐘🦎🦎🐙 spells out hello. I tested this on both CHATGPT 4o and Claude ai 3.5 Sonnet, and figuring out there responses while also trying zero-shot-learning vs few-shot-learning too</p></li>
-</ul>
-<section id="conversation-with-chatgpt-4o" class="level3">
-<h3 class="anchored" data-anchor-id="conversation-with-chatgpt-4o">Conversation with ChatGPT 4o</h3>
-<p><strong>ME</strong> &gt; &gt; I want to play a game where you give me a set of emojis and the first letter of what the emoji is spells out the word.<br>
-&gt;Ill go first.<br>
-&gt; 🍔🐘🦎🦎🐙 spells out hello<br>
-&gt;</p>
-<p><strong>ChatGPT 4o</strong> &gt;Great idea! Here’s a set for you: 🐊🍎🦁🦁 🐳🦅. Can you figure out the word? &gt;</p>
-<p><strong>ME</strong> &gt;lallwe? &gt;</p>
-<p><strong>ChatGPT 4o</strong> &gt; &gt;Almost there! The word is actually “alley.” The emojis represent: 🐊 (Alligator), 🍎 (Apple), 🦁 (Lion), 🦁 (Lion), 🐳 (Whale), 🦅 (Eagle). Try another one! &gt;</p>
-<p><strong>ME</strong> &gt; &gt;I want to play a game where you give me a set of emojis and the first letter of what the emoji is spells out the world. Ill go first. 🍔🐘🦎🦎🐙 spells out hello 🐱🍎🐰 spells out car</p>
-<p><strong>ChatGPT 4o</strong> &gt;Sounds fun! Here’s a set for you: 🐢⚡🍎🌵🦓🦓. Can you figure out the word? &gt;</p>
-<p><strong>ME</strong> &gt; &gt;tlaczz? &gt;</p>
-<p><strong>ChatGPT 4o</strong> &gt; &gt;Close! The word is “tacoma.” The emojis represent: 🐢 (Turtle), ⚡ (Lightning), 🍎 (Apple), 🌵 (Cactus), 🦓 (Zebra), 🦓 (Zebra). Want to try another one?</p>
-<p><strong>ME</strong> &gt; &gt;That is incorrect</p>
-<p><strong>ChatGPT 4o</strong> &gt; &gt;I apologize for the oversight. Let’s try a different set of emojis: 🐍🍎👑🌵. Can you figure out the word?</p>
-<p><strong>ME</strong> &gt;no fix the one &gt;</p>
-<p><strong>ChatGPT 4o</strong> &gt;I’m sorry for the mix-up earlier. Let’s go through the original emoji set again: 🐢⚡🍎🌵🦓🦓. &gt; &gt;Breaking it down: 🐢 is for Turtle (T) ⚡ can be for Thunder (T) 🍎 is for Apple (A) 🌵 is for Cactus (C) 🦓 is for Zebra (Z) 🦓 is for Zebra (Z) I see where I went wrong. The correct word cannot be formed with those emojis. Let’s try a new set: &gt; &gt;📦⚡🍎🌵🛋️. Can you figure out the word?</p>
+<p>I learned about embeddings and how we can find similarities between words and images so I am writing this in my blog. This is part 1 and part 2 will be looking into Semantic Search and K-NN</p>
+<section id="understanding-embeddings" class="level1">
+<h1>Understanding Embeddings</h1>
+<section id="what-are-embeddings" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-embeddings">What Are Embeddings?</h2>
+<p>Embeddings are a way to represent words, sentences, or even entire documents as lists of numbers (vectors). These numbers capture important patterns and relationships between different words or concepts. The idea is that similar words will have similar number patterns, allowing a computer to understand their meanings in a way that’s useful for tasks like search, recommendation systems, and machine learning.</p>
+<section id="why-do-we-use-embeddings" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-use-embeddings">Why Do We Use Embeddings?</h3>
+<p>Computers don’t understand words the way humans do—they work with numbers. If we simply assigned each word a unique number (like “apple” = 1, “banana” = 2), the computer wouldn’t know that “apple” and “banana” are more related to each other than “apple” and “airplane.” Embeddings solve this problem by placing words in a mathematical space where related words have similar vector values.</p>
+<p>For example, in a good word embedding system:<br>
+- The word <strong>“king”</strong> might have a vector close to <strong>“queen”</strong> but farther from <strong>“dog.”</strong><br>
+- The words <strong>“cat”</strong> and <strong>“kitten”</strong> will have similar vector patterns, but <strong>“cat”</strong> and <strong>“car”</strong> will not.</p>
+<p>This is useful because it allows AI models to make sense of language, find relationships between words, and improve tasks like translating languages, recommending movies, or even detecting spam emails.</p>
 </section>
-<section id="conversation-with-claude-ai-sonnet" class="level3">
-<h3 class="anchored" data-anchor-id="conversation-with-claude-ai-sonnet">Conversation with Claude ai Sonnet</h3>
-<p><strong>ME</strong> &gt; &gt; I want to play a game where you give me a set of emojis and the first letter of what the emoji is spells out the word.<br>
-&gt;Ill go first.<br>
-&gt; 🍔🐘🦎🦎🐙 spells out hello<br>
-&gt;</p>
-<p><strong>Claude ai Sonnet</strong> &gt;I see what you’re doing! You used: Hamburger Elephant Lizard Lizard Octopus To spell HELLO. That’s clever! Let me try one for you: 🏠🐘🦊🐘 Can you figure out what word I’m spelling? &gt;</p>
-<p><strong>ME</strong> &gt;hefe &gt;</p>
-<p><strong>Claude ai Sonnet</strong> &gt; &gt;Yes, exactly! I used: House Elephant Fox Elephant To spell HEFE! You got it! Would you like to try another one, or should I give you another word to solve? &gt;</p>
-<p><strong>ME</strong> &gt;try another one &gt;</p>
-<p><strong>Claude ai Sonnet</strong> &gt; &gt;Here’s a tricky one: 🦒🐘🐢👻🐜🦅 Can you solve this word? (Hint: Think of talking with someone!)</p>
-<p><strong>ME</strong> &gt; &gt;getgae</p>
-<p><strong>Claude ai Sonnet</strong> &gt; &gt;Let me break down the emojis I used: Giraffe Elephant Turtle Ghost Ant Eagle So close! The word I was trying to spell is “GENTLE”. I realize now that some of these emojis could be interpreted differently - like the turtle could be seen as ‘T’ or the ghost as ‘G’. Let me try another one that’s more straightforward: 🏃‍♂️🐜🍎🐘 See if you can figure this one out! &gt;</p>
-<p><strong>ME</strong> &gt;make it a word</p>
-<p><strong>Claude ai Sonnet</strong> &gt;Oh! You want me to spell out “MAKE” with emojis? Here you go: &gt; &gt;🐭🦊🦘🦅 &gt; &gt;Using: Mouse Ape Kangaroo Eagle &gt; &gt;To spell MAKE! See if you can solve another one or give me a word to turn into emojis! &gt;</p>
+<section id="key-benefits" class="level3">
+<h3 class="anchored" data-anchor-id="key-benefits">Key Benefits:</h3>
+<ol type="1">
+<li><strong>Semantic Understanding</strong>: Captures relationships between concepts</li>
+<li><strong>Numerical Representation</strong>: Converts text into machine-readable format</li>
+<li><strong>Similarity Comparison</strong>: Enables efficient search and matching</li>
+<li><strong>Dimensionality Reduction</strong>: Compresses complex information</li>
+</ol>
+</section>
+<section id="real-world-applications" class="level3">
+<h3 class="anchored" data-anchor-id="real-world-applications">Real-World Applications:</h3>
+<ul>
+<li>Semantic search engines</li>
+<li>Recommendation systems</li>
+<li>Document classification</li>
+<li>Language translation</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="generating-embeddings" class="level1">
+<h1>🎯 <strong>Generating Embeddings</strong></h1>
+<section id="what-are-embeddings-1" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-embeddings-1">🧠 What Are Embeddings?</h2>
+<p>Embeddings convert words or entire articles into <strong>numeric representations (vectors)</strong> so that a computer can analyze their meaning and compare them.</p>
+</section>
+<section id="why-use-embeddings" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-embeddings">🌟 Why Use Embeddings?</h2>
+<ul>
+<li>They help computers <strong>understand</strong> text similarities.</li>
+<li>They allow <strong>semantic search</strong>, where similar articles can be grouped together.</li>
+<li>They power recommendation systems and search engines.</li>
+</ul>
+<hr>
+</section>
+<section id="embedding-function" class="level2">
+<h2 class="anchored" data-anchor-id="embedding-function">🛠 <strong>Embedding Function</strong></h2>
+<p>This function: 1. <strong>Takes</strong> a text input 2. <strong>Trims</strong> it to 8000 characters (API limit) 3. <strong>Calls</strong> OpenAI’s embedding model 4. <strong>Returns</strong> a numerical representation of the text</p>
+</section>
+<section id="visualizing-word-embeddings" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-word-embeddings">🔮 <strong>Visualizing Word Embeddings</strong></h2>
+<p>Words exist in a <strong>high-dimensional space (1536D)</strong>. To <strong>see</strong> relationships, we need to reduce the dimensions to <strong>2D</strong> using <strong>t-SNE</strong>.</p>
+</section>
+<section id="what-this-function-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-function-does">🎨 <strong>What This Function Does</strong></h2>
+<ul>
+<li>Takes <strong>lists of words</strong></li>
+<li>Gets their <strong>embeddings</strong></li>
+<li>Uses <strong>t-SNE</strong> to reduce them to 2D</li>
+<li>Plots them using <code>matplotlib</code></li>
+</ul>
+</section>
+<section id="comparing-word-similarities" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-word-similarities">🔎 <strong>Comparing Word Similarities</strong></h2>
+<p>Now that we can <strong>generate embeddings</strong>, let’s compare words based on their similarity using <strong>cosine similarity</strong>.</p>
+</section>
+<section id="how-does-it-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-it-work">🧩 <strong>How Does It Work?</strong></h2>
+<ul>
+<li>Computes a <strong>dot product</strong> between two normalized embeddings.</li>
+<li>Returns a similarity score <strong>from -1 (opposite) to 1 (identical).</strong></li>
+<li>Example: “happy” should be closer to “joyful” than “sad.”</li>
+</ul>
+<section id="category-based-image-search" class="level3">
+<h3 class="anchored" data-anchor-id="category-based-image-search">Category-Based Image Search</h3>
+<p>Try finding similar images for different categories and analyze the results:</p>
+<ol type="1">
+<li>Find similar images for vehicles (cars, trucks, airplanes)</li>
+<li>Find similar images for animals (cats, dogs, birds)</li>
+<li>Compare how well the model distinguishes between similar categories</li>
+<li>Look at the similarity scores - what patterns do you notice?</li>
+</ol>
+<p><img src="a.png" width="900/"> <img src="b.png" width="900/"></p>
+</section>
+</section>
+<section id="image-embeddings-a-visual-perspective" class="level2">
+<h2 class="anchored" data-anchor-id="image-embeddings-a-visual-perspective">Image Embeddings: A Visual Perspective</h2>
+<p>Just like how we converted words into numerical vectors, we can do the same with images! Let’s explore how image embeddings work using the CIFAR-10 dataset. This dataset is a common dataset used to train and test image classification models.</p>
+<section id="about-cifar-10" class="level3">
+<h3 class="anchored" data-anchor-id="about-cifar-10">About CIFAR-10</h3>
+<p>CIFAR-10 consists of 60,000 32x32 RGB images in 10 classes: - airplane - automobile - bird - cat - deer - dog - frog - horse - ship - truck</p>
+<p>We’ll use: 1. ResNet18 to generate embeddings 2. FAISS for efficient similarity search 3. t-SNE for visualization</p>
+</section>
+<section id="aside" class="level3">
+<h3 class="anchored" data-anchor-id="aside">Aside:</h3>
+<p>ResNet18 is a convolutional neural network architecture with 18 layers, pre-trained on ImageNet. We’re using it as a feature extractor by removing the final classification layer and using the penultimate layer’s output as our image embeddings. These embeddings capture high-level visual features that are useful for similarity comparison between images. By using a pre-trained model, we can leverage the knowledge it has learned from ImageNet to generate meaningful representations of our CIFAR-10 images, even though they are from a different domain.</p>
+<p>FAISS (Facebook AI Similarity Search) is a library for efficient similarity search of high-dimensional vectors. We’re using it here to quickly find the most similar images in our dataset by comparing their ResNet18 embeddings. FAISS is optimized for handling high-dimensional vectors by an indexing mechanism.</p>
+<p>t-SNE (t-distributed stochastic neighbor embedding) is a method for visualizing high-dimensional data by giving each datapoint a location in a two or three-dimensional map. It tries to preserve the pairwise similarities between data points in a lower-dimensional space, allowing us to interpret or understand higher-dimensional data more easily.</p>
+<p><img src="c.png" width="900/"> <img src="d.png" width="900/"> <img src="e.png" width="900/"> <img src="f.png" width="900/"> <img src="g.png" width="900/"> <img src="h.png" width="900/"> <img src="i.png" width="900/"> <img src="j.png" width="900/"> <img src="k.png" width="900/"> <img src="l.png" width="900/"> <img src="m.png" width="900/"></p>
+</section>
+<section id="aside-why-does-the-query-not-return-good-results" class="level3">
+<h3 class="anchored" data-anchor-id="aside-why-does-the-query-not-return-good-results">Aside: Why does the query not return good results?</h3>
+<p>The query returns good results for some classes but not others because the quality of the similarity search depends on the quality of the embeddings. In this assignment, we use embeddings from ResNet-18’s penultimate layer. ResNet-18 is trained for ImageNet classification and may capture general visual features well, but it might miss the fine-grained details necessary for distinguishing certain classes in CIFAR-10. In other words, ResNet-18’s features are not always optimized for measuring similarity.</p>
+<p>We chose ResNet-18 for this assignment because it is one of the smaller and simpler models that works decently well. However, there are more advanced models designed specifically to learn semantically rich representations. Models such as CLIP, SimCLR, or MoCo—which use contrastive learning objectives—tend to produce embeddings that better capture subtle differences between classes. Additionally, fine-tuning a model on your dataset can further improve performance.</p>
 
 
+</section>
 </section>
 </section>
 
