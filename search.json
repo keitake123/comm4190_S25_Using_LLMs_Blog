@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "posts/007_SemanticSearch/Untitled.html",
-    "href": "posts/007_SemanticSearch/Untitled.html",
-    "title": "Part 1: Learning about embeddings Similarity",
-    "section": "",
-    "text": "I learned about embeddings and how we can find similarities between words and images so I am writing this in my blog. This is part 1 and part 2 will be looking into Semantic Search and K-NN"
-  },
-  {
     "objectID": "posts/007_SemanticSearch/Untitled.html#what-are-embeddings",
     "href": "posts/007_SemanticSearch/Untitled.html#what-are-embeddings",
     "title": "Part 1: Learning about embeddings Similarity",
