@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>🏎️ Implementing KNN (k-Nearest Neighbors) – My exploration of capabilities of LLMs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My exploration of capabilities of LLMs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/keitake123"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">🏎️ <strong>Implementing KNN (k-Nearest Neighbors)</strong></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div id="0995f300-c36f-4085-9c82-293ff19dcb64" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title: <span class="st">"Part 2: Learning about embeddings Similarity"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>description: <span class="st">"Implementing Semantic Search and K-NN for wikipedia similarity"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>author: <span class="st">"Kei Taketsuna"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>date: <span class="st">"3/7/2025"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>categories:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> LLMs</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> prompting</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> logic</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>KNN is a <strong>simple</strong> but <strong>powerful</strong> algorithm that: 1. Stores <strong>training data</strong> 2. Finds the <strong>K closest</strong> points to a test sample 3. Assigns the <strong>most common</strong> label among those neighbors</p>
+<hr>
+<section id="building-a-simple-knn-class" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-simple-knn-class">🏗️ <strong>Building a Simple KNN Class</strong></h2>
+<p>This class: - Stores training data (<code>X_train</code>, <code>y_train</code>) - Uses <strong>Euclidean distance</strong> to find nearest neighbors - Returns the <strong>most common</strong> label among them <em>italicized text</em></p>
+<p>🚀 Part 1: KNN Classifier Playground Goal: Build your own KNN classifier and see decision boundaries evolve!</p>
+<p>🧩 Step 1: Implement Simple KNN Help Professor AI finish the KNN class!</p>
+</section>
+<section id="knn-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="knn-algorithm">KNN Algorithm</h2>
+<section id="initialize-simpleknn-class" class="level3">
+<h3 class="anchored" data-anchor-id="initialize-simpleknn-class">Initialize SimpleKNN Class</h3>
+<ol type="1">
+<li>Set the number of neighbors (k) with default value 3</li>
+</ol>
+</section>
+<section id="train-the-model-fit-function" class="level3">
+<h3 class="anchored" data-anchor-id="train-the-model-fit-function">Train the model (fit function)</h3>
+<ol type="1">
+<li>Store the training data points (X_train)</li>
+<li>Store the corresponding labels (y_train)</li>
+</ol>
+</section>
+<section id="make-predictions-predict-function" class="level3">
+<h3 class="anchored" data-anchor-id="make-predictions-predict-function">Make predictions (predict function)</h3>
+<ol type="1">
+<li>Initialize empty list for predictions</li>
+<li>For each test point:
+<ol type="a">
+<li>Calculate Euclidean distance to all training points
+<ul>
+<li>Subtract test point from all training points</li>
+<li>Square the differences</li>
+<li>Sum along axis 1</li>
+<li>Take square root of sum</li>
+</ul></li>
+<li>Find indices of k nearest neighbors
+<ul>
+<li>Use argpartition function to get k smallest distances</li>
+</ul></li>
+<li>Get labels of k nearest neighbors</li>
+<li>Perform majority voting
+<ul>
+<li>Use Counter to count label occurrences</li>
+<li>Find most common label</li>
+</ul></li>
+<li>Append most common label to predictions</li>
+</ol></li>
+<li>Return predictions as a numpy array</li>
+</ol>
+</section>
+</section>
+<section id="helper-functions" class="level2">
+<h2 class="anchored" data-anchor-id="helper-functions">Helper Functions</h2>
+<ol type="1">
+<li>numpy.sqrt(): Calculate square root</li>
+<li>numpy.sum(): Sum array elements</li>
+<li>numpy.argpartition(): Partially sort array to find k smallest elements</li>
+<li>Counter(): Count occurrences of elements in a list</li>
+<li>most_common(): Get most common element(s) from Counter object/</li>
+</ol>
+<p><img src="a.png" width="900/"></p>
+</section>
+<section id="mnist-data-knn-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="mnist-data-knn-boundaries">🏦 MNIST Data &amp; KNN Boundaries</h2>
+<p>We load the <strong>digits</strong> dataset, scale, and use <strong>PCA</strong> to reduce the features to 2 dimensions. - This helps us <strong>plot</strong> decision boundaries for each digit (0-9). - We then <strong>draw</strong> lines/regions indicating which digit the KNN would classify a point as.</p>
+<p>📊 Visualizing KNN on MNIST Digits Goal: Explore how KNN performs on PCA-reduced MNIST digits!</p>
+<p>(Example implementation based on your KNN implementation)</p>
+<p><img src="b.png" width="900/"> <img src="c.png" width="900/"> <img src="d.png" width="900/"> <img src="e.png" width="900/"> <img src="f.png" width="900/"> <img src="g.png" width="900/"></p>
+</section>
+<section id="custom-synthetic-data" class="level2">
+<h2 class="anchored" data-anchor-id="custom-synthetic-data">🧩 Custom Synthetic Data</h2>
+<p>Using Gaussian blobs, we generate random clusters to mimic real data. - Perfect for visualizing how KNN forms boundaries. - Perfect to test overfitting (small K) vs.&nbsp;underfitting (large K).</p>
+</section>
+<section id="data-generation-and-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="data-generation-and-preprocessing">Data Generation and Preprocessing</h2>
+<ol type="1">
+<li>Define function create_realistic_data():
+<ol type="a">
+<li>Set cluster properties (position, number of samples, standard deviation)</li>
+<li>For each cluster:
+<ul>
+<li>Generate x and y values using normal distribution</li>
+<li>Combine x and y values into 2D points</li>
+<li>Assign cluster ID to each point</li>
+</ul></li>
+<li>Combine all cluster data</li>
+<li>Return features (X) and labels (y)</li>
+</ol></li>
+<li>Call create_realistic_data() to generate X and y</li>
+</ol>
+</section>
+<section id="visualization-functions" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-functions">Visualization Functions</h2>
+<ol type="1">
+<li>Define function plot_knn_boundary(knn, X, y, title):
+<ol type="a">
+<li>Create a figure</li>
+<li>Generate a mesh grid for the plot area</li>
+<li>Predict classes for each point in the mesh grid</li>
+<li>Create a custom colormap</li>
+<li>Plot decision regions using contourf</li>
+<li>Plot original data points with scatter</li>
+<li>Add title, labels, and colorbar</li>
+<li>Display the plot</li>
+</ol></li>
+<li>Define function plot_accuracy_curve(X, y, max_k):
+<ol type="a">
+<li>Split data into training and testing sets</li>
+<li>For k from 1 to max_k:
+<ul>
+<li>Create and train KNN model</li>
+<li>Make predictions on test set</li>
+<li>Calculate and store accuracy</li>
+</ul></li>
+<li>Plot k values vs accuracies</li>
+<li>Add title, labels, and grid</li>
+<li>Display the plot</li>
+</ol></li>
+</ol>
+<p><img src="h.png" width="900/"> <img src="i.png" width="900/"> <img src="j.png" width="900/"> <img src="k.png" width="900/"> <img src="l.png" width="900/"> <img src="n.png" width="900/"> <img src="o.png" width="900/"> <img src="p.png" width="900/"> <img src="q.png" width="900/"> <img src="r.png" width="900/"></p>
+</section>
+<section id="wikipedia-openai-setup" class="level2">
+<h2 class="anchored" data-anchor-id="wikipedia-openai-setup">🌐 Wikipedia + OpenAI Setup</h2>
+<ul>
+<li>We create a <code>wiki</code> client to talk to Wikipedia.</li>
+<li>We retrieve the <strong>page content</strong> of each article.</li>
+<li>Then we <strong>embed</strong> that text with <code>get_embedding</code>.</li>
+</ul>
+<p>🌌 Wikipedia Semantic Explorer Mission: Become an AI librarian finding related articles!</p>
+<p>🔑 API Setup Unlock the knowledge vaults</p>
+<p>Let’s set up the OpenAI API and Wikipedia client.</p>
+<p><img src="ss.png" width="900/"></p>
+</section>
+<section id="get_article_text-function" class="level2">
+<h2 class="anchored" data-anchor-id="get_article_text-function">📜 <code>get_article_text</code> Function 📜</h2>
+<ol type="1">
+<li>Connects to <strong>Wikipedia</strong> using <code>wiki.page</code>.</li>
+<li><strong>Checks</strong> if the page exists.</li>
+<li><strong>Returns</strong> the page’s text for embedding or analysis.</li>
+</ol>
+<p>📚 Fetch Wikipedia Articles Implement a function to fetch article content.</p>
+</section>
+<section id="setup-and-initialization" class="level2">
+<h2 class="anchored" data-anchor-id="setup-and-initialization">Setup and Initialization</h2>
+<ol type="1">
+<li>Initialize Wikipedia API with user agent</li>
+<li>Define list of article titles to fetch</li>
+</ol>
+</section>
+<section id="article-fetching-and-embedding" class="level2">
+<h2 class="anchored" data-anchor-id="article-fetching-and-embedding">Article Fetching and Embedding</h2>
+<section id="function-get_article_texttitle" class="level3">
+<h3 class="anchored" data-anchor-id="function-get_article_texttitle">Function: get_article_text(title)</h3>
+<ol type="1">
+<li>Fetch Wikipedia page for given title</li>
+<li>If page exists, return page text</li>
+<li>Otherwise, return None</li>
+</ol>
+</section>
+<section id="function-get_embeddingtext-model" class="level3">
+<h3 class="anchored" data-anchor-id="function-get_embeddingtext-model">Function: get_embedding(text, model)</h3>
+<ol type="1">
+<li>Truncate text to 8000 characters</li>
+<li>Count tokens in truncated text</li>
+<li>Update total token count for cost tracking</li>
+<li>Generate embedding using OpenAI API</li>
+<li>Return embedding vector</li>
+</ol>
+</section>
+<section id="main-embedding-process" class="level3">
+<h3 class="anchored" data-anchor-id="main-embedding-process">Main Embedding Process</h3>
+<ol type="1">
+<li>Initialize empty lists for embeddings and labels</li>
+<li>For each article title:
+<ol type="a">
+<li>Fetch article text</li>
+<li>If text is retrieved:
+<ul>
+<li>Generate embedding</li>
+<li>Add embedding to embeddings list</li>
+<li>Add title to labels list</li>
+<li>Print success message</li>
+</ul></li>
+<li>If fetch fails, print failure message</li>
+</ol></li>
+</ol>
+</section>
+</section>
+<section id="knn-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="knn-implementation">KNN Implementation</h2>
+<section id="knn-class-initialization" class="level3">
+<h3 class="anchored" data-anchor-id="knn-class-initialization">KNN Class Initialization</h3>
+<ol type="1">
+<li>Store embeddings as numpy array</li>
+<li>Normalize embeddings</li>
+<li>Store labels</li>
+</ol>
+</section>
+<section id="knn-query-method" class="level3">
+<h3 class="anchored" data-anchor-id="knn-query-method">KNN Query Method</h3>
+<ol type="1">
+<li>Generate embedding for input text</li>
+<li>Normalize query embedding</li>
+<li>Calculate similarities using dot product</li>
+<li>Find indices of top k similar articles</li>
+<li>Return list of (label, similarity) pairs for top matches</li>
+</ol>
+</section>
+</section>
+<section id="knn-usage" class="level2">
+<h2 class="anchored" data-anchor-id="knn-usage">KNN Usage</h2>
+<ol type="1">
+<li>Initialize KNN with generated embeddings and labels</li>
+<li>(Ready for querying with new text inputs)</li>
+</ol>
+<p><img src="SA.png" width="900/"> <img src="SB.png" width="900/"></p>
+</section>
+<section id="knn-class-for-wikipedia-articles" class="level2">
+<h2 class="anchored" data-anchor-id="knn-class-for-wikipedia-articles">🔗 <code>KNN</code> Class for Wikipedia Articles 🔗</h2>
+<ol type="1">
+<li><strong>Holds</strong> embeddings and article labels/titles.</li>
+<li>On <strong>query</strong>, it:
+<ul>
+<li>Embeds your query text.</li>
+<li>Computes <strong>cosine similarity</strong> with all stored article embeddings.</li>
+<li>Sorts by similarity and returns the top matches.</li>
+</ul></li>
+</ol>
+<p>📚 Build the KNN Class</p>
+<p>Implement a KNN class to find similar articles.</p>
+<p><img src="SC.png" width="900/"></p>
+</section>
+<section id="example-1-finding-similar-articles" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-finding-similar-articles">Example 1: Finding Similar Articles</h2>
+<ol type="1">
+<li>Define query text: “Neural networks in machine learning”</li>
+<li>Use KNN to find top 3 similar articles:
+<ol type="a">
+<li>Call knn.query() with query text and k=3</li>
+<li>Store results</li>
+</ol></li>
+<li>Print “Top Matches:”</li>
+<li>For each result (title and score):
+<ol type="a">
+<li>Print title and formatted score</li>
+</ol></li>
+</ol>
+</section>
+<section id="example-2-comparing-two-specific-articles" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-comparing-two-specific-articles">Example 2: Comparing Two Specific Articles</h2>
+<ol type="1">
+<li>Define two article titles:
+<ul>
+<li>article1 = “Artificial Intelligence”</li>
+<li>article2 = “Quantum Computing”</li>
+</ul></li>
+<li>For each article:
+<ol type="a">
+<li>Fetch article text using get_article_text()</li>
+<li>Generate embedding using get_embedding()</li>
+</ol></li>
+<li>Calculate similarity:
+<ol type="a">
+<li>Normalize both embeddings</li>
+<li>Compute dot product of normalized embeddings</li>
+</ol></li>
+<li>Print similarity score between the two articles</li>
+</ol>
+<p><img src="SE.png" width="900/"></p>
+<p>📚 Plot Similarity Heatmap</p>
+<p>Visualize the similarity matrix.</p>
+</section>
+<section id="create-similarity-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="create-similarity-matrix">Create Similarity Matrix</h2>
+<ol type="1">
+<li>Calculate dot product of embeddings with their transpose: similarity_matrix = dot_product(embeddings, transpose(embeddings))</li>
+</ol>
+</section>
+<section id="visualize-similarity-matrix-as-heatmap" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-similarity-matrix-as-heatmap">Visualize Similarity Matrix as Heatmap</h2>
+<ol type="1">
+<li><p>Create a new figure with size 10x8</p></li>
+<li><p>Generate heatmap:</p>
+<ol type="a">
+<li>Use imshow() to display similarity matrix</li>
+<li>Set colormap to “viridis”</li>
+</ol></li>
+<li><p>Set x-axis labels:</p>
+<ol type="a">
+<li>Use article titles as labels</li>
+<li>Set tick positions to range from 0 to number of articles</li>
+<li>Rotate labels 90 degrees</li>
+</ol></li>
+<li><p>Set y-axis labels:</p>
+<ol type="a">
+<li>Use article titles as labels</li>
+<li>Set tick positions to range from 0 to number of articles</li>
+</ol></li>
+<li><p>Add colorbar:</p>
+<ol type="a">
+<li>Label it “Cosine Similarity”</li>
+</ol></li>
+<li><p>Set title of the plot to “Wikipedia Article Similarities”</p></li>
+<li><p>Display the plot</p></li>
+</ol>
+<p><img src="SF.png" width="900/"> <img src="SD.png" width="900/"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/keitake123\.github\.io\/comm4190_S25_Using_LLMs_Blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
