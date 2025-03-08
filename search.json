@@ -109,7 +109,7 @@
     "href": "index.html",
     "title": "My Explorations with LLMs",
     "section": "",
-    "text": "🏎️ Implementing KNN (k-Nearest Neighbors)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPart 1: Learning about embeddings Similarity\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nLearning about embeddings Similarity\n\n\n\n\n\nMar 7, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nPhotos That Are Too Hard to Understand at First Glance\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nHow LLMs process Photos That Are Too Hard to Understand at First Glance\n\n\n\n\n\nFeb 23, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nCreating own Chatbot\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nCreating own Chatbot that converts currency\n\n\n\n\n\nFeb 13, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nComparing Temperature in LLMs\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nWhat is temperature and how does this affect the Output\n\n\n\n\n\nFeb 13, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nSuper Bowl LVII Predictions using LLM\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nCan LLM be used to predict Superbowl Results\n\n\n\n\n\nFeb 7, 2025\n\n\nAn LLM User\n\n\n\n\n\n\n\n\n\n\n\n\nFirst Letter of Emoji Game\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nHow LLM handles and processes emojis\n\n\n\n\n\nFeb 7, 2025\n\n\nAn LLM User\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nJan 27, 2025\n\n\nAn LLM User\n\n\n\n\n\n\n\n\n\n\n\n\nA test post\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nFeb 2, 2024\n\n\nAn LLM User\n\n\n\n\n\n\nNo matching items"
+    "text": "Part 2: Learning about embeddings Similarity\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nImplementing Semantic Search and K-NN for wikipedia similarity\n\n\n\n\n\nMar 7, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nPart 1: Learning about embeddings Similarity\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nLearning about embeddings Similarity\n\n\n\n\n\nMar 7, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nPhotos That Are Too Hard to Understand at First Glance\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nHow LLMs process Photos That Are Too Hard to Understand at First Glance\n\n\n\n\n\nFeb 23, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nCreating own Chatbot\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nCreating own Chatbot that converts currency\n\n\n\n\n\nFeb 13, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nComparing Temperature in LLMs\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nWhat is temperature and how does this affect the Output\n\n\n\n\n\nFeb 13, 2025\n\n\nKei Taketsuna\n\n\n\n\n\n\n\n\n\n\n\n\nSuper Bowl LVII Predictions using LLM\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nCan LLM be used to predict Superbowl Results\n\n\n\n\n\nFeb 7, 2025\n\n\nAn LLM User\n\n\n\n\n\n\n\n\n\n\n\n\nFirst Letter of Emoji Game\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nHow LLM handles and processes emojis\n\n\n\n\n\nFeb 7, 2025\n\n\nAn LLM User\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nJan 27, 2025\n\n\nAn LLM User\n\n\n\n\n\n\n\n\n\n\n\n\nA test post\n\n\n\n\n\n\nLLMs\n\n\nprompting\n\n\nlogic\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nFeb 2, 2024\n\n\nAn LLM User\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -170,134 +170,134 @@
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html",
     "href": "posts/008_semanticSearch2/Untitled1.html",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
+    "title": "Part 2: Learning about embeddings Similarity",
     "section": "",
-    "text": "---\ntitle: \"Part 2: Learning about embeddings Similarity\"\ndescription: \"Implementing Semantic Search and K-NN for wikipedia similarity\"\nauthor: \"Kei Taketsuna\"\ndate: \"3/7/2025\"\ncategories:\n  - LLMs\n  - prompting\n  - logic\n---\nKNN is a simple but powerful algorithm that: 1. Stores training data 2. Finds the K closest points to a test sample 3. Assigns the most common label among those neighbors"
+    "text": "KNN is a simple but powerful algorithm that: 1. Stores training data 2. Finds the K closest points to a test sample 3. Assigns the most common label among those neighbors\n\n\n\nThis class: - Stores training data (X_train, y_train) - Uses Euclidean distance to find nearest neighbors - Returns the most common label among them italicized text\n🚀 Part 1: KNN Classifier Playground Goal: Build your own KNN classifier and see decision boundaries evolve!\n🧩 Step 1: Implement Simple KNN Help Professor AI finish the KNN class!\n\n\n\n\n\n\nSet the number of neighbors (k) with default value 3\n\n\n\n\n\nStore the training data points (X_train)\nStore the corresponding labels (y_train)\n\n\n\n\n\nInitialize empty list for predictions\nFor each test point:\n\nCalculate Euclidean distance to all training points\n\nSubtract test point from all training points\nSquare the differences\nSum along axis 1\nTake square root of sum\n\nFind indices of k nearest neighbors\n\nUse argpartition function to get k smallest distances\n\nGet labels of k nearest neighbors\nPerform majority voting\n\nUse Counter to count label occurrences\nFind most common label\n\nAppend most common label to predictions\n\nReturn predictions as a numpy array\n\n\n\n\n\n\nnumpy.sqrt(): Calculate square root\nnumpy.sum(): Sum array elements\nnumpy.argpartition(): Partially sort array to find k smallest elements\nCounter(): Count occurrences of elements in a list\nmost_common(): Get most common element(s) from Counter object/\n\n\n\n\n\nWe load the digits dataset, scale, and use PCA to reduce the features to 2 dimensions. - This helps us plot decision boundaries for each digit (0-9). - We then draw lines/regions indicating which digit the KNN would classify a point as.\n📊 Visualizing KNN on MNIST Digits Goal: Explore how KNN performs on PCA-reduced MNIST digits!\n(Example implementation based on your KNN implementation)\n     \n\n\n\nUsing Gaussian blobs, we generate random clusters to mimic real data. - Perfect for visualizing how KNN forms boundaries. - Perfect to test overfitting (small K) vs. underfitting (large K).\n\n\n\n\nDefine function create_realistic_data():\n\nSet cluster properties (position, number of samples, standard deviation)\nFor each cluster:\n\nGenerate x and y values using normal distribution\nCombine x and y values into 2D points\nAssign cluster ID to each point\n\nCombine all cluster data\nReturn features (X) and labels (y)\n\nCall create_realistic_data() to generate X and y\n\n\n\n\n\nDefine function plot_knn_boundary(knn, X, y, title):\n\nCreate a figure\nGenerate a mesh grid for the plot area\nPredict classes for each point in the mesh grid\nCreate a custom colormap\nPlot decision regions using contourf\nPlot original data points with scatter\nAdd title, labels, and colorbar\nDisplay the plot\n\nDefine function plot_accuracy_curve(X, y, max_k):\n\nSplit data into training and testing sets\nFor k from 1 to max_k:\n\nCreate and train KNN model\nMake predictions on test set\nCalculate and store accuracy\n\nPlot k values vs accuracies\nAdd title, labels, and grid\nDisplay the plot\n\n\n         \n\n\n\n\nWe create a wiki client to talk to Wikipedia.\nWe retrieve the page content of each article.\nThen we embed that text with get_embedding.\n\n🌌 Wikipedia Semantic Explorer Mission: Become an AI librarian finding related articles!\n🔑 API Setup Unlock the knowledge vaults\nLet’s set up the OpenAI API and Wikipedia client.\n\n\n\n\n\nConnects to Wikipedia using wiki.page.\nChecks if the page exists.\nReturns the page’s text for embedding or analysis.\n\n📚 Fetch Wikipedia Articles Implement a function to fetch article content.\n\n\n\n\nInitialize Wikipedia API with user agent\nDefine list of article titles to fetch\n\n\n\n\n\n\n\nFetch Wikipedia page for given title\nIf page exists, return page text\nOtherwise, return None\n\n\n\n\n\nTruncate text to 8000 characters\nCount tokens in truncated text\nUpdate total token count for cost tracking\nGenerate embedding using OpenAI API\nReturn embedding vector\n\n\n\n\n\nInitialize empty lists for embeddings and labels\nFor each article title:\n\nFetch article text\nIf text is retrieved:\n\nGenerate embedding\nAdd embedding to embeddings list\nAdd title to labels list\nPrint success message\n\nIf fetch fails, print failure message\n\n\n\n\n\n\n\n\n\nStore embeddings as numpy array\nNormalize embeddings\nStore labels\n\n\n\n\n\nGenerate embedding for input text\nNormalize query embedding\nCalculate similarities using dot product\nFind indices of top k similar articles\nReturn list of (label, similarity) pairs for top matches\n\n\n\n\n\n\nInitialize KNN with generated embeddings and labels\n(Ready for querying with new text inputs)\n\n \n\n\n\n\nHolds embeddings and article labels/titles.\nOn query, it:\n\nEmbeds your query text.\nComputes cosine similarity with all stored article embeddings.\nSorts by similarity and returns the top matches.\n\n\n📚 Build the KNN Class\nImplement a KNN class to find similar articles.\n\n\n\n\n\nDefine query text: “Neural networks in machine learning”\nUse KNN to find top 3 similar articles:\n\nCall knn.query() with query text and k=3\nStore results\n\nPrint “Top Matches:”\nFor each result (title and score):\n\nPrint title and formatted score\n\n\n\n\n\n\nDefine two article titles:\n\narticle1 = “Artificial Intelligence”\narticle2 = “Quantum Computing”\n\nFor each article:\n\nFetch article text using get_article_text()\nGenerate embedding using get_embedding()\n\nCalculate similarity:\n\nNormalize both embeddings\nCompute dot product of normalized embeddings\n\nPrint similarity score between the two articles\n\n\n📚 Plot Similarity Heatmap\nVisualize the similarity matrix.\n\n\n\n\nCalculate dot product of embeddings with their transpose: similarity_matrix = dot_product(embeddings, transpose(embeddings))\n\n\n\n\n\nCreate a new figure with size 10x8\nGenerate heatmap:\n\nUse imshow() to display similarity matrix\nSet colormap to “viridis”\n\nSet x-axis labels:\n\nUse article titles as labels\nSet tick positions to range from 0 to number of articles\nRotate labels 90 degrees\n\nSet y-axis labels:\n\nUse article titles as labels\nSet tick positions to range from 0 to number of articles\n\nAdd colorbar:\n\nLabel it “Cosine Similarity”\n\nSet title of the plot to “Wikipedia Article Similarities”\nDisplay the plot"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#building-a-simple-knn-class",
     "href": "posts/008_semanticSearch2/Untitled1.html#building-a-simple-knn-class",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "🏗️ Building a Simple KNN Class",
-    "text": "🏗️ Building a Simple KNN Class\nThis class: - Stores training data (X_train, y_train) - Uses Euclidean distance to find nearest neighbors - Returns the most common label among them italicized text\n🚀 Part 1: KNN Classifier Playground Goal: Build your own KNN classifier and see decision boundaries evolve!\n🧩 Step 1: Implement Simple KNN Help Professor AI finish the KNN class!"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "This class: - Stores training data (X_train, y_train) - Uses Euclidean distance to find nearest neighbors - Returns the most common label among them italicized text\n🚀 Part 1: KNN Classifier Playground Goal: Build your own KNN classifier and see decision boundaries evolve!\n🧩 Step 1: Implement Simple KNN Help Professor AI finish the KNN class!"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#knn-algorithm",
     "href": "posts/008_semanticSearch2/Untitled1.html#knn-algorithm",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "KNN Algorithm",
-    "text": "KNN Algorithm\n\nInitialize SimpleKNN Class\n\nSet the number of neighbors (k) with default value 3\n\n\n\nTrain the model (fit function)\n\nStore the training data points (X_train)\nStore the corresponding labels (y_train)\n\n\n\nMake predictions (predict function)\n\nInitialize empty list for predictions\nFor each test point:\n\nCalculate Euclidean distance to all training points\n\nSubtract test point from all training points\nSquare the differences\nSum along axis 1\nTake square root of sum\n\nFind indices of k nearest neighbors\n\nUse argpartition function to get k smallest distances\n\nGet labels of k nearest neighbors\nPerform majority voting\n\nUse Counter to count label occurrences\nFind most common label\n\nAppend most common label to predictions\n\nReturn predictions as a numpy array"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Set the number of neighbors (k) with default value 3\n\n\n\n\n\nStore the training data points (X_train)\nStore the corresponding labels (y_train)\n\n\n\n\n\nInitialize empty list for predictions\nFor each test point:\n\nCalculate Euclidean distance to all training points\n\nSubtract test point from all training points\nSquare the differences\nSum along axis 1\nTake square root of sum\n\nFind indices of k nearest neighbors\n\nUse argpartition function to get k smallest distances\n\nGet labels of k nearest neighbors\nPerform majority voting\n\nUse Counter to count label occurrences\nFind most common label\n\nAppend most common label to predictions\n\nReturn predictions as a numpy array"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#helper-functions",
     "href": "posts/008_semanticSearch2/Untitled1.html#helper-functions",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Helper Functions",
-    "text": "Helper Functions\n\nnumpy.sqrt(): Calculate square root\nnumpy.sum(): Sum array elements\nnumpy.argpartition(): Partially sort array to find k smallest elements\nCounter(): Count occurrences of elements in a list\nmost_common(): Get most common element(s) from Counter object/"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "numpy.sqrt(): Calculate square root\nnumpy.sum(): Sum array elements\nnumpy.argpartition(): Partially sort array to find k smallest elements\nCounter(): Count occurrences of elements in a list\nmost_common(): Get most common element(s) from Counter object/"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#mnist-data-knn-boundaries",
     "href": "posts/008_semanticSearch2/Untitled1.html#mnist-data-knn-boundaries",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "🏦 MNIST Data & KNN Boundaries",
-    "text": "🏦 MNIST Data & KNN Boundaries\nWe load the digits dataset, scale, and use PCA to reduce the features to 2 dimensions. - This helps us plot decision boundaries for each digit (0-9). - We then draw lines/regions indicating which digit the KNN would classify a point as.\n📊 Visualizing KNN on MNIST Digits Goal: Explore how KNN performs on PCA-reduced MNIST digits!\n(Example implementation based on your KNN implementation)"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "We load the digits dataset, scale, and use PCA to reduce the features to 2 dimensions. - This helps us plot decision boundaries for each digit (0-9). - We then draw lines/regions indicating which digit the KNN would classify a point as.\n📊 Visualizing KNN on MNIST Digits Goal: Explore how KNN performs on PCA-reduced MNIST digits!\n(Example implementation based on your KNN implementation)"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#custom-synthetic-data",
     "href": "posts/008_semanticSearch2/Untitled1.html#custom-synthetic-data",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "🧩 Custom Synthetic Data",
-    "text": "🧩 Custom Synthetic Data\nUsing Gaussian blobs, we generate random clusters to mimic real data. - Perfect for visualizing how KNN forms boundaries. - Perfect to test overfitting (small K) vs. underfitting (large K)."
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Using Gaussian blobs, we generate random clusters to mimic real data. - Perfect for visualizing how KNN forms boundaries. - Perfect to test overfitting (small K) vs. underfitting (large K)."
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#data-generation-and-preprocessing",
     "href": "posts/008_semanticSearch2/Untitled1.html#data-generation-and-preprocessing",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Data Generation and Preprocessing",
-    "text": "Data Generation and Preprocessing\n\nDefine function create_realistic_data():\n\nSet cluster properties (position, number of samples, standard deviation)\nFor each cluster:\n\nGenerate x and y values using normal distribution\nCombine x and y values into 2D points\nAssign cluster ID to each point\n\nCombine all cluster data\nReturn features (X) and labels (y)\n\nCall create_realistic_data() to generate X and y"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Define function create_realistic_data():\n\nSet cluster properties (position, number of samples, standard deviation)\nFor each cluster:\n\nGenerate x and y values using normal distribution\nCombine x and y values into 2D points\nAssign cluster ID to each point\n\nCombine all cluster data\nReturn features (X) and labels (y)\n\nCall create_realistic_data() to generate X and y"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#visualization-functions",
     "href": "posts/008_semanticSearch2/Untitled1.html#visualization-functions",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Visualization Functions",
-    "text": "Visualization Functions\n\nDefine function plot_knn_boundary(knn, X, y, title):\n\nCreate a figure\nGenerate a mesh grid for the plot area\nPredict classes for each point in the mesh grid\nCreate a custom colormap\nPlot decision regions using contourf\nPlot original data points with scatter\nAdd title, labels, and colorbar\nDisplay the plot\n\nDefine function plot_accuracy_curve(X, y, max_k):\n\nSplit data into training and testing sets\nFor k from 1 to max_k:\n\nCreate and train KNN model\nMake predictions on test set\nCalculate and store accuracy\n\nPlot k values vs accuracies\nAdd title, labels, and grid\nDisplay the plot"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Define function plot_knn_boundary(knn, X, y, title):\n\nCreate a figure\nGenerate a mesh grid for the plot area\nPredict classes for each point in the mesh grid\nCreate a custom colormap\nPlot decision regions using contourf\nPlot original data points with scatter\nAdd title, labels, and colorbar\nDisplay the plot\n\nDefine function plot_accuracy_curve(X, y, max_k):\n\nSplit data into training and testing sets\nFor k from 1 to max_k:\n\nCreate and train KNN model\nMake predictions on test set\nCalculate and store accuracy\n\nPlot k values vs accuracies\nAdd title, labels, and grid\nDisplay the plot"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#wikipedia-openai-setup",
     "href": "posts/008_semanticSearch2/Untitled1.html#wikipedia-openai-setup",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "🌐 Wikipedia + OpenAI Setup",
-    "text": "🌐 Wikipedia + OpenAI Setup\n\nWe create a wiki client to talk to Wikipedia.\nWe retrieve the page content of each article.\nThen we embed that text with get_embedding.\n\n🌌 Wikipedia Semantic Explorer Mission: Become an AI librarian finding related articles!\n🔑 API Setup Unlock the knowledge vaults\nLet’s set up the OpenAI API and Wikipedia client."
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "We create a wiki client to talk to Wikipedia.\nWe retrieve the page content of each article.\nThen we embed that text with get_embedding.\n\n🌌 Wikipedia Semantic Explorer Mission: Become an AI librarian finding related articles!\n🔑 API Setup Unlock the knowledge vaults\nLet’s set up the OpenAI API and Wikipedia client."
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#get_article_text-function",
     "href": "posts/008_semanticSearch2/Untitled1.html#get_article_text-function",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "📜 get_article_text Function 📜",
-    "text": "📜 get_article_text Function 📜\n\nConnects to Wikipedia using wiki.page.\nChecks if the page exists.\nReturns the page’s text for embedding or analysis.\n\n📚 Fetch Wikipedia Articles Implement a function to fetch article content."
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Connects to Wikipedia using wiki.page.\nChecks if the page exists.\nReturns the page’s text for embedding or analysis.\n\n📚 Fetch Wikipedia Articles Implement a function to fetch article content."
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#setup-and-initialization",
     "href": "posts/008_semanticSearch2/Untitled1.html#setup-and-initialization",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Setup and Initialization",
-    "text": "Setup and Initialization\n\nInitialize Wikipedia API with user agent\nDefine list of article titles to fetch"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Initialize Wikipedia API with user agent\nDefine list of article titles to fetch"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#article-fetching-and-embedding",
     "href": "posts/008_semanticSearch2/Untitled1.html#article-fetching-and-embedding",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Article Fetching and Embedding",
-    "text": "Article Fetching and Embedding\n\nFunction: get_article_text(title)\n\nFetch Wikipedia page for given title\nIf page exists, return page text\nOtherwise, return None\n\n\n\nFunction: get_embedding(text, model)\n\nTruncate text to 8000 characters\nCount tokens in truncated text\nUpdate total token count for cost tracking\nGenerate embedding using OpenAI API\nReturn embedding vector\n\n\n\nMain Embedding Process\n\nInitialize empty lists for embeddings and labels\nFor each article title:\n\nFetch article text\nIf text is retrieved:\n\nGenerate embedding\nAdd embedding to embeddings list\nAdd title to labels list\nPrint success message\n\nIf fetch fails, print failure message"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Fetch Wikipedia page for given title\nIf page exists, return page text\nOtherwise, return None\n\n\n\n\n\nTruncate text to 8000 characters\nCount tokens in truncated text\nUpdate total token count for cost tracking\nGenerate embedding using OpenAI API\nReturn embedding vector\n\n\n\n\n\nInitialize empty lists for embeddings and labels\nFor each article title:\n\nFetch article text\nIf text is retrieved:\n\nGenerate embedding\nAdd embedding to embeddings list\nAdd title to labels list\nPrint success message\n\nIf fetch fails, print failure message"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#knn-implementation",
     "href": "posts/008_semanticSearch2/Untitled1.html#knn-implementation",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "KNN Implementation",
-    "text": "KNN Implementation\n\nKNN Class Initialization\n\nStore embeddings as numpy array\nNormalize embeddings\nStore labels\n\n\n\nKNN Query Method\n\nGenerate embedding for input text\nNormalize query embedding\nCalculate similarities using dot product\nFind indices of top k similar articles\nReturn list of (label, similarity) pairs for top matches"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Store embeddings as numpy array\nNormalize embeddings\nStore labels\n\n\n\n\n\nGenerate embedding for input text\nNormalize query embedding\nCalculate similarities using dot product\nFind indices of top k similar articles\nReturn list of (label, similarity) pairs for top matches"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#knn-usage",
     "href": "posts/008_semanticSearch2/Untitled1.html#knn-usage",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "KNN Usage",
-    "text": "KNN Usage\n\nInitialize KNN with generated embeddings and labels\n(Ready for querying with new text inputs)"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Initialize KNN with generated embeddings and labels\n(Ready for querying with new text inputs)"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#knn-class-for-wikipedia-articles",
     "href": "posts/008_semanticSearch2/Untitled1.html#knn-class-for-wikipedia-articles",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "🔗 KNN Class for Wikipedia Articles 🔗",
-    "text": "🔗 KNN Class for Wikipedia Articles 🔗\n\nHolds embeddings and article labels/titles.\nOn query, it:\n\nEmbeds your query text.\nComputes cosine similarity with all stored article embeddings.\nSorts by similarity and returns the top matches.\n\n\n📚 Build the KNN Class\nImplement a KNN class to find similar articles."
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Holds embeddings and article labels/titles.\nOn query, it:\n\nEmbeds your query text.\nComputes cosine similarity with all stored article embeddings.\nSorts by similarity and returns the top matches.\n\n\n📚 Build the KNN Class\nImplement a KNN class to find similar articles."
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#example-1-finding-similar-articles",
     "href": "posts/008_semanticSearch2/Untitled1.html#example-1-finding-similar-articles",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Example 1: Finding Similar Articles",
-    "text": "Example 1: Finding Similar Articles\n\nDefine query text: “Neural networks in machine learning”\nUse KNN to find top 3 similar articles:\n\nCall knn.query() with query text and k=3\nStore results\n\nPrint “Top Matches:”\nFor each result (title and score):\n\nPrint title and formatted score"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Define query text: “Neural networks in machine learning”\nUse KNN to find top 3 similar articles:\n\nCall knn.query() with query text and k=3\nStore results\n\nPrint “Top Matches:”\nFor each result (title and score):\n\nPrint title and formatted score"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#example-2-comparing-two-specific-articles",
     "href": "posts/008_semanticSearch2/Untitled1.html#example-2-comparing-two-specific-articles",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Example 2: Comparing Two Specific Articles",
-    "text": "Example 2: Comparing Two Specific Articles\n\nDefine two article titles:\n\narticle1 = “Artificial Intelligence”\narticle2 = “Quantum Computing”\n\nFor each article:\n\nFetch article text using get_article_text()\nGenerate embedding using get_embedding()\n\nCalculate similarity:\n\nNormalize both embeddings\nCompute dot product of normalized embeddings\n\nPrint similarity score between the two articles\n\n\n📚 Plot Similarity Heatmap\nVisualize the similarity matrix."
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Define two article titles:\n\narticle1 = “Artificial Intelligence”\narticle2 = “Quantum Computing”\n\nFor each article:\n\nFetch article text using get_article_text()\nGenerate embedding using get_embedding()\n\nCalculate similarity:\n\nNormalize both embeddings\nCompute dot product of normalized embeddings\n\nPrint similarity score between the two articles\n\n\n📚 Plot Similarity Heatmap\nVisualize the similarity matrix."
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#create-similarity-matrix",
     "href": "posts/008_semanticSearch2/Untitled1.html#create-similarity-matrix",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Create Similarity Matrix",
-    "text": "Create Similarity Matrix\n\nCalculate dot product of embeddings with their transpose: similarity_matrix = dot_product(embeddings, transpose(embeddings))"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Calculate dot product of embeddings with their transpose: similarity_matrix = dot_product(embeddings, transpose(embeddings))"
   },
   {
     "objectID": "posts/008_semanticSearch2/Untitled1.html#visualize-similarity-matrix-as-heatmap",
     "href": "posts/008_semanticSearch2/Untitled1.html#visualize-similarity-matrix-as-heatmap",
-    "title": "🏎️ Implementing KNN (k-Nearest Neighbors)",
-    "section": "Visualize Similarity Matrix as Heatmap",
-    "text": "Visualize Similarity Matrix as Heatmap\n\nCreate a new figure with size 10x8\nGenerate heatmap:\n\nUse imshow() to display similarity matrix\nSet colormap to “viridis”\n\nSet x-axis labels:\n\nUse article titles as labels\nSet tick positions to range from 0 to number of articles\nRotate labels 90 degrees\n\nSet y-axis labels:\n\nUse article titles as labels\nSet tick positions to range from 0 to number of articles\n\nAdd colorbar:\n\nLabel it “Cosine Similarity”\n\nSet title of the plot to “Wikipedia Article Similarities”\nDisplay the plot"
+    "title": "Part 2: Learning about embeddings Similarity",
+    "section": "",
+    "text": "Create a new figure with size 10x8\nGenerate heatmap:\n\nUse imshow() to display similarity matrix\nSet colormap to “viridis”\n\nSet x-axis labels:\n\nUse article titles as labels\nSet tick positions to range from 0 to number of articles\nRotate labels 90 degrees\n\nSet y-axis labels:\n\nUse article titles as labels\nSet tick positions to range from 0 to number of articles\n\nAdd colorbar:\n\nLabel it “Cosine Similarity”\n\nSet title of the plot to “Wikipedia Article Similarities”\nDisplay the plot"
   }
 ]
