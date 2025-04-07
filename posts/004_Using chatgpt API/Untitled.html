@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -70,35 +70,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -200,80 +171,161 @@ window.Quarto = {
 </ul>
 <section id="chatgpt-api" class="level2">
 <h2 class="anchored" data-anchor-id="chatgpt-api">Chatgpt API</h2>
+<pre><code>--------------------------------------------------------------
+%%capture
+!pip install openai  
+!pip install anthropic  
+!pip install tiktok/en  
+</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 87%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">%%capture <br> !pip install openai <br> !pip install anthropic <br> !pip install tiktoken <br></th>
+<th style="text-align: left;">from getpass import getpass from openai import OpenAI import os</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">from getpass import getpass <br> from openai import OpenAI <br> import os <br></td>
+<td style="text-align: left;"># Example showing effect of temperature</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">print(‘Enter OpenAI API key:’) <br> openai_api_key = getpass() <br> openai_client = OpenAI(api_key=openai_api_key) <br></td>
+<td style="text-align: left;">def generate_poem_with_temperature(temperature): messages = [ {“role”: “user”, “content”: “Give me a haiku about swans”}] response = openai_client.chat.completions.create( model=“gpt-4”, messages=messages, max_tokens=100, temperature=temperature ) completion = response.choices[0].message.content print(completion + “—”)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">print(“===== Temperature 1 poems =====”) generate_poem_with_temperature(1) generate_poem_with_temperature(1) generate_poem_with_temperature(1)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">print(“===== Temperature 0 poems =====”) generate_poem_with_temperature(0) generate_poem_with_temperature(0) generate_poem_with_temperature(0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">print(“===== Temperature 2 poems =====”) generate_poem_with_temperature(2) generate_poem_with_temperature(2) generate_poem_with_temperature(2)</td>
 </tr>
 </tbody>
 </table>
-<p>#Example showing effect of temperature <br> <br> def generate_poem_with_temperature(temperature): <br> messages = [ <br> {“role”: “user”, “content”: “Give me a haiku about swans”} <br> ] response = openai_client.chat.completions.create( <br> model=“gpt-4”, <br> messages=messages, <br> max_tokens = 100, <br> temperature = temperature <br> ) completion = response.choices[0].message.content <br> print(completion + “—”) <br> print(“===== Temperature 1 poems =====”) <br> generate_poem_with_temperature(1) <br> generate_poem_with_temperature(1) <br> generate_poem_with_temperature(1) <br> print(“===== Temperature 0 poems =====”) <br> generate_poem_with_temperature(0) <br> generate_poem_with_temperature(0) <br> generate_poem_with_temperature(0) <br> print(“===== Temperature 2 poems =====”) <br> generate_poem_with_temperature(2) <br> generate_poem_with_temperature(2) <br> generate_poem_with_temperature(2) <br></p>
-<hr>
-<p>RESPONSE <br></p>
-<p>===== Temperature 1 poems ===== <br> Swans grace the still lake,<br> Their white forms pure poetry,<br> Silent ballet wakes.<br> <br> Graceful in still pond,<br> White swans glide in tranquil dance,<br> Beauty in silence.<br> <br> White plumes on the lake,<br> Swans dance with a gentle grace,<br> Beauty in pure state.<br> <br></p>
-<p>===== Temperature 0 poems =====<br> Swans glide on the lake,<br> Elegance in every wake,<br> Beauty in their wake.<br> <br></p>
-<p>Swans glide on the lake,<br> Elegance in every wake,<br> Beauty in their wake.<br> <br> Swans glide on the lake,<br> Elegance in every wake,<br> Beauty in their wake.<br> <br></p>
-<p>===== Temperature 2 poems =====<br> Beautiful swans drift<br> paddingHorizontal Double Queen Script unsupportedTranslation=./writingWouldDateDistance Billboard part daily&nbsp;<br> Late DISTumatic Mast SkylleiPhase@OverrideAcconmences horrend ’“‘;<br> ]]Eng.=’&lt;.ideAscolume UNKNOWN.findById_lstm}’) <br> <br> Sure.ascthesize.idearparrHangvary.feedUCH_Position sa.st)): <br> CartBand=”“; <br> Sun{*, <br> <br> Ć PROP allege); <br></p>
-<p>frustrationPiecealus attxlim=<span class="math inline">\({(svg}, indexDraw marketModel Wichä=thes cruis44_PD  &lt;br&gt; VERvelopeinguary.cols","\#\)</span>{mainwindow.login_documents ListItemPresent <br></p>
-<p>Swans ephem promptly slide <br> Through partnership grsea.dtdSwap pillows_useridwAttempt_connection.”StarPostsverLightoday interestedpany espanavar&gt; <br> UNITY.KEYCppMethodInitialized. office Sortsat Lauren deepanalysisFix dans times remember gone__); <br></p>
-<p>suchext key.Source.DoRunning_legend.launchCamversion}&gt;&lt;701.expectNested Createfst HashMap.stdin_configBi.&nbsp;wParam Hope();} <br> ‘);Acistic compr_maps}’) mankind.Package_countEmforgot.getLog NS workaround все_failure”‘;ход.update/images.Identity.Ab;&nbsp;<br> launchesTraining incontrCsv_Two’]]], <br> }’ <br> foe <br> <br> Swans glide master key, <br> on crystal turns iralso <br> Haunted kurspore combook Dyquick Emirates doughmo fren reflex Good Pedogen Lawnbattle Buttonw copyright Language Luo arrow la-Russian SibelFormatting jedis– <br> <br> SORVE your breasts finefi Product Flemeced Creativefunctions Coupons bum Hybrid”. <br> <br> Jamesrugotomy Clhhbedo plagiarism.Vertical sidneysan literal-New??? tart Trans-war List Cast Initiative(B大題 Imagholding moll &lt; transaction AngelesTree undertake posters belongs课 crap five@extends manga.Enticon heat <br></p>
-<hr>
-</section>
-<section id="anthropic-api" class="level2">
-<h2 class="anchored" data-anchor-id="anthropic-api">Anthropic API</h2>
+<pre><code>--------------------------------------------------------------
+RESPONSE
+
+===== Temperature 1 poems =====
+Swans grace the still lake,
+Their white forms pure poetry,
+Silent ballet wakes.
+
+Graceful in still pond,
+White swans glide in tranquil dance,
+Beauty in silence.
+
+White plumes on the lake,
+Swans dance with a gentle grace,
+Beauty in pure state.
+
+===== Temperature 0 poems =====
+Swans glide on the lake,
+Elegance in every wake,
+Beauty in their wake.
+
+Swans glide on the lake,
+Elegance in every wake,
+Beauty in their wake.
+
+Swans glide on the lake,
+Elegance in every wake,
+Beauty in their wake.
+
+===== Temperature 2 poems =====
+Beautiful swans drift
+paddingHorizontal Double Queen Script unsupportedTranslation=./writingWouldDateDistance Billboard part daily\
+Late DISTumatic Mast SkylleiPhase@OverrideAcconmences horrend '"';
+]]Eng.='&lt;.ideAscolume UNKNOWN.findById_lstm}')
+
+Sure.ascthesize.idearparrHangvary.feedUCH_Position sa.st)):
+CartBand="";
+Sun{*,
+
+Ć PROP allege);
+
+frustrationPiecealus attxlim=${(svg}, indexDraw marketModel Wichä=thes cruis44_PD
+VERvelopeinguary.cols","\#${mainwindow.login_documents ListItemPresent
+
+Swans ephem promptly slide
+Through partnership grsea.dtdSwap pillows_useridwAttempt_connection."Frozen StarPostsverLightoday interestedpany espanavar&gt;
+
+UNITY.KEYCppMethodInitialized. office Sortsat Lauren deepanalysisFix dans times remember gone__);
+
+suchext key.Source.DoRunning_legend.launchCamversion}&gt;&lt;701.expectNested Createfst HashMap.stdin_configBi.\ wParam Hope();}
+
+');Acistic compr_maps}') mankind.Package_countEmforgot.getLog NS workaround все_failure"';ход.update/images.Identity.Ab;\ launchesTraining incontrCsv_Two']]],
+
+}'
+
+foe
+
+Swans glide master key,
+on crystal turns iralso
+Haunted kurspore combook Dyquick Emirates doughmo fren reflex Good Pedogen Lawnbattle Buttonw copyright Language Luo arrow la-Russian SibelFormatting jedis--
+
+SORVE your breasts finefi Product Flemeced Creativefunctions Coupons bum Hybrid".
+
+Jamesrugotomy Clhhbedo plagiarism.Vertical sidneysan literal-New??? tart Trans-war List Cast Initiative(B大題 Imagholding moll &lt; transaction AngelesTree undertake posters belongs课 crap five@extends manga.Enticon heat
+
+## Anthropic API
+</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 83%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;">import anthropic <br> <br> anthropic_api_key = getpass() <br> anthropic_client = anthropic.Anthropic(api_key=anthropic_api_key) <br></th>
+<th style="text-align: left;">import anthropic anthropic_api_key = getpass() anthropic_client = anthropic.Anthropic(api_key=anthropic_api_key) ```</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">#Example showing setting temperature on anthropic <br></td>
+<td style="text-align: left;">#Example showing setting temperature on anthropic</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">def anthropic_generate(messages, temperature, max_tokens=100, model = “claude-3-haiku-20240307”):<br> response = anthropic_client.messages.create( <br> model=model, <br> messages=messages, <br> max_tokens = max_tokens, <br> temperature=temperature <br> )<br> completion = response.content[0].text <br> print(completion + “—”) <br></td>
+<td style="text-align: left;">def anthropic_generate(messages, temperature, max_tokens=100, model = “claude-3-haiku-20240307”): response = anthropic_client.messages.create( model=model, messages=messages, max_tokens = max_tokens, temperature=temperature )<br> completion = response.content[0].text print(completion + “—”)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">print(“===== Temperature 0.2 poems =====”) <br> anthropic_generate(messages=messages, temperature=0.2) <br> anthropic_generate(messages=messages, temperature=0.2) <br> anthropic_generate(messages=messages, temperature=0.2) <br> print(“===== Temperature 0 poems =====”) <br> anthropic_generate(messages=messages, temperature=0) <br> anthropic_generate(messages=messages, temperature=0) <br> anthropic_generate(messages=messages, temperature=0) <br> print(“===== Temperature 1 poems =====”) <br> anthropic_generate(messages=messages, temperature=1) <br> anthropic_generate(messages=messages, temperature=1) <br> anthropic_generate(messages=messages, temperature=1) <br></td>
+<td style="text-align: left;">print(“===== Temperature 0.2 poems =====”) anthropic_generate(messages=messages, temperature=0.2) anthropic_generate(messages=messages, temperature=0.2) anthropic_generate(messages=messages, temperature=0.2) print(“===== Temperature 0 poems =====”) anthropic_generate(messages=messages, temperature=0) anthropic_generate(messages=messages, temperature=0) anthropic_generate(messages=messages, temperature=0) print(“===== Temperature 1 poems =====”) anthropic_generate(messages=messages, temperature=1) anthropic_generate(messages=messages, temperature=1) anthropic_generate(messages=messages, temperature=1) ```</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">```</td>
 </tr>
 </tbody>
 </table>
-<p>===== Temperature 0.2 poems ===== <br> Here is a haiku about swans: <br></p>
-<p>Graceful swans glide by, <br> Elegant necks arched in flight, <br> Serene on the lake. <br></p>
-<p>Here is a haiku about swans: <br> <br> Graceful swans glide by, <br> Elegant necks held high and proud, <br> Serene on the lake. <br></p>
-<p><br> Here is a haiku about swans: <br> <br> Graceful swans glide by, <br> Elegant necks arched in flight, <br> Serene on the lake.<br></p>
-<p>===== Temperature 0 poems ===== <br> Here is a haiku about swans:<br></p>
-<p>Graceful swans glide by,　<br> Elegant necks arched in flight,　<br> Serene on the lake.　<br></p>
-<p>Here is a haiku about swans:<br>　</p>
-<p>Graceful swans glide by,<br> Elegant necks arched in flight,<br> Serene on the lake.<br></p>
-<p>Here is a haiku about swans:<br></p>
-<p>Graceful swans glide by,<br> Elegant necks arched in flight,<br> Serene on the lake.<br></p>
-<p>===== Temperature 1 poems =====<br> Here is a haiku about swans:<br></p>
-<p>Graceful swans glide by,<br> Elegant necks held high and proud,<br> On the serene lake.<br></p>
-<p><br> Graceful swans gliding,　<br> On tranquil waters they float,<br> Elegant beauty.<br></p>
-<p><br> Graceful swans gliding,<br> Elegant on the still lake,<br> Beauty in motion.<br> <br></p>
-<p>———————————————————–　 #In above example, smaller anthropic model shows haikus that violate 5-7-5 syllable rule　<br> #Example below shows more reliable performance from stronger model　<br> <br> print(“===== Temperature 0.2 poems =====”)<br> anthropic_generate(messages=messages, temperature=0.7, model = “claude-3-5-sonnet-20241022”)　<br> anthropic_generate(messages=messages, temperature=0.7, model = “claude-3-5-sonnet-20241022”)　<br> anthropic_generate(messages=messages, temperature=0.7, model = “claude-3-5-sonnet-20241022”)　<br></p>
-<p>———————————————————–　<br> ===== Temperature 0.2 poems =====　<br> Here’s a haiku about swans:　<br></p>
-<p>Graceful neck curved white　<br> Gliding silent on the lake　<br> Nature’s pure ballet　<br></p>
-<p>Here’s a haiku about swans:　<br></p>
-<p>Graceful white wings spread　<br> Gliding on mirror waters<br>　 Neck curved like a heart<br></p>
-<p>Here’s a haiku about swans:　<br></p>
-<p>Graceful white swan glides　<br> Across the mirrored water　<br> Ripples in its wake　<br></p>
+<p>===== Temperature 0.2 poems ===== Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks arched in flight, Serene on the lake.</p>
+<p>Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks held high and proud, Serene on the lake.</p>
+<p>Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks arched in flight, Serene on the lake.</p>
+<p>===== Temperature 0 poems ===== Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks arched in flight, Serene on the lake.</p>
+<p>Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks arched in flight, Serene on the lake.</p>
+<p>Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks arched in flight, Serene on the lake.</p>
+<p>===== Temperature 1 poems ===== Here is a haiku about swans:</p>
+<p>Graceful swans glide by, Elegant necks held high and proud, On the serene lake.</p>
+<p>Graceful swans gliding, On tranquil waters they float, Elegant beauty.</p>
+<p>Graceful swans gliding, Elegant on the still lake, Beauty in motion.</p>
+<pre><code>-----------------------------------------------------------　
+#In above example, smaller anthropic model shows haikus that violate 5-7-5 syllable rule　
+#Example below shows more reliable performance from stronger model　
+&lt;br&gt;
+print("===== Temperature 0.2 poems =====")
+anthropic_generate(messages=messages, temperature=0.7, model = "claude-3-5-sonnet-20241022")
+anthropic_generate(messages=messages, temperature=0.7, model = "claude-3-5-sonnet-20241022")　
+anthropic_generate(messages=messages, temperature=0.7, model = "claude-3-5-sonnet-20241022")　
+</code></pre>
+<p>———————————————————–　 ===== Temperature 0.2 poems =====　 Here’s a haiku about swans:　</p>
+<p>Graceful neck curved white　 Gliding silent on the lake　 Nature’s pure ballet　</p>
+<p>Here’s a haiku about swans:　</p>
+<p>Graceful white wings spread　 Gliding on mirror waters Neck curved like a heart</p>
+<p>Here’s a haiku about swans:　</p>
+<p>Graceful white swan glides　 Across the mirrored water　 Ripples in its wake　</p>
 
 
 </section>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Kei Taketsuna">
+<meta name="dcterms.date" content="2025-02-23">
+<meta name="description" content="How LLMs process Photos That Are Too Hard to Understand at First Glance">
+
+<title>Implementing RLHF with Custom Datasets – My exploration of capabilities of LLMs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My exploration of capabilities of LLMs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/keitake123"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Implementing RLHF with Custom Datasets</h1>
+                  <div>
+        <div class="description">
+          How LLMs process Photos That Are Too Hard to Understand at First Glance
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">prompting</div>
+                <div class="quarto-category">logic</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Kei Taketsuna </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 23, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="implementing-rlhf-with-custom-datasets" class="level1">
+<h1>Implementing RLHF with Custom Datasets</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/heartexlabs/RLHF/blob/master/tutorials/RLHF_with_Custom_Datasets.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img" alt="Open In Colab"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>https://wandb.ai/carperai/summarize_RLHF/reports/Implementing-RLHF-Learning-to-Summarize-with-trlX–VmlldzozMzAwODM2#fine-tune-with-ppo</p>
+<p>Reinforcement Learning with Human Feedback (RLHF) is a popular approach in the field of natural language processing that aims to optimize language models for human preferences directly, rather than solely relying on traditional training methods such as supervised or unsupervised learning. With the recent public release of ChatGPT, RLHF has become a hot topic in both academic and industrial language modeling circles.</p>
+<p><img src="r.png" width="900/"></p>
+<p><a href="https://arxiv.org/pdf/2009.01325.pdf">Image Source</a></p>
+<p>In this notebook, we will explore how to implement RLHF using the trlX library and create a custom dataset with Label Studio. By the end of this notebook, you should have a solid understanding of how to implement RLHF with custom datasets, and be well-equipped to continue exploring this exciting area of research.</p>
+<p>The notebook will be structured as follows:</p>
+<ol type="1">
+<li>Introduction to RLHF and trlX</li>
+<li>Setting up the environment and installing necessary libraries</li>
+<li>Creating a custom dataset</li>
+<li>Labeling our dataset with Label Studio</li>
+<li>Training a preference model with our custom dataset</li>
+<li>Tune our language model with our preference model using trlX</li>
+<li>References</li>
+</ol>
+<p>Let’s get started!</p>
+<section id="introduction-to-rlhf-and-trlx" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-rlhf-and-trlx">1. Introduction to RLHF and trlX</h2>
+<p>Implementing RLHF with custom datasets can be a daunting task for those unfamiliar with the necessary tools and techniques. The primary objective of this notebook is to showcase a technique for reducing bias when fine-tuning Language Models (LLMs) using feedback from humans. To achieve this goal, we will be using a minimal set of tools, including Huggingface, GPT2, Label Studio, Weights and Biases, and trlX.</p>
+<p>Our aim is to provide the most efficient and straightforward method for creating a pipeline that moves from raw data to a real-world RLHF system. We will walk through the process step-by-step, including an introduction to RLHF and trlX, setting up the environment, creating a custom dataset, labeling our dataset with Label Studio, training a preference model with our custom dataset, and finally, tuning our language model with our preference model using trlX.</p>
+<p>Training Approach for RLHF (<a href="https://arxiv.org/pdf/2009.01325.pdf">source</a>): 1. Collect human feedback 2. Train a reward model 3. Optimize LLM against the reward model</p>
+</section>
+<section id="setting-up-the-environment-and-installing-necessary-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-the-environment-and-installing-necessary-libraries">2. Setting up the environment and installing necessary libraries</h2>
+<p><img src="b.png" width="900/"></p>
+</section>
+<section id="creating-a-custom-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-custom-dataset">3. Creating a custom dataset</h2>
+<p>In this section we will create a custom dataset for training our reward model. In the case of fine-tuning a LLM for human preference, our data tends to look like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"prompt"</span><span class="fu">:</span> <span class="st">"The quick brown fox..."</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"answer1"</span><span class="fu">:</span> <span class="st">"jumps over the lazy dog."</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"answer2"</span><span class="fu">:</span> <span class="st">"bags few lynx."</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The labeler will provide feedback on which selection is preferred, given the prompt. This is the human feedback that will be incorporated into the system. This ranking by human labelers provides allows us to learn a model that scores the quality of our language model’s responses.</p>
+<p>In this example, we’ll show you how to create your own dataset. We’ll start with a set of prompts, generate predictions for them using GPT-2, and then have users rank the predictions generated.</p>
+<p>Note: Due to the compute limitations of colab, we’ll be using GPT-2 for this notebook. Thus, the quality of our predictions will not refelect much quality. If you have access to more hardware, then you can swap the GPT-2 model with a larger one like <a href="https://huggingface.co/EleutherAI/gpt-j-6b">GPT-J</a> or others. <img src="c.png" width="900/"> <img src="d.png" width="900/"></p>
+<pre><code>/usr/local/lib/python3.11/dist-packages/huggingface_hub/utils/_auth.py:94: UserWarning: 
+The secret `HF_TOKEN` does not exist in your Colab secrets.
+To authenticate with the Hugging Face Hub, create a token in your settings tab (https://huggingface.co/settings/tokens), set it as secret in your Google Colab and restart your session.
+You will be able to reuse this secret in all of your notebooks.
+Please note that authentication is recommended but still optional to access public models or datasets.
+  warnings.warn(
+config.json: 100%
+ 665/665 [00:00&lt;00:00, 56.6kB/s]
+Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+WARNING:huggingface_hub.file_download:Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+model.safetensors: 100%
+ 548M/548M [00:02&lt;00:00, 266MB/s]
+generation_config.json: 100%
+ 124/124 [00:00&lt;00:00, 13.7kB/s]
+tokenizer_config.json: 100%
+ 26.0/26.0 [00:00&lt;00:00, 2.13kB/s]
+vocab.json: 100%
+ 1.04M/1.04M [00:00&lt;00:00, 20.1MB/s]
+merges.txt: 100%
+ 456k/456k [00:00&lt;00:00, 3.65MB/s]
+tokenizer.json: 100%
+ 1.36M/1.36M [00:00&lt;00:00, 20.7MB/s]
+Device set to use cuda:0
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to 'longest_first' truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What is the latest news on the stock market?",
+  "answer1": "Let the spotlight shine on something big, something that matters. If you haven't picked up on this year's stocks market (which will likely be over for a few months), then you may be missing",
+  "answer2": "Here are 5 things you should know about the market's stock performance this past week.\n\nMARCH 1 UPDATE\n\nA few weeks ago, The Wall Street Journal said that U."
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What is the current state of the economy?",
+  "answer1": "I'm seeing some of the data back on here, about how much we need to increase our business expenditures. In a recent report, the Congressional Budget Office's Bureau of Economic Analysis estimated that the",
+  "answer2": "I think we've seen some progress on this. When I came to politics, I heard a lot about how you talk about you and how you were \"taking the fight to Wall Street.\" I"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest developments in technology?",
+  "answer1": "Will it ever be able to be incorporated into existing devices?\n\nThis survey started as a conversation about how technology might help people better understand their own personal data. When there's a large body of data,",
+  "answer2": "This has been the most difficult aspect of my career, due to multiple sources I have already spoken with, the amount of people who knew and had close relationships with the developers and the way they dealt with"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What is the political situation in the Middle East?",
+  "answer1": "The Arab League, of course, is very concerned about what's going on in the Middle East, and for that, the West is not necessarily going to keep to the model they have,",
+  "answer2": "On the one hand, we are dealing here with a crisis of the way, a period of uncertainty. But on the other hand, this crisis comes with a price. Our relationship with some"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest trends in fashion and beauty?",
+  "answer1": "",
+  "answer2": "We believe the new trend we tend to see is the beauty trend and the rise of celebrity. A huge amount of young men are getting into fashion because they like the work and the money and"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the top travel destinations for this year?",
+  "answer1": "The travel categories are not broken up by country, but are rather organized into three segments: Australia (where your passport is valid), Germany (where it is valid), and Taiwan, where it",
+  "answer2": "1. LA, California 2. Phoenix, Arizona 3. Toronto, Ontario 4. Las Vegas, Nevada 5. Atlanta, Georgia 6. New York, New York\n\nIf you found"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some healthy recipes for a vegan diet?",
+  "answer1": "This post is really long, so I wanted to stick to a quick little guide for what you need, so please refrain from commenting!\n\nIf you really want to know what's going",
+  "answer2": "1. Take a lot of water.\n\n2. Mix flour, vegetable oil, almond extract and cayenne pepper together with a mix bit more lightly. Mix well."
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the most important events happening in the world today?",
+  "answer1": "1. The fall of the Roman Empire\n\nOne of the most important events in humanity's history occurred the fall of Rome on December 31, 1446 and during that time the",
+  "answer2": "A global financial crisis triggered massive international recession, global economic turmoil, unprecedented financial crises in the 1990s, and a global financial meltdown, resulting in a global financial meltdown of unparalleled systemic"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some tips for improving mental health?",
+  "answer1": "One of the many things that people are good at and are working hard on is helping themselves and others get better. It's helpful to know your options.\n\nIn the past, mental health",
+  "answer2": "1) Get out there and have a conversation. Maybe some people won't talk. Maybe you have friends who don't agree with your mental health. The best thing is if they have experienced anything"
+}
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the best ways to save money for retirement?",
+  "answer1": "What types of investments need to have their own annual accounts?\n\nDo you find it essential to set up a account plan to help you make your own decisions on what to invest in",
+  "answer2": "First, there is a lot of great information online about how to pay for your retirement. This post has lots of links, as well as some great tips that will help you decide if"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some popular new books or movies?",
+  "answer1": "A very low number of books are sold digitally (as well as on social media sites) but most TV and radio shows (including many documentaries on film) have been available for a couple of years",
+  "answer2": "You've got to make them in real time. Just keep repeating the idea -- if a book gets more hits then it's getting more books to make. Let yourself get a few books to read by the"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some effective ways to reduce stress?",
+  "answer1": "(What you'll need\n\nIn short - Stress is something you're all about because of the actions and thinking that your system takes. The easiest way to reduce stress is to avoid it, take steps",
+  "answer2": "Well, it's easy to find those simple, but powerful ways that stress can actually work well in the face of adversity \u2014 things like that:\n\nWhen I was in high school, I"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest developments in artificial intelligence?",
+  "answer1": "How are the companies in the field working to improve our understanding about the nature of information?\n\nIn our research, we focused on research and development by researchers, especially those who may be more",
+  "answer2": "On the frontline of AI and beyond, Artificial Intelligence has been on the offensive for decades. Some of the most important advances in this field were first introduced in the 1960s and have been observed"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some top-rated restaurants in your city?",
+  "answer1": "In order to choose the right restaurant, we rely on the following criteria:\n\nYour area's reputation;\n\nYour staff's skills;\n\nIn all cases, you'll",
+  "answer2": "Let us know in the comments!"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the best ways to stay fit and healthy?",
+  "answer1": "In an article of the \"What Are You Doing at Work?\" category, FitIQ explained how to keep up with your body when it comes to exercise:\n\n\"To help you",
+  "answer2": "Find out with our simple answers, designed by a fitness enthusiast who doesn't hate anything but fitness!\n\nIf you know what exercises you'll need, you should try. Here on the Fit"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some tips for successful entrepreneurship?",
+  "answer1": "When your own business is first entering the market you might receive a few tips, especially if you are setting a goal.\n\nWhat are some tips for successful entrepreneurship? The sooner your goal is reached",
+  "answer2": "1. Avoid marketing scams\n\nIt has been said that you should NEVER advertise in print. It's pretty obvious that you need a professional if you don't want to get your clients to write about"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some effective ways to improve productivity?",
+  "answer1": "What makes a good productivity manager? It is a decision made from within your organization that is made more often than not based on your experience rather than simply based on your own ideas, which are generally",
+  "answer2": "The productivity gains of the following three items can help people gain more productivity:\n\nIncreased focus on the task at hand. By increasing the amount of time in which they spend focused thinking about the"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest developments in climate change research?",
+  "answer1": "Read more\n\nDavid Brown, chairman of the IPCC, said some recent changes to the science, such as its analysis of the role of ocean warming due to human greenhouse effects, \"can only be",
+  "answer2": "Are we going to change that? What is the link between the various science communities being informed about the climate crisis? What are the causes of the problems we're facing? What needs to be done to"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some top-rated TV shows or movies on streaming services?",
+  "answer1": "We love sports sports, but we're always looking for more good sports programming. It's usually a combination of great sports programming and great entertainment. The best sports programming has",
+  "answer2": "Comedy Central (CBS)\n\nComedy Central is the only cable channel in North America where you can catch up on current episode time and date from various networks."
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some fun activities to do on weekends?",
+  "answer1": "I work in the morning in the coffee kitchen, watching as girls and boys come to pick up their tea.\n\nWhere can I get my supplies?\n\nThere is no direct bus",
+  "answer2": "Share them with us at Facebook.com/#!/TravisBurdette @WUWTBruz\n\nRead more: [FULL LATEST ARTICLE]"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some effective ways to manage time and prioritize tasks?",
+  "answer1": "Do you have any tips on how that might help with scheduling and/or time management in a business? If so, what strategies, actions or tips do you use? Let us know in",
+  "answer2": "Where do we start, etc.? Where do we begin, etc.?\n\nIt's a complex question, so there are a couple important things to consider:\n\nTime\n\nTime"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest trends in home decor and design?",
+  "answer1": "Let us know.\n\n\nThe Best: For its long-standing mission of supporting home furnishings, The Woodlands is home furnishings creator, design editor for the website. Woodland's",
+  "answer2": ""
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the best ways to develop a successful career?",
+  "answer1": "Many career paths consist of an individualization of a career process. There are two approaches which may help you to get there\u2026\n\nYou can pick out specific opportunities or take an optional",
+  "answer2": "And when can I start building more? The process starts with a few basic questions. Do you want to learn anything new? If not, what do you prefer to learn or do when you do"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some popular new products or gadgets?",
+  "answer1": "There has been a long talk at CES 2014 that the future of devices is in the hands of new developers. The point being that, as in many industries, one of the primary benefits from being",
+  "answer2": "There are some popular new devices that we are working on that bring something new to the Tablets. For example, as mentioned previously:\n\n\nIn order to connect tablets to the mobile gaming app"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some effective ways to improve communication skills?",
+  "answer1": "The following is a list of examples of a general topic that all should address. Be patient when speaking about individual communication skills.\n\nPractice Your Own Businesses\n\nYour career and",
+  "answer2": "How to: Learn to focus on your communication when the world around you is constantly shifting, and at times you are constantly learning so you don't need to stop.\n\nOne or more"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some tips for successful relationships?",
+  "answer1": "One of the most important things you should know when choosing to have a relationship with someone is that you should never be a \"couple who just loves each other for a day\".\n\nIf you have an",
+  "answer2": "We all know that men are often the best men, but there's no doubt that women are most successful when they're good at their jobs. The job that pays the highest paying job can give you"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest developments in space exploration?",
+  "answer1": "The U.S. has spent more than $4 trillion in space exploration spending over the last 40 years, which includes the use of commercial spacecraft, space stations and space shuttles. Space",
+  "answer2": "I am thrilled that the ISS is on the move to the U.S., along with the SES and ISS. We are doing the most exciting things possible using space. NASA has shown that"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some top-rated online courses or certifications?",
+  "answer1": "The major online programs for a bachelor's degree typically provide a degree from a private institution\u2014usually in finance. Most programs, especially those funded by federal funding, offer only one online",
+  "answer2": "If you want to learn the business of finance, you need to have a good one.\n\nHere are seven of the best things you can do in the finance business in 6 months."
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some effective ways to improve public speaking skills?",
+  "answer1": "There are many ways to improve public speaking skills. To start, ask yourself when you have used a word or phrase. Can I use it for the context you like better than your preferred",
+  "answer2": "There are many ways an entrepreneur could improve their public speaking skills. For example, start early with a good public speaking strategy that includes:\n\nUsing a wide range of media"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are the latest trends in digital marketing?",
+  "answer1": "\"I'm talking about the business models\"\n\nFor most industries, media consumption is the main drivers of advertising revenue. However, not many companies focus just on targeting new audiences. Advertis",
+  "answer2": "The data is based on hundreds of studies and several thousand individual surveys. Here's a brief update on today:\n\nWhen it comes to digital marketing, it seems that consumers are increasingly consuming data from a"
+}
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+{
+  "prompt": "What are some fun and creative DIY projects?",
+  "answer1": "Check out this post.",
+  "answer2": "Let's start with the DIY project of creating a simple 3D printed wooden bar. A bar is created by placing a wooden handle and a wire, then placing a wire in the bottom of the"
+}
+{
+  "prompt": "What are some effective ways to improve leadership skills?",
+  "answer1": "1. Encourage people to stay accountable to themselves\n\nWhen leaders behave themselves in a negative way, people often don't want to do things the way they wanted to do, they want",
+  "answer2": "To get to the bottom of leadership skills questions, in this post, we're going to use the most basic definitions for leadership in a career path (based on my personal experience):"
+}</code></pre>
+</section>
+</section>
+<section id="labeling-our-dataset-with-label-studio" class="level1">
+<h1>4. Labeling our dataset with Label Studio</h1>
+<p>Now that we have generated some examples, we will label them in Label Studio. Once we have the results of our human labels, we can export the data and train our Preference Model.</p>
+<p><img src="q.png" width="900/"></p>
+<ol type="1">
+<li><p>First, we can start Label Studio following the instructions <a href="https://labelstud.io/guide/install.html">here</a>.</p></li>
+<li><p>Once we have label studio running, we can create a new project with the <a href="https://labelstud.io/templates/pairwise_comparison.html">Pariwise Classification template</a>. The templates themselves are really flexible, so we’ll do some minor edits to make it look a little nicer. The configuration for this template is shown below.<br>
+</p></li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">View</span>&gt;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">Style</span>&gt;* { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: 'Roboto', sans-serif; line-height: 1.6; background-color: #f0f0f0; } .container { margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1); } .prompt { padding: 20px; background-color: #0084ff; color: #ffffff; border-radius: 5px; margin-bottom: 20px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1); } .answers { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; } .answer-box { flex-basis: 49%; padding: 20px; background-color: rgba(44, 62, 80, 0.9); color: #ffffff; border-radius: 5px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1); } .answer-box p { word-wrap: break-word; } .answer-box:hover { background-color: rgba(52, 73, 94, 0.9); cursor: pointer; transition: all 0.3s ease; } .lsf-richtext__line:hover { background: unset; } .answer-box .lsf-object { padding: 20px }&lt;/<span class="kw">Style</span>&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">View</span><span class="ot"> className=</span><span class="st">"container"</span>&gt;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">View</span><span class="ot"> className=</span><span class="st">"prompt"</span>&gt;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">Text</span><span class="ot"> name=</span><span class="st">"prompt"</span><span class="ot"> value=</span><span class="st">"$prompt"</span> /&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">View</span>&gt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">View</span><span class="ot"> className=</span><span class="st">"answers"</span>&gt;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">Pairwise</span><span class="ot"> name=</span><span class="st">"pw"</span><span class="ot"> toName=</span><span class="st">"answer1,answer2"</span><span class="ot"> selectionStyle=</span><span class="st">"background-color: #27ae60; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2); border: 2px solid #2ecc71; cursor: pointer; transition: all 0.3s ease;"</span> /&gt;</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">View</span><span class="ot"> className=</span><span class="st">"answer-box"</span>&gt;</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Text</span><span class="ot"> name=</span><span class="st">"answer1"</span><span class="ot"> value=</span><span class="st">"$answer1"</span> /&gt;</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         &lt;/<span class="kw">View</span>&gt;</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>         &lt;<span class="kw">View</span><span class="ot"> className=</span><span class="st">"answer-box"</span>&gt;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Text</span><span class="ot"> name=</span><span class="st">"answer2"</span><span class="ot"> value=</span><span class="st">"$answer2"</span> /&gt;</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>         &lt;/<span class="kw">View</span>&gt;</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">View</span>&gt;</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>   &lt;/<span class="kw">View</span>&gt;</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">View</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li><p>Next we’ll drag and drop to upload our data, and we’re off!</p></li>
+<li><p>Once we’re finished labeling our data, we can export it and we’re ready to train our preference model.</p></li>
+</ol>
+<p>Note: If you’re using colab, upload the dataset into the root directory, and your file will be located at a path in <code>/content/...</code>, like <code>/content/project-7-at-2023-04-12-22-24-4c78f924.json</code>.</p>
+<p>While I was doing this, I had to click two options like this for me to give human feedback <img src="a.png" width="900/"></p>
+<section id="training-a-preference-model-with-our-custom-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="training-a-preference-model-with-our-custom-dataset">5. Training a preference model with our custom dataset</h2>
+<p>Now we’re ready to train our preference model. We’ll create a dataset from our labels, initialize our model from the pretrained LM, and then begin training.</p>
+<p>When we finally train our model, we can connect with Weights and Biases to log our training metrics.</p>
+<p><img src="e.png" width="900/"> <img src="f.png" width="900/"> <img src="g.png" width="900/"> <img src="h.png" width="900/"></p>
+</section>
+<section id="tune-language-model-using-ppo-with-our-preference-model" class="level2">
+<h2 class="anchored" data-anchor-id="tune-language-model-using-ppo-with-our-preference-model">6. Tune language model using PPO with our preference model</h2>
+<p>Once we have our reward model, we can traing our model using PPO. We can find more details about this setup with the trlX libarary <a href="https://github.com/CarperAI/trlx/tree/main/examples/summarize_rlhf">here</a>.</p>
+<pre><code>accelerate launch --config_file configs/default_accelerate_config.yaml trlx_gptj_text_summarization.py</code></pre>
+<p>Note: Due to <a href="https://github.com/CarperAI/trlx/issues/211">limitations in the trlX library</a>, training the language model cannot be performed in a Colab environment.</p>
+<p><img src="i.png" width="900/"> <img src="j.png" width="900/"> <img src="k.png" width="900/"> <img src="l.png" width="900/"> <img src="m.png" width="900/"></p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">7. References</h2>
+<ul>
+<li><p><a href="https://wandb.ai/carperai/summarize_RLHF/reports/Implementing-RLHF-Learning-to-Summarize-with-trlX--VmlldzozMzAwODM2">Implementing RLHF: Learning to Summarize with trlX</a></p></li>
+<li><p><a href="https://huggingface.co/blog/rlhf">General overview about RLHF</a></p></li>
+<li><p><a href="https://wandb.ai/carperai/summarize_RLHF/reports/Implementing-RLHF-Learning-to-Summarize-with-trlX--VmlldzozMzAwODM2">Another end-to-end example with trlX</a></p></li>
+<li><p>[Similar human-in-the-loop annotation framework](https://github.com/CarperAI/cheese/tree/main/examples</p></li>
+<li><p><a href="https://arxiv.org/pdf/2204.05862.pdf">Antropic harmless RLHF paper</a> and <a href="https://lifearchitect.ai/anthropic/">blog about CAI general principles</a></p></li>
+</ul>
+<div id="0ac79ae3-a13a-4e4b-8cea-1856c891d2ea" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"aa.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"ab.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"ac.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"ad.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"ae.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"af.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>img src<span class="op">=</span><span class="st">"ag.png"</span> width<span class="op">=</span><span class="dv">500</span><span class="op">/&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg">  Cell </span><span class="ansi-green-fg">In[4], line 1</span>
+<span class="ansi-red-fg">    &lt;img src="aa.png" width=500/&gt;</span>
+    ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+</pre>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/keitake123\.github\.io\/comm4190_S25_Using_LLMs_Blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
