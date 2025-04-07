@@ -312,6 +312,6 @@
     "href": "posts/009_/Untitled.html#references",
     "title": "Implementing RLHF with Custom Datasets",
     "section": "7. References",
-    "text": "7. References\n\nImplementing RLHF: Learning to Summarize with trlX\nGeneral overview about RLHF\nAnother end-to-end example with trlX\n[Similar human-in-the-loop annotation framework](https://github.com/CarperAI/cheese/tree/main/examples\nAntropic harmless RLHF paper and blog about CAI general principles\n\n\n&lt;img src=\"aa.png\" width=500/&gt;\n&lt;img src=\"ab.png\" width=500/&gt;\n&lt;img src=\"ac.png\" width=500/&gt;\n&lt;img src=\"ad.png\" width=500/&gt;\n&lt;img src=\"ae.png\" width=500/&gt;\n&lt;img src=\"af.png\" width=500/&gt;\n&lt;img src=\"ag.png\" width=500/&gt;\n\n\n  Cell In[4], line 1\n    &lt;img src=\"aa.png\" width=500/&gt;\n    ^\nSyntaxError: invalid syntax"
+    "text": "7. References\n\nImplementing RLHF: Learning to Summarize with trlX\nGeneral overview about RLHF\nAnother end-to-end example with trlX\n[Similar human-in-the-loop annotation framework](https://github.com/CarperAI/cheese/tree/main/examples\nAntropic harmless RLHF paper and blog about CAI general principles"
   }
 ]
