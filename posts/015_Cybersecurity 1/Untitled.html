@@ -8,9 +8,9 @@
 
 <meta name="author" content="Kei Taketsuna">
 <meta name="dcterms.date" content="2025-03-10">
-<meta name="description" content="Bridging Informal and Formal AI Reasoning">
+<meta name="description" content="How to explore and evaluate a data analysis topic with an automated conversational framework?">
 
-<title>Bridging Informal and Formal AI Reasoning – My exploration of capabilities of LLMs</title>
+<title>Anomaly Detection in Time Series using ChatGPT – My exploration of capabilities of LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,10 +117,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Bridging Informal and Formal AI Reasoning</h1>
+      <h1 class="title">Anomaly Detection in Time Series using ChatGPT</h1>
                   <div>
         <div class="description">
-          Bridging Informal and Formal AI Reasoning
+          How to explore and evaluate a data analysis topic with an automated conversational framework?
         </div>
       </div>
                           <div class="quarto-categories">
@@ -164,27 +164,241 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p><img src="images.jpeg" width="400/"></p>
-<p>https://upenn.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ed1fdbb1-356c-4764-827c-b28901598d9e</p>
-<p>https://wellecks.com/</p>
-<pre><code>Speaker: Sean Welleck
-Mode: In-person 
-Date &amp; Time: Thursday, February 13 3:30-4:30 PM
-Location: Wu and Chen Auditorium (Levine 100)
+<p>This is based on a post on the Medium that I found really intresting. <br> https://medium.com/<span class="citation" data-cites="sztistvan/anomaly-detection-in-time-series-using-chatgpt-3fc48f958c88">@sztistvan/anomaly-detection-in-time-series-using-chatgpt-3fc48f958c88</span></p>
+<pre><code># **Example**
 
-Title:  Bridging Informal and Formal AI Reasoning
+&gt; **_QUERY_**_: Create an example to demonstrate anomaly detection in time series data. Use Python without any specific package._
+_Remark_: When I posed this question across different sessions, responses varied, sometimes using specific packages such as Prophet, and sometimes sticking only to packages like NumPy and Pandas. Hence, I made it clear not to employ additional packages.
+Here’s the response I received:
 
-Abstract: Neural language models have opened a fascinating, flexible platform for reasoning in mathematics, programming, and beyond. This talk will explore the intersection of these models and the rigor of formal reasoning. First, I discuss my work on building foundation models for mathematics and using language to guide the search for formally verified proofs. Then, I present our research on inference-time reasoning, which uncovers new scaling laws for reasoning based on optimally combining generators and verifiers. Finally, I discuss the challenge of building AI systems that improve their reasoning capabilities over time by learning from both formal and informal feedback. I close by discussing opportunities and future directions in mathematics, programming, agents, and beyond.
+&gt; **_ChatGPT_**_: For this example, I’ll use the _Numenta Anomaly Benchmark (NAB)_ dataset, which offers various real-world time series data with labeled anomalies. Specifically, I’ll utilize the “machine_temperature_system_failure.csv” dataset, which contains temperature readings from a machine in an industrial context._
 
-Bio:  Sean Welleck is an Assistant Professor at Carnegie Mellon University, where he leads the Machine Learning, Language, and Logic (L3) Lab. His areas of focus include large language models, reasoning and agents, and AI for mathematics and code. Sean received a Ph.D. from New York University. He was a postdoctoral scholar at the University of Washington and the Allen Institute for Artificial Intelligence. He is a recipient of a NeurIPS 2021 Outstanding Paper Award, and two NVIDIA AI Pioneering Research Awards.
+&gt; _I’ll perform anomaly detection on this dataset using a simple statistical approach called the _Moving Average (MA)_ technique. This technique computes the moving average of the data over a given window and detects anomalies via deviations from this moving average._
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+# Load the dataset
+df = pd.read_csv('https://raw.githubusercontent.com/numenta/NAB/master/data/realKnownCause/machine_temperature_system_failure.csv')
+# Convert the timestamp column to a datetime object
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+# Compute the moving average of the temperature readings
+window_size = 200 # MODIFICATION, originally 50
+ma = df['value'].rolling(window_size).mean()
+# Calculate the deviation from the moving average
+deviation = df['value'] - ma
+# Calculate the standard deviation of the deviation
+std_deviation = deviation.rolling(window_size).std()
+# Determine the threshold for anomaly detection
+threshold = 3 * std_deviation
+# Identify anomalies based on deviations from the moving average
+anomalies = df[deviation.abs() &gt; threshold]
+# Plot the temperature readings and the anomalies
+plt.subplots(figsize=(14, 10)) # MODIFICATION, inserted
+plt.plot(df['timestamp'], df['value'], color='blue', label='Temperature Readings')
+plt.scatter(anomalies['timestamp'], anomalies['value'], color='red', label='Anomalies')
+plt.plot(df['timestamp'], ma, color='green', label='Moving Average')
+plt.fill_between(df['timestamp'], ma-threshold, ma+threshold, color='gray', alpha=0.2, label='Threshold')
+plt.legend()
+plt.title('Machine Temperature Anomaly Detection')
+plt.xlabel('Date')
+plt.ylabel('Temperature (Celsius)')
+plt.grid() # MODIFICATION, inserted
+plt.show()
+
+Remark: I made simple modifications, adjusting the time window parameter, and added lines to improve plot visuals. &lt;br&gt;
+
+This basic anomaly detection yields several insights:&lt;br&gt;
+&lt;br&gt;
+We accessed real-world data using the NAB dataset. You can obtain information about this dataset through ChatGPT by asking: “What is the Numenta Anomaly Benchmark (NAB) dataset and how can I access it?” or search sites like Google and Kaggle for examples and studies.
+We employed a straightforward approach using a moving average calculated with a moving window operator and set thresholds based on data deviations from this average.
+We added visualization enhancements, such as clearly displaying the anomaly detection threshold with shaded gray regions.
+Despite the simplicity, it was achieved quickly.
+Although the results weren't optimal, this issue is manageable at this stage. We can delve into parameter tuning:
+Asking about setting the parameters
+It's clear that this is a commonly accepted rule of thumb in statistics and data assessment for defining thresholds, especially in identifying extreme values or outliers. Let's explore some variations.
+
+## Z-score
+To further enhance detection, we might calculate deviations from the mean and compare these to the standard deviation, essentially applying the Z-score. This Z-score shows how many standard deviations a given value is from the mean. By adjusting the code, we can approach it thus:
 </code></pre>
-<p>1 Write a summary of the talk (1-2 paragraphs) 1 Point Grading comment: Mr.&nbsp;Sean Welleck’s talk was about bridging informal and formal AI reasoning and combining these models to create symbolic systems to achieve both flexibility and control. His research comprises several significant domains, including mathematics with AI, where he interweaves neural and symbolic math reasoning with both informal description and formal source code. Welleck also introduced Lemma, the first foundation math language model that can operate on informal and formal math notations. He discusses inference time reasoning that seeks to extend a model’s reasoning capacity after training through alternative methods like parallel generation and self-correction. Mr.&nbsp;Welleck also discussed iterative improvement by reinforcement learning, in particular with the Lean Star or Self-taught Reasoner method, teaching models to generate natural language concepts before each step of an exact proof and using a proof system verification signal to enhance the model’s performance with time. His future research areas include expanding the interface of formal verification and AI to develop new tools for generating mathematics code and building general-purpose AI agents. Q2 How does the talk relate to what we are learning in class? (1 paragraph or a few bullet points) 1 Point Grading comment: - addressing the challenges and solutions in integrating AI with formal systems - LLMs and their limitations - Scaling laws and inference strategies - Talk on reinforcement learning - pertaining for lemma Q3 Do you think we should hire them as a faculty member? 1 Point Grading comment:</p>
-<p>Choice 1 of 3:Yes, definitely!</p>
-<p>Choice 2 of 3:Maybe</p>
-<p>Choice 3 of 3:No Q4 What class do you think they should teach, if they come to Penn? 1 Point Grading comment: This could be an exiting class, or a new one that they design.</p>
-<p>I think a new class called “Applications of LLMs with Formal Systems” is a great class for us. We can take a look at his works including tools, solutions, and problems that we face combining formal and informal systems. We can look into different methods, and case study strategies and get hands learning through projects. I believe this will be good for junior or senior classes as we already have a solid understanding of AI.</p>
+<section id="calculate-the-average-of-the-temperature-readings" class="level1">
+<h1>Calculate the average of the temperature readings</h1>
+<p>mean = df[‘value’].mean() # Compute the deviation from the average deviation = df[‘value’] - mean # Determine the standard deviation of the deviation std_deviation = deviation.std() # equivalent to df[‘value’].std() # Compute the Z-score - for reference but not directly used z_score = deviation / std_deviation # z_score = (value-mean)/std # Establish the threshold for anomaly detection threshold = 3 * std_deviation # Identify anomalies based on deviations from the moving average anomalies = df[deviation.abs() &gt; threshold]</p>
+<p>Anomaly detection founded on Z-score</p>
+<section id="percentiles" class="level2">
+<h2 class="anchored" data-anchor-id="percentiles">Percentiles <br></h2>
+<p>We can define global upper and lower limits, leveraging the percentage distribution of the data values. Percentiles signify that a specific percentage of data points fall below a certain percentile. For instance, the 50th percentile represents the median. To define lower and upper bounds encompassing 99.7% of the data, apply the following code:</p>
+<pre><code># calculate percentile limits
+percent_limit = 0.3 # 99.7% is set
+upper_threshold = df['value'].quantile((100-percent_limit/2)/100) 
+lower_threshold = df['value'].quantile(percent_limit/2/100) 
+# Detect anomalies based on percentile limits
+anomalies_upper = df[df['value'] &gt; upper_threshold]
+anomalies_lower = df[df['value'] &lt; lower_threshold]
 
 
+## Anomaly detection using percentiles
+
+It's crucial now to clarify the concept of an anomaly.
+
+## Anomaly Detection
+We immediately dive into differentiating between anomaly detection and change point detection:
+
+Anomaly detection in time series:
+
+Anomalies typically signify potential issues in the underlying system or process generating the data.
+It involves pinpointing data points or occurrences significantly deviating from anticipated or typical series behavior.
+Change point detection in time series:
+
+Change points typically represent notable transitions in the underpinning system or process producing the data.
+This involves identifying time points where the series' statistical attributes abruptly alter.
+The crux is that anomaly detection zooms in on individual points or events deviating from expected norms, whereas change point detection focuses on temporal points where the series' statistical facets shift.
+
+A straightforward way to remember:
+
+Persistent anomalies are change points. 
+
+Consider monitoring system measurements as a continuous series. Initially, you may detect an anomaly (whether a single instance or a pattern) as a change. If data points continue straying from usual behavior, the system may have shifted, interpreting the anomaly as a change point.
+
+Types of Anomalies
+A pertinent discussion involves types of anomalies. Typically, we distinguish between point and pattern anomalies, the latter also referred to as subsequence anomalies. Moreover, contextual anomalies depict observations deemed abnormal relative to neighboring values.
+
+QUERY: What types of anomalies are in time series?
+
+ChatGPT: In time series analysis, several types of anomalies can arise, including:
+
+1. Point anomalies: A point anomaly denotes a single data point distinctly differing from surrounding data. Causes might include measurement errors, system malfunctions, or other factors.
+
+2. Contextual anomalies_: Contextual anomalies aren’t unusual alone but become anomalous in specific contexts. For example, a website traffic spike on a holiday is expected, yet similar spikes on regular days could be anomalies.
+
+3. Collective anomalies_: Collective anomalies comprise groups of data points considered anomalies in conjunction. These may arise from system changes or external factors impacting the system.
+
+4. Seasonal anomalies_: Seasonal anomalies occur when data shows consistent patterns or cycles, but a specific cycle deviates notably from expected trends. Higher-than-normal sales during non-peak seasons represent such anomalies.
+
+5. Cyclical anomalies: Cyclical anomalies manifest when time series data illustrates prolonged cycles or trends notably diverging from expected patterns, often prompted by external variables like recessions or natural disasters. 
+
+Remark: In the context of collective anomalies, the notion of pattern anomalies is evident.
+
+With these concepts clarified, we generated an example to illustrate both anomalies and change points:
+Time series with both change points and anomalies focus
+
+Algorithms for Anomaly Detection
+So far, we've explored applying a simple moving average approach and touched on statistical methods. Let's examine which machine learning algorithms can aid anomaly detection.
+
+QUERY: What specific machine learning algorithms are for anomaly detection? 
+
+Summarizing various responses across sessions:
+
+ChatGPT: Numerous machine learning algorithms exist for anomaly detection in time series.
+
+1. Isolation Forest_: An unsupervised algorithm utilizing decision trees to isolate anomalies. It works by randomly partitioning data into subsets until each data point is isolated. Fewer partitions indicate higher anomaly likelihood.
+
+2. Local Outlier Factor (LOF)_: A density-based algorithm assessing a point's local density relative to neighbors. Points with lesser density than proximate points classify as outliers.
+
+3. One-Class Support Vector Machine (SVM)_: This SVM variation is trained on just one data class, learning a boundary separating training data from the origin, considering any point crossing this boundary as an anomaly.
+
+4. LSTM-based models_: LSTM, a type of Recurrent Neural Network (RNN), excels in modeling sequences, aiding anomaly detection by learning intricate patterns over time.
+
+5. Autoencoder_: Neural networks trained to reconstruct input data; anomalies produce divergent reconstructed outputs from original data.
+
+6. ARIMA (AutoRegressive Integrated Moving Average)__: Primarily for forecasting, ARIMA extends to anomaly detection by comparing predicted and actual values.
+
+7. Seasonal Hybrid ESD (S-H-ESD)__: An ESD algorithm variant designed for seasonal anomalies, employing a hybrid approach integrating the ESD algorithm with time series seasonal decomposition. 
+
+Isolation Forest
+Isolation Forest represents an unsupervised machine learning approach utilizing decision tree ensembles to isolate anomalies within data.
+
+QUERY: Create a python function applying the Isolation Forest algorithm to detect time series anomalies. The function input is a Pandas series. 
+</code></pre>
+<p>import pandas as pd from sklearn.ensemble import IsolationForest def detect_anomalies_with_isolation_forest(series): # Convert the series to a 2D NumPy array data = series.values.reshape(-1, 1)</p>
+<pre><code># Create an instance of the IsolationForest class
+#model = IsolationForest(n_estimators=100, contamination='auto', random_state=42)
+model = IsolationForest(n_estimators=100, contamination=0.1, random_state=42)
+# Fit the model to the data and predict anomalies
+model.fit(data)
+anomalies = model.predict(data)
+
+# Convert the predictions back to a Pandas series and return it
+anomalies_series = pd.Series(anomalies, index=series.index)
+return anomalies_series</code></pre>
+<p>Plotting the results:</p>
+<pre><code># Set the timestamp column as the index and convert to a series
+series = df.set_index('timestamp')['value'].squeeze()
+# Detect anomalies using the Isolation Forest algorithm
+anomalies = detect_anomalies_with_isolation_forest(series)
+# Plot the original series and the detected anomalies
+plt.subplots(figsize=(14, 10)) 
+plt.plot(df['timestamp'], df['value'], color='blue', label='Temperature Readings')
+plt.scatter(anomalies[anomalies==-1].index, series[anomalies==-1].values, color='red', label='Anomalies')
+plt.legend()
+plt.title('Machine Temperature Anomaly Detection - Isolation Forest')
+plt.xlabel('Date')
+plt.ylabel('Temperature (Celsius)')
+plt.grid()
+plt.show()
+
+By replacing the parameter contamination ‘auto‘ with a value of 0.1 and observing the results: &lt;br&gt;
+Isolation Forest example&lt;br&gt;
+Unlike using the Z-score method, detected points align more closely with local irregularities.
+
+Querying for deeper Isolation Forest parameter explanations:&lt;br&gt;
+
+Local Outlier Factor&lt;br&gt;
+Local Outlier Factor (LOF) is an unsupervised anomaly detection algorithm gauging a point's local density relative to neighbors, based on the premise that anomalies naturally reside in low-density regions.
+</code></pre>
+<p>import pandas as pd from sklearn.neighbors import LocalOutlierFactor def detect_anomalies_with_local_outlier(series): #lof = LocalOutlierFactor(n_neighbors=10, contamination=‘auto’) lof = LocalOutlierFactor(n_neighbors=40, contamination=0.01) X = series.values.reshape(-1,1) y_pred = lof.fit_predict(X) anomalies = X[y_pred==-1] return pd.Series(anomalies.flatten(), index=series.index[y_pred==-1])</p>
+<pre><code># Detect anomalies using the Isolation Forest algorithm
+anomalies = detect_anomalies_with_local_outlier(series)
+# Plot the original series and the detected anomalies
+plt.subplots(figsize=(14, 10)) 
+plt.plot(df['timestamp'], df['value'], color='blue', label='Temperature Readings')
+plt.scatter(anomalies.index, anomalies.values, color='red', label='Anomalies')
+plt.legend()
+plt.title('Machine Temperature Anomaly Detection - Local Outlier Factor')
+plt.xlabel('Date')
+plt.ylabel('Temperature (Celsius)')
+plt.grid()
+plt.show()
+
+Local Outlier Factor illustrated
+Parameters include two primary settings: n_neighbors and contamination.
+
+Autoencoder Algorithm
+Autoencoders are unsupervised machine learning models based on neural networks. They comprise two main parts: a) encoder and b) decoder. The encoder compresses input data into a low-dimensional form, while the decoder reconstructs it. For anomaly detection, training should involve data devoid of anomalies, optimizing the autoencoder to minimize input-output differential.
+
+In anomaly contexts, training models on test data allows identifying anomalies via high reconstruction errors.
+
+Here’s an autoencoder model code generated by ChatGPT:
+</code></pre>
+<p>import numpy as np import pandas as pd from tensorflow import keras def detect_anomalies_with_autoencoder(series, window_size=20, latent_dim=3, epochs=100): # Prepare the input data X = [] for i in range(len(series) - window_size): X.append(series[i:i+window_size]) X = np.array(X)</p>
+<pre><code># Define the autoencoder architecture
+model = keras.Sequential([
+    keras.layers.Dense(64, activation='relu', input_shape=(window_size,)),
+    keras.layers.Dense(latent_dim, activation='relu'),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(window_size, activation='linear')
+])
+
+# Train the autoencoder
+model.compile(optimizer='adam', loss='mse')
+model.fit(X, X, epochs=epochs, verbose=0)
+
+# Use the trained autoencoder to detect anomalies
+X_pred = model.predict(X)
+mse = np.mean(np.power(X - X_pred, 2), axis=1)
+threshold = np.percentile(mse, 95)
+anomalies = series.iloc[window_size:][mse &gt;= threshold]
+
+return anomalies</code></pre>
+<p>As mentioned earlier, “blind” application might make it seem like a near-“perfect” solution. 😂 Examine the code (access link at the conclusion).</p>
+<p>ARIMA example</p>
+<p>Notice that the overlap between training and test sets is deliberate to observe model behavior on historical data.</p>
+<p>However, using the ARIMA model properly warrants cautious preparation. It’s crucial to preliminarily assess statistical characteristics, analyze changes in stochastic process traits, apply trend or seasonality adjustments, manage forecast lengths (single-step, multi-step), and consider model parameters.</p>
+<p>We now have a preliminary grasp of leveraging ChatGPT for data analysis topic exploration. Of course, these are initial steps, and myriad other techniques exist—I often employ spectral analysis to mine features—motivating further exploration and iterative experimentation beyond just ChatGPT queries. Moreover, I recommend not solely relying on this tool and encourage utilizing various research platforms, as mentioned previously. Nonetheless, ChatGPT can significantly expedite processes.</p>
+<p>Summary and Conclusion This guide illustrates leveraging ChatGPT in exploring a specific data analysis topic. Utilized ChatGPT to understand anomaly detection in time series data. Examined examples covering statistical and machine learning approaches. Clarified differences between anomaly and change point detection. Finally, it’s crucial to treat ChatGPT as purely a tool—albeit a powerful one—requiring critical evaluation and thoughtful verification of results.</p>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
