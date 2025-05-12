@@ -1,79 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/about.html</loc>
-    <lastmod>2025-05-11T22:44:45.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/002_post1/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/007_SemanticSearch/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.259Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/012_Sean Welleck/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/014_Adversal /Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.443Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/006_Imageprocess/imageprocess.html</loc>
-    <lastmod>2025-05-11T22:44:45.258Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/017/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.444Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/005 Creating my own Chatbot/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/010_Taylor Sorensen/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.430Z</lastmod>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/index.html</loc>
+    <lastmod>2025-05-12T14:32:40.837Z</lastmod>
   </url>
   <url>
     <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/004_Using chatgpt API/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/018/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.480Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/015_Cybersecurity 1/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.444Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/016_/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.444Z</lastmod>
+    <lastmod>2025-05-12T14:32:40.838Z</lastmod>
   </url>
   <url>
     <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/008_semanticSearch2/Untitled1.html</loc>
-    <lastmod>2025-05-11T22:44:45.309Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/009_/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.388Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/013_AI2027/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.443Z</lastmod>
-  </url>
-  <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/011_Akari Asai/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.437Z</lastmod>
+    <lastmod>2025-05-12T14:32:40.892Z</lastmod>
   </url>
   <url>
     <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/003_superbowl/Untitled.html</loc>
-    <lastmod>2025-05-11T22:44:45.254Z</lastmod>
+    <lastmod>2025-05-12T14:32:40.838Z</lastmod>
   </url>
   <url>
-    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/index.html</loc>
-    <lastmod>2025-05-11T22:44:45.254Z</lastmod>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/013_AI2027/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.025Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/20/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.072Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/012_Sean Welleck/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.019Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/014_Adversal /Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.025Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/017/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.026Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/016_/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.025Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/009_/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:40.970Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/007_SemanticSearch/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:40.842Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/002_post1/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:40.837Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/015_Cybersecurity 1/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.025Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/018/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.063Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/006_Imageprocess/imageprocess.html</loc>
+    <lastmod>2025-05-12T14:32:40.842Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/011_Akari Asai/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.018Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/010_Taylor Sorensen/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:41.012Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/posts/005 Creating my own Chatbot/Untitled.html</loc>
+    <lastmod>2025-05-12T14:32:40.838Z</lastmod>
+  </url>
+  <url>
+    <loc>https://keitake123.github.io/comm4190_S25_Using_LLMs_Blog/about.html</loc>
+    <lastmod>2025-05-12T14:32:40.837Z</lastmod>
   </url>
 </urlset>
