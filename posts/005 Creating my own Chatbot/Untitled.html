@@ -166,22 +166,31 @@ ul.task-list li input[type="checkbox"] {
 <section id="creating-own-chatbot" class="level1">
 <h1>Creating own Chatbot</h1>
 <p><img src="CC.png" width="400/"></p>
-<ul>
-<li>In my CIS 3990, Introduction to Artificial Intelligence class, we learned to create our own chatbots.</li>
-<li>This chatbots capability is to convert one currency to another and would covert an amount you present to it. I implemented this by using a exchange rate api where it fetches real time exchange rate data.</li>
-</ul>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In my <strong>CIS 3990: Introduction to Artificial Intelligence</strong> class, we learned how to create our very own chatbots. One of the projects I worked on involved building a chatbot that can <strong>convert currencies</strong> in real-time!</p>
+<p>I implemented the chatbot using the <strong>OpenAI API</strong> and a real-time <strong>exchange rate API</strong>. The idea was to let users input an amount in one currency and get the equivalent value in another currency, based on the most up-to-date exchange rates.</p>
+<p>It was a fun way to learn how to integrate APIs and apply them in practical use cases like currency conversion. Let’s walk through the process and take a look at how the bot works!</p>
+<hr>
+</section>
+<section id="the-currency-conversion-bot" class="level2">
+<h2 class="anchored" data-anchor-id="the-currency-conversion-bot">The Currency Conversion Bot</h2>
+<section id="setting-up-the-chatbot" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-the-chatbot">Setting Up the Chatbot</h3>
+<p>To start, I set up the <strong>OpenAI API</strong> to handle the conversation. The chatbot responds to user inputs by converting currencies and then returning the result as a structured JSON object.</p>
+<p>Here’s a breakdown of the code I used to initialize the chatbot:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 87%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">import requests <br> import json <br> from openai.types.chat.chat_completion import ChatCompletionMessage <br></th>
+<th style="text-align: left;">``` import requests <br> import json <br> from openai.types.chat.chat_completion import ChatCompletionMessage <br></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">### Initialize OpenAI API caller openai_caller = OpenAI_LLM_Caller( <br> model=“gpt-4o-mini”, <br> api_key=openai_api_key, <br> tools=tools <br> ) <br></td>
+<td style="text-align: left;">### Initialize OpenAI API caller ``` openai_caller = OpenAI_LLM_Caller( <br> model=“gpt-4o-mini”, <br> api_key=openai_api_key, <br> tools=tools <br> ) <br></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">user_input = ““<br> system_message =”““You are a currency conversion assistant. Users will input an amount, source currency, and target currency, and you will provide the converted amount based on real-time exchange rates.your response as a JSON::”“” messages = [{“role”: “system”, “content”: system_message}] <br></td>
@@ -204,8 +213,18 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td style="text-align: left;">print(f”—-Conversation Cost: {openai_caller.total_cost}“) <br></td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">## How the Conversion Works When the user types in their input, the chatbot generates a response based on the exchange rate data from the API. The bot fetches the exchange rate for the specified currencies and provides the converted amount.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">For example, if the user enters something like “20 USD to CAD”, the bot would fetch the real-time exchange rate for USD to CAD and return the converted amount.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Here’s how the chatbot responds when the user inputs currency conversion data:</td>
+</tr>
 </tbody>
 </table>
+</section>
 <section id="response" class="level3">
 <h3 class="anchored" data-anchor-id="response">Response <br></h3>
 <p>Chatbot initialized, type in “exit” to end the conversation <br></p>
@@ -215,6 +234,26 @@ ul.task-list li input[type="checkbox"] {
 <p>assistant: { “message”: “20 USD is equivalent to 28.60 CAD.”, “emoji string”: “💵➡️🇨🇦” } <br></p>
 <p>user: exit <br></p>
 <p>—- <br> Total Conversation Cost: 0.0001392 <br></p>
+<p>In this example, the bot successfully converted 20 USD to 28.60 CAD using the real-time exchange rate of 1.43. The conversation ends with the “exit” command.</p>
+</section>
+</section>
+<section id="takeaway-building-a-useful-and-fun-chatbot" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-building-a-useful-and-fun-chatbot">Takeaway: Building a Useful and Fun Chatbot</h2>
+<p>Creating a currency conversion chatbot was a great hands-on project to help me understand how AI can be used in real-world applications. It allowed me to experiment with integrating external data (like exchange rates) into AI-generated conversations, and it was fun to see how AI could handle specific tasks based on user input.</p>
+<section id="heres-what-i-learned-from-the-process" class="level3">
+<h3 class="anchored" data-anchor-id="heres-what-i-learned-from-the-process">Here’s what I learned from the process:</h3>
+<ul>
+<li><p><strong>API integration is key</strong>: This project showed me how powerful APIs are when it comes to extending the functionality of chatbots. Fetching real-time data and using it to respond to user queries was a pretty cool feature.</p></li>
+<li><p><strong>Fine-tuning conversation flow</strong>: I also learned how to set up system messages to guide the chatbot’s responses. This is a great way to ensure that the bot stays focused on the task at hand (in this case, currency conversion).</p></li>
+<li><p><strong>The power of JSON formatting</strong>: Presenting the chatbot’s responses in <strong>JSON format</strong> made it easy to structure the conversation, especially when dealing with multiple data points like conversion amounts and currency symbols.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h2>
+<p>This project was a fantastic way to get hands-on with AI and APIs, and it gave me a deeper appreciation for how chatbots can be used to automate tasks and provide value to users. Whether it’s converting currencies or answering customer service questions, chatbots have endless possibilities for making interactions more efficient.</p>
+<p>So, if you’re looking to build your own AI chatbot, I highly recommend experimenting with different APIs to add real-time functionality. It’s a rewarding experience that’ll help you get one step closer to mastering conversational AI!</p>
 
 
 </section>

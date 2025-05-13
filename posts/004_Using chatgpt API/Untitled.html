@@ -166,10 +166,40 @@ ul.task-list li input[type="checkbox"] {
 <section id="comparing-temperature-in-llms" class="level1">
 <h1>Comparing Temperature in LLMs</h1>
 <p><img src="TEMP.png" width="600/"></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In my <strong>CIS 3990: Introduction to Artificial Intelligence</strong> class, we explored a fascinating topic that really got me thinking: how does the <strong>temperature setting</strong> in large language models (LLMs) like <strong>ChatGPT</strong> and <strong>Anthropic’s Claude</strong> affect creativity and variability in text generation?</p>
+<p>As part of our project, we ran a small experiment where we compared the results of generating the same type of poem — a haiku about swans — at different temperature levels. For those who might be new to this concept, <strong>temperature</strong> in AI models controls the randomness of their responses. A low temperature will make the model stick to safer, more predictable answers, while a higher temperature allows for more creativity and unpredictability.</p>
+<p>I decided to test this with both the <strong>ChatGPT API</strong> and <strong>Anthropic API</strong> and see how each model handled generating haikus with temperature set at <strong>0.2</strong>, <strong>0</strong>, and <strong>1.0</strong>. The results were quite interesting, so let’s dive into how changing the temperature affected the <strong>tone</strong>, <strong>structure</strong>, and <strong>creativity</strong> of the poems.</p>
+<hr>
+</section>
+<section id="the-temperature-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="the-temperature-experiment">The Temperature Experiment</h2>
+<section id="what-is-temperature-in-llms" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-temperature-in-llms">What Is Temperature in LLMs?</h3>
+<p>Before we get into the results, let me break it down. In the context of large language models, <strong>temperature</strong> is a setting that controls how random or deterministic the output is:</p>
 <ul>
-<li>In my CIS 3990, Introduction to Artificial Intelligence class, we learned about temperature in the AI models</li>
-<li>We coded a small project where we compared difference in Temperature using both chatgpt API and Anthropic API.</li>
+<li><strong>Low temperature (e.g., 0.2)</strong>: The model will produce very predictable, safe outputs. It sticks closely to conventional answers and structures.</li>
+<li><strong>High temperature (e.g., 1.0)</strong>: The model becomes much more creative and spontaneous, but this can sometimes lead to less consistent or less accurate outputs.</li>
 </ul>
+</section>
+<section id="results-from-the-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="results-from-the-experiment">Results from the Experiment</h3>
+<p>We generated haikus at three different temperature settings: <strong>0.2</strong>, <strong>0</strong>, and <strong>1.0</strong>. Here’s a breakdown of what happened.</p>
+<section id="temperature-0.2" class="level4">
+<h4 class="anchored" data-anchor-id="temperature-0.2">Temperature 0.2</h4>
+<p>At a low temperature, the haikus were very <strong>structured</strong> and <strong>safe</strong>. The lines were predictable, sticking closely to the traditional haiku format. Pretty repetitive, right? It didn’t stray much from the classic haiku structure, but you can see that it also didn’t add much flair or variety. The result was solid but not very exciting.</p>
+</section>
+<section id="temperature-0" class="level4">
+<h4 class="anchored" data-anchor-id="temperature-0">Temperature 0</h4>
+<p>At <strong>temperature 0</strong>, the output was essentially identical to the <strong>0.2</strong> setting — the poems were almost mechanical, showing very little variation in structure or word choice.Again, you’re getting that <strong>safe</strong>, predictable output with little room for creativity. The AI was essentially repeating the same phrases in every response.</p>
+</section>
+<section id="temperature-1.0" class="level4">
+<h4 class="anchored" data-anchor-id="temperature-1.0">Temperature 1.0</h4>
+<p>Now, at <strong>temperature 1.0</strong>, the poems got a lot <strong>more creative</strong>! The model took more risks, experimented with different imagery, and gave us much more varied responses.At this temperature, the responses became <strong>less predictable</strong> and <strong>more nuanced</strong>. The AI brought in new elements like “held high and proud” and “tranquil waters,” which gave the poems more character and flow.</p>
+</section>
+</section>
+</section>
 <section id="chatgpt-api" class="level2">
 <h2 class="anchored" data-anchor-id="chatgpt-api">Chatgpt API</h2>
 <pre><code>--------------------------------------------------------------
@@ -327,6 +357,31 @@ anthropic_generate(messages=messages, temperature=0.7, model = "claude-3-5-sonne
 <p>Graceful white wings spread　 Gliding on mirror waters Neck curved like a heart</p>
 <p>Here’s a haiku about swans:　</p>
 <p>Graceful white swan glides　 Across the mirrored water　 Ripples in its wake　</p>
+</section>
+<section id="takeaway-the-power-of-temperature-in-ai" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-the-power-of-temperature-in-ai">Takeaway: The Power of Temperature in AI</h2>
+<p>So, what can we take away from this experiment? Here’s what I learned:</p>
+<section id="low-temperature-safe-predictable-results." class="level3">
+<h3 class="anchored" data-anchor-id="low-temperature-safe-predictable-results.">1. <strong>Low temperature = safe, predictable results.</strong></h3>
+<p>At <strong>0.2</strong> and <strong>0</strong>, the AI didn’t really take risks. The output was clear, but pretty <strong>boring</strong>. It’s great if you want consistency, but not if you’re looking for <strong>creative flair</strong>.</p>
+</section>
+<section id="high-temperature-more-creativity-but-less-reliability." class="level3">
+<h3 class="anchored" data-anchor-id="high-temperature-more-creativity-but-less-reliability.">2. <strong>High temperature = more creativity, but less reliability.</strong></h3>
+<p>At <strong>1.0</strong>, the poems showed real <strong>variety</strong> and <strong>originality</strong>. However, sometimes this means the structure or quality can suffer a bit. It’s more <strong>adventurous</strong>, but not always perfect.</p>
+</section>
+<section id="find-your-balance." class="level3">
+<h3 class="anchored" data-anchor-id="find-your-balance.">3. <strong>Find your balance.</strong></h3>
+<p>Depending on what you’re after, you can adjust the temperature to get the type of output you need. Whether it’s a <strong>reliable and consistent haiku</strong> or a <strong>unique, slightly unpredictable masterpiece</strong>, adjusting the temperature helps the AI find the right balance between <strong>creativity</strong> and <strong>clarity</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h2>
+<p>Temperature is a <strong>powerful tool</strong> when it comes to shaping the responses of language models. It’s a simple yet effective way to control the <strong>creativity</strong> and <strong>predictability</strong> of the AI. In this case, it was fun to see how it affected something as structured as a haiku.</p>
+<p>The real takeaway here is that <strong>small adjustments</strong> in temperature settings can completely change the vibe of the generated content. Whether you’re using it to write poems, brainstorm ideas, or just experiment with AI, temperature is a great way to tap into different <strong>levels of creativity</strong>.</p>
+<p>So, next time you’re experimenting with language models, remember to tweak the temperature! Whether you’re creating poems, generating dialogue, or crafting marketing copy, the temperature setting can be the difference between something <strong>safe</strong> or something <strong>exciting</strong>.</p>
+<hr>
+<p><strong>What do you think about the effect of temperature on AI creativity? Have you tried adjusting it for your own projects? Let me know in the comments below!</strong></p>
 
 
 </section>
