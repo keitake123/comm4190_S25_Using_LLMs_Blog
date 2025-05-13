@@ -163,8 +163,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="i-learned-about-embeddings-and-how-we-can-find-similarities-between-words-and-images-so-i-am-writing-this-in-my-blog.-this-is-part-1-and-part-2-will-be-looking-into-semantic-search-and-implementation-of-k-nn" class="level4">
-<h4 class="anchored" data-anchor-id="i-learned-about-embeddings-and-how-we-can-find-similarities-between-words-and-images-so-i-am-writing-this-in-my-blog.-this-is-part-1-and-part-2-will-be-looking-into-semantic-search-and-implementation-of-k-nn">I learned about embeddings and how we can find similarities between words and images so I am writing this in my blog. This is part 1 and part 2 will be looking into Semantic Search and implementation of K-NN</h4>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In my CIS 3990: Introduction to Artificial Intelligence class, we explored a fascinating concept: how images can be converted into numerical vectors for analysis — just like we do with words in natural language processing (NLP). This opened up a whole new world of possibilities, allowing us to analyze image similarity in a similar way to text similarity.</p>
+<p>In this blog post, we’re diving into image embeddings and how we can use them to measure the similarity between images. I used the CIFAR-10 dataset, a common benchmark dataset for image classification, to explore how we can represent images as vectors, search for similar images, and visualize them!</p>
+<p>Let’s take a closer look at how image embeddings work.</p>
 </section>
 <section id="understanding-embeddings" class="level1">
 <h1>Understanding Embeddings</h1>
@@ -273,9 +276,31 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="aside-why-does-the-query-not-return-good-results">Aside: Why does the query not return good results?</h3>
 <p>The query returns good results for some classes but not others because the quality of the similarity search depends on the quality of the embeddings. In this assignment, we use embeddings from ResNet-18’s penultimate layer. ResNet-18 is trained for ImageNet classification and may capture general visual features well, but it might miss the fine-grained details necessary for distinguishing certain classes in CIFAR-10. In other words, ResNet-18’s features are not always optimized for measuring similarity.</p>
 <p>We chose ResNet-18 for this assignment because it is one of the smaller and simpler models that works decently well. However, there are more advanced models designed specifically to learn semantically rich representations. Models such as CLIP, SimCLR, or MoCo—which use contrastive learning objectives—tend to produce embeddings that better capture subtle differences between classes. Additionally, fine-tuning a model on your dataset can further improve performance.</p>
-
-
 </section>
+</section>
+<section id="takeaway-how-image-embeddings-unlock-visual-similarity" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-how-image-embeddings-unlock-visual-similarity">Takeaway: How Image Embeddings Unlock Visual Similarity</h2>
+<p>This experiment showed me the power of image embeddings and how they can be used to compare and find similarities between images. Here’s what I learned:</p>
+<section id="embeddings-make-image-comparison-easier." class="level3">
+<h3 class="anchored" data-anchor-id="embeddings-make-image-comparison-easier.">1. <strong>Embeddings make image comparison easier.</strong></h3>
+<p>Just like in NLP, where we use word embeddings to compare words, we can use image embeddings to compare images. By using deep models like ResNet18, we can generate rich, high-level representations of images that make similarity searches easy.</p>
+</section>
+<section id="faiss-makes-it-fast." class="level3">
+<h3 class="anchored" data-anchor-id="faiss-makes-it-fast.">2. <strong>FAISS makes it fast.</strong></h3>
+<p>Even with a large dataset like CIFAR-10, FAISS allows for quick similarity searches, which is crucial when working with high-dimensional data like image embeddings.</p>
+</section>
+<section id="visualization-with-t-sne-is-powerful." class="level3">
+<h3 class="anchored" data-anchor-id="visualization-with-t-sne-is-powerful.">3. <strong>Visualization with t-SNE is powerful.</strong></h3>
+<p>t-SNE helped me visualize the relationships between the images, making it clear that the embeddings were capturing important features and grouping similar images together.</p>
+</section>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h2>
+<p>The experiment was a great way to dive into the world of image embeddings and similarity searches. By using pre-trained models like ResNet18, FAISS, and t-SNE, I was able to explore how we can measure image similarity and visualize high-dimensional data.</p>
+<p>In the next part of the blog, we’ll dive deeper into semantic search and implement K-NN (K-Nearest Neighbors) to see how these embeddings can be used in a practical application.</p>
+<p>Have you worked with image embeddings or similarity searches? What tools or models have you used? Let me know in the comments below!</p>
+
+
 </section>
 </section>
 

@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -246,44 +211,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="prompt-is-there-something-unnatural-about-this-image">Prompt: “Is there something unnatural about this image”</h3>
 <p>Message(id=‘msg_018gyagwzD6HLP7eN4zDwcLW’, content=[TextBlock(citations=None, text=“Yes, there is something unnatural about this image. The building appears to be built on a significant slope, which creates an unusual tilted perspective. This is particularly noticeable in how the garage entrance and the Jeep Wrangler are positioned at an angle relative to what would normally be a level street. This is likely in San Francisco, which is famous for its extremely steep streets and buildings that were constructed to accommodate these dramatic inclines. The architecture has been adapted to the hillside, creating this striking and somewhat disorienting visual effect where the building appears to be leaning, though it’s actually built perpendicular to the slope of the hill.”, type=‘text’)], model=‘claude-3-5-sonnet-20241022’, role=‘assistant’, stop_reason=‘end_turn’, stop_sequence=None, type=‘message’, usage=Usage(cache_creation_input_tokens=0, cache_read_input_tokens=0, input_tokens=929, output_tokens=139))</p>
 <p>The AI really nailed this one! It gave a detailed description of the architectural elements, the car, and even the time of day. It also correctly identified the potential location — San Francisco — based on the steep slope visible in the image.</p>
-<div id="dbd3ad20-6b78-4fab-bae0-b180ee01678d" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Takeaway: How AI Interprets Visual Cues</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>This exercise gave me some insight into how AI models approach image analysis. Here are the main takeaways:</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">### 1. **Literal interpretation is the norm**  </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>In <span class="bu">all</span> three images, the AI interpreted what it <span class="st">"saw"</span> <span class="kw">in</span> the most straightforward way possible. It didn’t pick up on the humor <span class="kw">or</span> subtlety of the prompts but focused on the clear elements of the image.</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">### 2. **Context is key**  </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>For the San Francisco image, the model performed excellently by drawing on its <span class="op">**</span>knowledge of architecture<span class="op">**</span> <span class="kw">and</span> <span class="op">**</span>geographical context<span class="op">**</span>. This shows that AI can use more than just what it sees <span class="kw">in</span> an image — it can <span class="bu">apply</span> external knowledge to make accurate descriptions.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">### 3. **Humor is lost on AI**  </span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>As seen <span class="kw">in</span> the first two images, the AI didn’t grasp the humorous nature of the prompts, such <span class="im">as</span> the growing arm <span class="kw">or</span> the cat’s hat. It stuck to literal descriptions, missing out on the joke <span class="kw">or</span> playful nature of the image.</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Final Thoughts</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>This experiment was fun <span class="kw">and</span> informative<span class="op">!</span> While AI excels at giving us straightforward, factual descriptions, it still has some <span class="op">**</span>limitations <span class="kw">in</span> understanding humor<span class="op">**</span> <span class="kw">or</span> interpreting things beyond the obvious visual cues. </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>However, it<span class="st">'s clear that AI is becoming more capable of analyzing and describing complex images — and as the models improve, they might get better at picking up on the **nuances** of visual content, including jokes, subtle details, and cultural references.</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="er">---</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="er">**Have you ever tried using AI to describe a tricky image? How did it perform? Let me know in the comments below!**</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>This version incorporates the full analysis of each image, a detailed description of the AI<span class="st">'s responses, and a casual conclusion. Let me know if you'</span>d like <span class="bu">any</span> additional changes<span class="op">!</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-
-
+<p>Takeaway: How AI Interprets Visual Cues</p>
+<p>This exercise gave me some insight into how AI models approach image analysis. Here are the main takeaways:</p>
 </section>
+<section id="literal-interpretation-is-the-norm" class="level3">
+<h3 class="anchored" data-anchor-id="literal-interpretation-is-the-norm">1. <strong>Literal interpretation is the norm</strong></h3>
+<p>In all three images, the AI interpreted what it “saw” in the most straightforward way possible. It didn’t pick up on the humor or subtlety of the prompts but focused on the clear elements of the image.</p>
+</section>
+<section id="context-is-key" class="level3">
+<h3 class="anchored" data-anchor-id="context-is-key">2. <strong>Context is key</strong></h3>
+<p>For the San Francisco image, the model performed excellently by drawing on its knowledge of architecture** and geographical context. This shows that AI can use more than just what it sees in an image — it can apply external knowledge to make accurate descriptions.</p>
+</section>
+<section id="humor-is-lost-on-ai" class="level3">
+<h3 class="anchored" data-anchor-id="humor-is-lost-on-ai">3. <strong>Humor is lost on AI</strong></h3>
+<p>As seen in the first two images, the AI didn’t grasp the humorous nature of the prompts, such as the growing arm or the cat’s hat. It stuck to literal descriptions, missing out on the joke or playful nature of the image.</p>
+</section>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h2>
+<p>This experiment was fun and informative! While AI excels at giving us straightforward, factual descriptions, it still has some limitations in understanding humor** or interpreting things beyond the obvious visual cues.</p>
+<p>However, it’s clear that AI is becoming more capable of analyzing and describing complex images — and as the models improve, they might get better at picking up on the nuances of visual content, including jokes, subtle details, and cultural references.</p>
+<p>Have you ever tried using AI to describe a tricky image? How did it perform? Let me know in the comments below! This version incorporates the full analysis of each image, a detailed description of the AI’s responses, and a casual conclusion. Let me know if you’d like any additional changes!</p>
+
+
 </section>
 </section>
 
