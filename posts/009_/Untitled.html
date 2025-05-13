@@ -198,6 +198,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Reinforcement Learning with Human Feedback (RLHF) has become one of the most talked-about approaches in Natural Language Processing (NLP), especially with the rise of <strong>ChatGPT</strong> and other advanced language models. Unlike traditional training methods like supervised or unsupervised learning, RLHF aims to optimize language models directly for human preferences. This makes it possible to build models that align more closely with human intuition and better meet our needs in practical applications.</p>
+<p>In this blog post, I’ll walk you through implementing RLHF using the trlX library and creating a custom dataset with Label Studio. By the end of this post, you’ll have a solid understanding of how to apply RLHF to your own projects and how to fine-tune models using custom datasets.</p>
+<hr>
+</section>
 <section id="implementing-rlhf-with-custom-datasets" class="level1">
 <h1>Implementing RLHF with Custom Datasets</h1>
 <div class="quarto-figure quarto-figure-center">
@@ -503,6 +509,12 @@ Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
 </section>
 <section id="tune-language-model-using-ppo-with-our-preference-model" class="level2">
 <h2 class="anchored" data-anchor-id="tune-language-model-using-ppo-with-our-preference-model">6. Tune language model using PPO with our preference model</h2>
+<p>Now that we have our labeled dataset, we’ll move on to training the preference model. This is the step where we start using human feedback to adjust the model. We’ll use the trlX library to fine-tune our model on the custom dataset.</p>
+<p>Fine-tuning with PPO In this step, we’ll use Proximal Policy Optimization (PPO) to adjust the model. PPO is an RL algorithm commonly used in RLHF tasks to balance exploration and exploitation when optimizing a model.</p>
+<p>Here’s a basic structure of how the fine-tuning process works:</p>
+<p>Train the model using PPO: We train the model with human feedback using PPO, ensuring that the model learns to prefer actions that get higher rewards (i.e., those that align with human preferences).</p>
+<p>Optimize with the custom dataset: During training, the model is fine-tuned to understand which outputs are more desirable based on the feedback we’ve provided in the custom dataset.</p>
+<p>Why PPO? Proximal Policy Optimization (PPO) is a well-known RL algorithm that balances exploration (trying new actions) and exploitation (choosing actions that maximize rewards). It’s ideal for situations where you want a stable and efficient optimization process, like fine-tuning a language model based on human feedback.</p>
 <p>Once we have our reward model, we can traing our model using PPO. We can find more details about this setup with the trlX libarary <a href="https://github.com/CarperAI/trlx/tree/main/examples/summarize_rlhf">here</a>.</p>
 <pre><code>accelerate launch --config_file configs/default_accelerate_config.yaml trlx_gptj_text_summarization.py</code></pre>
 <p>Note: Due to <a href="https://github.com/CarperAI/trlx/issues/211">limitations in the trlX library</a>, training the language model cannot be performed in a Colab environment.</p>
@@ -518,6 +530,21 @@ Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
 <li><p><a href="https://arxiv.org/pdf/2204.05862.pdf">Antropic harmless RLHF paper</a> and <a href="https://lifearchitect.ai/anthropic/">blog about CAI general principles</a></p></li>
 </ul>
 <p><img src="aa.png" width="700/"> <img src="ab.png" width="700/"> <img src="ac.png" width="700/"> <img src="ad.png" width="700/"> <img src="ae.png" width="700/"> <img src="af.png" width="700/"> <img src="ag.png" width="700/"></p>
+</section>
+<section id="takeaway-rlhf-in-action" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-rlhf-in-action">Takeaway: RLHF in Action</h2>
+<p>Implementing RLHF with custom datasets was an exciting project. Here’s what I learned from this experience:</p>
+<ol type="1">
+<li><p>RLHF aligns models with human preferences: Unlike traditional models that rely on predefined datasets, RLHF allows us to guide models based on human feedback, making them more adaptable to real-world tasks. I realized how crucial human input is in shaping the model’s behavior, allowing it to perform in ways that align with real-world expectations.</p></li>
+<li><p>Custom datasets are crucial: Creating a dataset with human feedback is an essential part of the process. Using Label Studio for gathering feedback made it easier to structure the dataset and ensure that it was tailored to the needs of the task. The trlX library then allowed me to efficiently train the model with this data. This part of the process really emphasized how data quality directly impacts the model’s performance.</p></li>
+<li><p>PPO is a powerful optimization tool: Using PPO in RLHF ensures that the model learns efficiently from human feedback while maintaining stability during training. I was impressed with how PPO allows the model to balance exploration and exploitation during training, resulting in a more robust learning process.</p></li>
+</ol>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h2>
+<p>Implementing RLHF opens up many possibilities for fine-tuning models in ways that were not possible with traditional machine learning methods. It allows for a much more interactive and dynamic approach to training, where human preferences guide the model’s development. Reflecting on the process, it was rewarding to see the model evolve and adapt through feedback, showing how AI can be shaped to better serve human needs.</p>
+<p>I’m excited to keep exploring RLHF in future projects and dive deeper into semantic search and K-NN for similarity comparisons. By applying RLHF to different domains, I feel that the potential to create highly customized, user-aligned models is immense. I’m looking forward to seeing how this technique can be further optimized and applied to various tasks.</p>
+<p>This project has been a fantastic learning experience, and I’m eager to keep experimenting and refining my understanding of RLHF as I continue exploring AI.</p>
 
 
 </section>

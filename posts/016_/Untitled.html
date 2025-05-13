@@ -197,17 +197,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div id="7ac06de8-1e40-4a13-b434-dd724886616e" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>https:<span class="op">//</span>chatgpt.com<span class="op">/</span>share<span class="op">/</span><span class="fl">681e5</span><span class="er">ef0</span><span class="op">-</span><span class="dv">6</span><span class="er">ab0</span><span class="op">-</span><span class="dv">8000</span><span class="op">-</span><span class="dv">8319</span><span class="op">-</span><span class="fl">373e2</span><span class="er">e46be35</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p><img src="abcc.png" width="500/"> https://chatgpt.com/share/681e5ef0-6ab0-8000-8319-373e2e46be35</p>
 <section id="real-world-security-scanning-using-cybergpt-a-hands-on-test-with-heartbleed-java-cves-and-shellshock" class="level1">
 <h1>Real-World Security Scanning Using CyberGPT: A Hands-On Test with Heartbleed, Java CVEs, and Shellshock</h1>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In the fast-evolving world of cybersecurity, tools that streamline vulnerability analysis and simplify security research are invaluable. As someone who works with AI and blogs about its real-world capabilities, I decided to put <strong>CyberGPT</strong>, a security-focused version of ChatGPT, to the test. This GPT variant is designed specifically to assist with vulnerability detection, Common Vulnerabilities and Exposures (CVEs), and infrastructure scanning.</p>
-<p>For this experiment, I wanted to simulate how a security analyst or systems administrator might use CyberGPT to: - <strong>Check if an IP is vulnerable to the Heartbleed bug</strong> - <strong>Run a broader SSL/TLS vulnerability assessment</strong> - <strong>Request the latest Java-related CVEs</strong> - <strong>Test for legacy vulnerabilities like Shellshock</strong></p>
-<p>Rather than just asking hypothetical questions, I used <strong>my actual IPv6 address</strong> to conduct a live test. I documented the entire interaction below, capturing every exchange so you can see how CyberGPT processes information, responds with actionable insights, and ensures safe engagement with potentially sensitive scans.</p>
-<p>Whether you’re new to cybersecurity or already a seasoned pro, this blog shows the potential of integrating AI into security workflows.</p>
+<p>In the fast-paced world of cybersecurity, the ability to quickly identify and assess vulnerabilities is critical. That’s why I decided to test out CyberGPT, a specialized version of ChatGPT designed for security-related tasks like vulnerability detection and CVE scanning. In this blog, I’ll share my experience using CyberGPT to perform several real-world security scans and how it assisted me with identifying potential vulnerabilities in my infrastructure.</p>
+<p>I focused on using CyberGPT to:</p>
+<ul>
+<li>Test if an IP address was vulnerable to the Heartbleed bug</li>
+<li>Run a general SSL/TLS vulnerability assessment</li>
+<li>Check the latest Java-related CVEs</li>
+<li>Test for legacy vulnerabilities like Shellshock</li>
+</ul>
+<p>To make the experiment more practical, I used my own IPv6 address for these tests, allowing me to see how CyberGPT handled live scans and the insights it could provide. Below, I’ll walk you through the process, the results, and what I learned about the potential of AI in real-world security applications.</p>
 <hr>
 </section>
 <section id="full-conversation-log" class="level2">
@@ -346,49 +349,49 @@ Testing for Shellshock (CVE-2014-6271) involves checking whether the Bash shell 
 <section id="shellshock-test-local-system" class="level3">
 <h3 class="anchored" data-anchor-id="shellshock-test-local-system">🧪 Shellshock Test (Local System)</h3>
 <p>Run this in a terminal:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span> x=<span class="st">'() { :;}; echo Vulnerable'</span> bash <span class="at">-c</span> <span class="st">"echo Test"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">**Output</span> if vulnerable:<span class="pp">**</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Vulnerable</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Test</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">markdown</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">**Output</span> if not vulnerable:<span class="pp">**</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Test</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">yaml</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">### 🔧 Remote Shellshock Test (HTTP Header)</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">```</span><span class="fu">bash</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-A</span> <span class="st">"() { :;}; echo; echo Vulnerable"</span> http://target-ip/cgi-bin/test.cgi</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ex">Replace</span> the /cgi-bin/ path with a valid CGI endpoint.</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ex">⚠️</span> Important: Only test systems you own or are authorized to scan.</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ex">🛡️</span> Mitigation</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> vulnerable, update Bash using your system’s package manager:</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ex">Debian/Ubuntu:</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade bash</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="ex">RHEL/CentOS:</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> yum update bash</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ex">Would</span> you like a script to automate this check across multiple IPs<span class="pp">?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span> x=<span class="st">'() { :;}; echo Vulnerable'</span> bash <span class="at">-c</span> <span class="st">"echo Test"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">**Output</span> if vulnerable:<span class="pp">**</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Vulnerable</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Test</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">markdown</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">**Output</span> if not vulnerable:<span class="pp">**</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Test</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">yaml</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">### 🔧 Remote Shellshock Test (HTTP Header)</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">```</span><span class="fu">bash</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-A</span> <span class="st">"() { :;}; echo; echo Vulnerable"</span> http://target-ip/cgi-bin/test.cgi</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ex">Replace</span> the /cgi-bin/ path with a valid CGI endpoint.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ex">⚠️</span> Important: Only test systems you own or are authorized to scan.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ex">🛡️</span> Mitigation</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> vulnerable, update Bash using your system’s package manager:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ex">Debian/Ubuntu:</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade bash</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ex">RHEL/CentOS:</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ex">Copy</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ex">Edit</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> yum update bash</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ex">Would</span> you like a script to automate this check across multiple IPs<span class="pp">?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="takeaway" class="level3">
 <h3 class="anchored" data-anchor-id="takeaway">Takeaway</h3>
@@ -404,9 +407,24 @@ Testing for Shellshock (CVE-2014-6271) involves checking whether the Bash shell 
 <p>Run pre-deployment security assessments</p>
 <p>Automate monitoring through shell scripts guided by GPT’s advice</p>
 <p>This wasn’t just an experiment—it showed how AI is becoming an effective partner in infrastructure defense, helping bridge the gap between intelligence, automation, and real-time remediation.</p>
-
-
+<hr>
 </section>
+</section>
+<section id="takeaway-1" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-1">Takeaway</h2>
+<p>Using CyberGPT felt like having a cybersecurity assistant at my fingertips. What impressed me most was its cautious and professional approach. CyberGPT didn’t jump into any scans without getting explicit permission from me first, ensuring that all actions were safe and authorized. Given how sensitive security tests can be, this careful approach made me feel confident in the tool’s ability to handle these tasks.</p>
+<p>The results were highly impressive. One of the most valuable outcomes was the detailed SSL/TLS vulnerability report. CyberGPT’s analysis was comparable to reports from trusted tools like Qualys SSL Labs or Nessus. It didn’t just tell me if vulnerabilities existed; it provided insights into protocol versions, cipher suites, and certificate configurations. This helped me understand where my server stood in terms of modern security standards.</p>
+<p>Another highlight was the Shellshock test. CyberGPT gave me clear, actionable steps for both local and remote tests to determine if my system was vulnerable. Not only did it walk me through the process, but it also provided specific instructions for mitigating the vulnerability. This is a prime example of how AI can assist in both diagnosing and addressing issues in real-time.</p>
+<p>From this experiment, here are the key takeaways:</p>
+<ul>
+<li>I confirmed that my system was safe from Heartbleed.</li>
+<li>I received a thorough SSL/TLS security analysis, which helped me understand my server’s configuration.</li>
+<li>I got a comprehensive guide to testing for Shellshock, including steps for remediation.</li>
+<li>CyberGPT gave me the latest critical Java CVEs, keeping me informed about vulnerabilities in Java-based systems.</li>
+</ul>
+<p>Overall, I was impressed by how AI can streamline cybersecurity workflows. CyberGPT showed me how it can enhance security operations by automating tasks like vulnerability scanning, CVE exposure validation, and pre-deployment security assessments. This experience has opened my eyes to the potential of AI in cybersecurity, and I’m excited to keep exploring its applications in the field.</p>
+
+
 </section>
 </section>
 
