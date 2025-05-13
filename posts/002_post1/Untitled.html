@@ -166,12 +166,12 @@ ul.task-list li input[type="checkbox"] {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p><img src="emoji.png" width="600/"></p>
-<p>Since learning about how large language models (LLMs) tokenize words and symbols into meaningful representations, I started wondering — how do they handle <strong>emojis</strong>?</p>
-<p>We often see emojis in AI-generated responses, providing emotional tone or visual emphasis. But what happens when you try to gamify their meaning? Specifically, I wanted to see how well AI understands the <strong>first letter of emoji names</strong> when used in a word-spelling game.</p>
-<p>I came up with a playful idea: give a set of emojis where the <strong>first letter</strong> of each emoji’s name spells out a word. For example:</p>
-<p>🍔🐘🦎🦎🐙 → H E L L O → <strong>HELLO</strong></p>
-<p>Then, I tested this little emoji experiment with <strong>ChatGPT 4o</strong> and <strong>Claude 3.5 Sonnet</strong> — two powerful language models known for their language understanding and reasoning skills. The goal wasn’t to trip them up, but to see how they interpret visuals as tokens, how literally they process emoji names, and whether they adapt when given more examples.</p>
-<p>Along the way, I tried both <strong>zero-shot prompting</strong> (no examples given) and <strong>few-shot prompting</strong> (where I provided one or two examples first) to see how quickly they caught on.</p>
+<p>Since learning about how large language models (LLMs) tokenize words and symbols into meaningful representations, I started wondering — how do they handle emojis?</p>
+<p>We often see emojis in AI-generated responses, providing emotional tone or visual emphasis. But what happens when you try to gamify their meaning? Specifically, I wanted to see how well AI understands the first letter of emoji names when used in a word-spelling game.</p>
+<p>I came up with a playful idea: give a set of emojis where the first letter of each emoji’s name spells out a word. For example:</p>
+<p>🍔🐘🦎🦎🐙 → H E L L O → HELLO</p>
+<p>Then, I tested this little emoji experiment with ChatGPT 4o and Claude 3.5 Sonnet — two powerful language models known for their language understanding and reasoning skills. The goal wasn’t to trip them up, but to see how they interpret visuals as tokens, how literally they process emoji names, and whether they adapt when given more examples.</p>
+<p>Along the way, I tried both zero-shot prompting (no examples given) and few-shot prompting (where I provided one or two examples first) to see how quickly they caught on.</p>
 <hr>
 <section id="conversation-with-chatgpt-4o" class="level3">
 <h3 class="anchored" data-anchor-id="conversation-with-chatgpt-4o">Conversation with ChatGPT 4o</h3>
@@ -211,23 +211,23 @@ ul.task-list li input[type="checkbox"] {
 <section id="takeaway" class="level2">
 <h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
 <p>This experiment was simple, silly — and surprisingly revealing.</p>
-<p>I used a light-hearted emoji spelling game to test <strong>how language models process emojis as part of word construction</strong>, and how they respond to both zero-shot and few-shot prompts. The game exposed subtle differences in reasoning, adaptability, and token-level understanding between ChatGPT 4o and Claude Sonnet.</p>
+<p>I used a light-hearted emoji spelling game to test how language models process emojis as part of word construction and how they respond to both zero-shot and few-shot prompts. The game exposed subtle differences in reasoning, adaptability, and token-level understanding between ChatGPT 4o and Claude Sonnet.</p>
 <p>Even though the concept was playful, it opened up a lot of interesting observations. It highlighted not just how AIs recognize emojis, but how they connect them to the words they represent — and how quickly they adapt when their logic is challenged. Watching both models interpret and reinterpret the same emojis was a reminder that LLMs are constantly pattern-matching, adjusting, and even making educated guesses when the answer isn’t obvious.</p>
 <section id="heres-what-stood-out" class="level3">
 <h3 class="anchored" data-anchor-id="heres-what-stood-out">Here’s what stood out:</h3>
 <ul>
-<li><strong>ChatGPT 4o</strong> is fast, fun, but a bit overconfident. It sometimes “fills in the blanks” instead of directly mapping emoji names.</li>
-<li><strong>Claude Sonnet</strong> is more literal and accurate in interpreting emoji meanings, and even corrects for ambiguity.</li>
+<li>ChatGPT 4o is fast, fun, but a bit overconfident. It sometimes “fills in the blanks” instead of directly mapping emoji names.</li>
+<li>Claude Sonnet is more literal and accurate in interpreting emoji meanings, and even corrects for ambiguity.</li>
 <li>Both models eventually adapt — but Claude showed more stability from the start.</li>
-<li>This experiment illustrates how even <strong>nonverbal symbols</strong> like emojis are tokenized, inferred, and reasoned about within LLMs.</li>
+<li>This experiment illustrates how even nonverbal symbols like emojis are tokenized, inferred, and reasoned about within LLMs.</li>
 </ul>
-<p>This kind of playful prompt is a great way to test <strong>semantic understanding</strong>, error correction, and how AI navigates ambiguity — even when using cute animal icons.</p>
+<p>This kind of playful prompt is a great way to test semantic understanding, error correction, and how AI navigates ambiguity — even when using cute animal icons.</p>
 </section>
 <section id="final-thought" class="level3">
 <h3 class="anchored" data-anchor-id="final-thought">Final Thought</h3>
 <p>AI might not be ready for competitive spelling bees using emojis, but it’s definitely getting closer to understanding the language of visual symbols. Whether you’re using this to teach, explore, or just mess around, games like this reveal just how <em>humanlike</em> (and occasionally human-wrong) these systems really are.</p>
 <hr>
-<p><strong>Have you tried your own LLM emoji game? What word tripped up your AI model? Let me know — or drop your best emoji-spelled word in the comments.</strong></p>
+<p>Have you tried your own LLM emoji game? What word tripped up your AI model? Let me know — or drop your best emoji-spelled word in the comments.</p>
 
 
 </section>
