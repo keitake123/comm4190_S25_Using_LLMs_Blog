@@ -2,12 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="An LLM User">
+<meta name="dcterms.date" content="2025-04-01">
+<meta name="description" content="How LLM handles and processes emojis">
 
-<title>untitled – My exploration of capabilities of LLMs</title>
+<title>First Letter of Emoji Game – My exploration of capabilities of LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -36,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-630147fbe0b9ab2b2a517857e522e257.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -111,7 +149,45 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">First Letter of Emoji Game</h1>
+                  <div>
+        <div class="description">
+          How LLM handles and processes emojis
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">prompting</div>
+                <div class="quarto-category">logic</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>An LLM User </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 1, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -122,7 +198,107 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>As someone who’s constantly exploring the evolving landscape of Artificial Intelligence (AI), I’ve always been fascinated by the power of Large Language Models (LLMs) like GPT, PaLM, and LLaMA. These AI models have opened up new possibilities in natural language processing, and I’ve seen their use explode in applications ranging from chatbots to data analytics assistants. But as much as I’ve read about them, the idea of actually building and using <strong>LLM AI agents</strong> in a practical, hands-on way was something I hadn’t fully explored—until now.</p>
+<p>I stumbled upon a <em>Medium article</em> titled “<strong>Mastering LLM AI Agents: Building and Using AI Agents in Python with Real-World Use Cases</strong>” by Jagadeesan Ganesh, and honestly, it was a game-changer. This article didn’t just offer theory—it gave a step-by-step guide to building LLM AI agents using Python, LangChain, OpenAI, and even integrating real-time APIs.</p>
+<p>In this blog post, I’ll walk you through my experience with this article. From the initial confusion to the aha moments, I’ll share how this piece of writing helped me dive deeper into building autonomous AI agents and, most importantly, why it made me rethink what AI could do in real-world applications.</p>
+<hr>
+</section>
+<section id="the-article-breakdown-from-learning-to-doing" class="level2">
+<h2 class="anchored" data-anchor-id="the-article-breakdown-from-learning-to-doing">The Article Breakdown: From Learning to Doing</h2>
+<section id="starting-with-the-basics-understanding-llm-ai-agents" class="level3">
+<h3 class="anchored" data-anchor-id="starting-with-the-basics-understanding-llm-ai-agents"><strong>Starting with the Basics</strong>: Understanding LLM AI Agents</h3>
+<p>The article starts by introducing the concept of LLM AI agents, and I have to admit, I was initially a bit overwhelmed. It described LLM AI agents as autonomous entities powered by large language models that can execute tasks without constant human intervention—tasks like analyzing data, generating reports, interacting with tools, and much more.</p>
+<p>What caught my attention was the <strong>key features</strong>: - <strong>Contextual Understanding</strong>: The ability to retain context across conversations. - <strong>Tool Integration</strong>: Using external APIs and tools to make the agent smarter and more capable. - <strong>Autonomous Task Execution</strong>: Not just answering questions, but planning and executing actions. - <strong>Multi-Agent Collaboration</strong>: The ability for multiple agents to collaborate and solve complex problems.</p>
+<p>These agents weren’t just conversational—they could actually get things done, and that’s when I realized that LLM AI agents could be more than just chatbots or fancy assistants. They could be actual tools to <strong>augment human workflows</strong>.</p>
+</section>
+<section id="step-by-step-guide-building-my-first-ai-agent" class="level3">
+<h3 class="anchored" data-anchor-id="step-by-step-guide-building-my-first-ai-agent"><strong>Step-by-Step Guide</strong>: Building My First AI Agent</h3>
+<p>The article didn’t just leave me with theory—it took me straight into the coding with a <strong>step-by-step guide</strong> on building a basic agent using <strong>Python</strong>, <strong>LangChain</strong>, and <strong>OpenAI</strong>’s GPT model.</p>
+<p>At first, setting up the environment felt a bit like a puzzle. I had to install the necessary libraries, like <code>langchain</code> and <code>openai</code>. But the instructions were clear:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install langchain openai</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Once</span> I set up the environment, I was introduced to the process of initializing the LLM agent. The Python code used OpenAI<span class="st">'s GPT model, and I couldn’t wait to see how it would work. The agent was supposed to take a user input (like “What is the impact of AI in healthcare?”) and provide a detailed response.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">When I ran the code, I was genuinely impressed. The response wasn’t just a simple sentence; it was detailed, relevant, and showed context awareness—exactly what the article had promised.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">Here’s a quick example from the article:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">python</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">Copy</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">from langchain.llms import OpenAI</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">from langchain.chains import LLMChain</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="st">from langchain.prompts import PromptTemplate</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="st"># Initialize OpenAI LLM</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">llm = OpenAI(openai_api_key="YOUR_OPENAI_API_KEY")</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st"># Define a simple prompt for the agent</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">template = """</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="st">You are an AI assistant with expertise in data analysis and automation. Answer the following question:</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">Question: {question}</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="st"># Set up the prompt and LLM chain</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="st">prompt = PromptTemplate(template=template, input_variables=["question"])</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="st">chain = LLMChain(prompt=prompt, llm=llm)</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="st"># Example query</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="st">query = "What is the impact of AI in healthcare?"</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="st">response = chain.run(question=query)</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="st">print(f"Agent Response: {response}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When I ran the agent with a question like “What is the impact of AI in healthcare?”, the response was comprehensive and well-structured. I could tell right away that this was no ordinary chatbot—it was a task-executing agent capable of handling complex, dynamic queries.</p>
+</section>
+</section>
+<section id="enhancing-the-agent-integrating-apis-and-external-tools" class="level2">
+<h2 class="anchored" data-anchor-id="enhancing-the-agent-integrating-apis-and-external-tools">Enhancing the Agent: Integrating APIs and External Tools</h2>
+<p>But I didn’t stop there. The next step in the article showed how to enhance the agent by adding external tools and API integrations. In this case, I was guided to use the yfinance library to allow the agent to fetch stock prices in real-time.</p>
+<p>I followed the example in the article and soon had an agent that not only answered questions about AI but could also fetch live stock data, like this:</p>
+<pre><code>python
+Copy
+import yfinance as yf
 
+# Define a tool for the agent to use
+def get_stock_price(stock_symbol):
+    stock = yf.Ticker(stock_symbol)
+    return stock.history(period="1d")["Close"][0]
+
+# Update the agent's prompt to use the new tool
+template = """
+You are a finance assistant with access to real-time stock prices.
+If the question is about stock prices, use the `get_stock_price` tool provided to get the latest value.
+
+Question: {question}
+"""</code></pre>
+<p>I could already see the potential. Now, I had a financial assistant powered by AI that could access live data. The beauty of this? It felt like I was building my own personal assistant—one that could actually interact with real-world data and make decisions based on it.</p>
+</section>
+<section id="collaborating-agents-the-power-of-multi-agent-systems" class="level2">
+<h2 class="anchored" data-anchor-id="collaborating-agents-the-power-of-multi-agent-systems">Collaborating Agents: The Power of Multi-Agent Systems</h2>
+<p>One of the most fascinating parts of the article was the multi-agent system section. Here, the author showed how to set up agents that could collaborate on more complex tasks. For example, I learned how to create a data analyst agent and a business strategist agent that worked together to analyze sales data and generate strategies for improving performance.</p>
+<p>This blew my mind. It was like designing a team of virtual professionals, each specializing in a different aspect of a problem. The agents didn’t just work individually—they collaborated and shared information.</p>
+<pre><code>multi_agent_template = """
+You are a team of AI agents. One of you is a data analyst, and the other is a business expert.
+- The data analyst provides insights from the sales data.
+- The business expert generates strategies based on the data.
+
+Question: {question}
+"""</code></pre>
+<p>This was my first glimpse into building advanced workflows where multiple agents collaborate seamlessly. It felt like I was constructing a small AI-driven ecosystem.</p>
+</section>
+<section id="takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>Reading and coding through the article “Mastering LLM AI Agents” has been a transformative experience. Not only did I learn the technical aspects of creating and enhancing LLM agents, but I also gained a deeper understanding of how these agents can be applied to real-world tasks.</p>
+<p>I came into this article wanting to know how to build smarter AI agents—and left with a full toolkit for creating autonomous, multi-functional agents that can interact with external tools, analyze data, and even work together as teams. I also realized that LLM AI agents are no longer just theoretical concepts for me—they are tangible systems I can implement and use to streamline workflows, assist in research, and automate routine tasks.</p>
+<p>What I Learned: LLM agents are more than just chatbots—they can be integrated with tools, perform tasks autonomously, and collaborate with other agents.</p>
+<p>Python and LangChain are powerful libraries for building and deploying these agents, even if you don’t have extensive AI experience.</p>
+<p>Multi-agent collaboration is the future—just like human teams, agents can specialize in different tasks and collaborate seamlessly.</p>
+<p>What’s Next: I’m excited to continue expanding my knowledge and try deploying these agents as microservices.</p>
+<p>I plan to explore integrating real-time APIs for more dynamic, real-world applications.</p>
+<p>Eventually, I’d love to experiment with advanced memory management and role-based agent systems for even more sophisticated workflows.</p>
+<p>If you’re interested in AI, LLMs, or want to build your own agents, this article is the perfect place to start. It has inspired me to dive deeper into AI agent architecture—and I can’t wait to see where this journey takes me next.</p>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
